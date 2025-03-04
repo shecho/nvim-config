@@ -1,8 +1,6 @@
----@diagnostic disable: unused-local, undefined-global
-local M = {}
+-- local M = {}
 local opts = { noremap = true, silent = true }
 local opt_nw = { noremap = true, silent = true, nowait = true }
--- local km = vim.api.nvim_set_keymap
 local keymap = vim.keymap.set
 
 -- Remap space as leader key
@@ -115,10 +113,6 @@ keymap("i", "<C-b>", "<C-o>de", opt_nw)
 -- select_all
 keymap("n", "<C-a>", "gg<S-v>GY", opt_nw)
 
--- change colorscheme: to to colorscheme
--- opt_nw.desc = "Toggle colorscheme"
--- keymap({ "n", "v" }, "<leader>aA", "<cmd>lua require('onedark').toggle()<cr>", opt_nw)
-
 -- Alternate way to save
 keymap("n", "<C-s>", "<cmd>w<cr>", opt_nw)
 keymap({ "n", "i" }, "<D-s>", "<cmd>w<cr>")
@@ -131,8 +125,8 @@ opt_nw.desc = "MyVimrc"
 keymap("n", "<leader>0", "<cmd>e $MYVIMRC<cr>", opt_nw)
 
 -- splits
-opt_nw.desc = "Vertical Split"
 -- keymap("n", "<leader>v", "<C-W>v", opt_nw)
+opt_nw.desc = "Vertical Split"
 keymap("n", "<leader>v", "<cmd>vsplit<cr>", opt_nw)
 opt_nw.desc = "Horizontal Split"
 keymap("n", "<leader>ao", "<cmd>split<cr>", opt_nw)
@@ -150,4 +144,4 @@ keymap("n", "<leader>ac", "<cmd>lua require('user.core.functions').toggle_option
 -- keymap("n", "K", ":lua require('user.core.functions').show_documentation()<CR>", opts)
 keymap("n", "Q", ":lua require('user.core.functions').smart_quit()<CR>", opts)
 
-return M
+-- return M
