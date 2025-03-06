@@ -9,6 +9,7 @@ require("user.options")
 require("user.core")
 require("user.keymaps")
 require("user.lazy")
+vim.cmd([[colorscheme onedark]])
 
 vim.cmd([[ set rtp+=/opt/homebrew/opt/fzf ]])
 
