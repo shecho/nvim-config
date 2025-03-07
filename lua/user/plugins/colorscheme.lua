@@ -114,7 +114,7 @@ return {
   --         ["@property"] = { fg = "$red", fmt = "bold" },
   --         ["@property.json"] = { fg = "$red", fmt = "bold" },
   --
-  --         ["@punctuation.delimiter"] = { fmt = "bold" },
+  --         ["@punctuation.delimiter"] = { fmt = "bold" },.ts
   --         ["@punctuation.bracket"] = { fmt = "bold" },
   --         ["@punctuation.specifies"] = { fg = "$purple", fmt = "bold" },
   --
@@ -240,6 +240,7 @@ return {
         ["@punctuation.special"] = { fg = "${red}", bold = true },
         ["@punctuation.bracket"] = { fg = "${light_grey}", bold = true },
         ["@punctuation.bracket.tsx"] = { link = "@punctuation.bracket" },
+        ["@punctuation.bracket.typescript"] = { link = "@punctuation.bracket" },
         ["@punctuation.specifies"] = { fg = "${purple}", bold = true },
 
         ["@boolean"] = { fg = "${orange}", bold = true, italic = true },
@@ -264,6 +265,7 @@ return {
         ["DiagnosticVirtualTextEror"] = { bold = true },
 
         ["@lsp.typemod.function.declaration"] = { bold = false, italic = false },
+        ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },
       },
       options = {
         highlight_inactive_windows = true,
