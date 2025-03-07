@@ -81,12 +81,12 @@ return {
     return {
       defaults = {
         layout_config = {
-          width = 0.39,
-          height = 0.39,
+          width = 0.99,
+          height = 0.99,
           -- prompt_position = "top",
           -- preview_cutoff = 120,
-          -- horizontal = { preview_width = 0.45 },
-          -- vertical = { preview_height = 0.45 },
+          horizontal = { preview_width = 0.45 },
+          vertical = { preview_height = 0.45 },
         },
         path_display = { "truncate " },
         prompt_prefix = icons.ui.Telescope .. " ",
@@ -226,6 +226,16 @@ return {
             width = 0.99,
             height = 0.99,
             prompt_position = "top",
+            -- preview_cutoff = 120,
+            horizontal = { preview_width = 0.40 },
+            vertical = { preview_height = 0.40 },
+          },
+        },
+        lsp_references = {
+          -- theme = "dropdown",
+          layout_config = {
+            width = 0.99,
+            height = 0.99,
             -- preview_cutoff = 120,
             horizontal = { preview_width = 0.40 },
             vertical = { preview_height = 0.40 },
