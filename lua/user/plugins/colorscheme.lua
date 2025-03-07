@@ -187,7 +187,7 @@ return {
         virtual_text = "bold,italic",
       },
       highlights = {
-        -- Visual = { bold = true, italic = true },
+        Visual = { bold = true, italic = true, extend = true },
         -- Comment = {  italic = true },
         -- Constant = { fg = "${red}", bold = true },
         Special = { fg = "${red}", bg = "${bg0}", bold = true },
