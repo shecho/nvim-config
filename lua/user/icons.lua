@@ -60,15 +60,14 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       OpenFolder = "",
     },
     git = {
+      added = "",
       commit = "󰜘 ", -- used by git log
       staged = "●", -- staged changes. always overrides the type icons
-      added = "",
       deleted = "",
       ignored = " ",
       modified = "○",
       renamed = "",
       unmerged = " ",
-      untracked = "?",
       Add = "",
       Mod = "",
       Remove = "",
@@ -77,6 +76,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       Diff = "",
       Repo = "",
       Octoface = "",
+      untracked = "?",
     },
     ui = {
       live = "󰐰 ",

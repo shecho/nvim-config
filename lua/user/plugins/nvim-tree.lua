@@ -3,7 +3,6 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local nvimtree = require("nvim-tree")
-    -- recommended settings from nvim-tree documentation
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
     -- change color for arrows in tree to light blue
@@ -104,13 +103,16 @@ return {
               symlink_open = "",
             },
             git = {
-              unstaged = "",
-              staged = "",
-              unmerged = "",
-              renamed = "➜",
-              untracked = "?",
+              added = icons.git.added,
+              commit = icons.git.commit, -- used by git log
               deleted = "",
               ignored = "◌",
+              renamed = "➜",
+              modified = icons.git.modified,
+              staged = "",
+              unmerged = "",
+              unstaged = "",
+              untracked = "?",
             },
           },
         },

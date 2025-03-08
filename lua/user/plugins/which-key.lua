@@ -16,11 +16,13 @@ return {
     local wk = require("which-key")
     wk.setup(opts)
     wk.add({
-      { "<leader>a", group = "Actions" },
+      { "<leader>a", group = "Actions/Avante" },
       { "<leader>b", group = "Buffer" },
+      { "<leader>c", group = "Copilot" },
       { "<leader>g", group = "Git" },
       { "<leader>l", group = "Lsp" },
       { "<leader>n", group = "Harpoon" },
+      { "<leader>r", group = "Rename" },
       { "<leader>s", group = "Search" },
       { "<leader>U", group = "Notify" },
       { "<leader>x", group = "Troble" },

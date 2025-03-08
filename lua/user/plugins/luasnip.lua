@@ -3,7 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   --event = "VeryLazy",
   lazy = true,
-  version = 'v2.*',
+  version = "v2.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
   },
