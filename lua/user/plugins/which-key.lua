@@ -20,6 +20,7 @@ return {
       { "<leader>b", group = "Buffer" },
       { "<leader>c", group = "Copilot" },
       { "<leader>g", group = "Git" },
+      { "<leader>f", group = "Search Snaks" },
       { "<leader>l", group = "Lsp" },
       { "<leader>n", group = "Harpoon" },
       { "<leader>r", group = "Rename" },
@@ -30,4 +31,13 @@ return {
 
     -- wk.register(opts.defaults)
   end,
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
 }

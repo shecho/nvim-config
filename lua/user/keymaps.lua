@@ -6,7 +6,8 @@ local keymap = vim.keymap.set
 -- Remap space as leader key
 keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- vim.g.maplocalleader = " "
+
 keymap("n", "<C-i>", "<C-i>", opts)
 
 -- normal_mode = "n",

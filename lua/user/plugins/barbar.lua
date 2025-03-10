@@ -22,17 +22,10 @@ return {
         -- Or, specify all three
         Outline = { event = "BufWinLeave", text = "symbols-outline", align = "right" },
       },
-      -- Enable/disable animations
       animation = true,
-      -- Enable/disable auto-hiding the tab bar when there is a single buffer
       auto_hide = false,
-      -- Enable/disable current/total tabpages indicator (top right corner)
       tabpages = false,
-      -- Enable/disable close button
       closable = true,
-      -- Enables/disable clickable tabs
-      --  - left-click: go to buffer
-      --  - middle-click: delete buffer
       clickable = true,
       -- Enables / disables diagnostic symbols
       icons = {

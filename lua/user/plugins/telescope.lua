@@ -47,12 +47,7 @@ return {
     telescope.load_extension("egrepify")
     telescope.load_extension("media_files")
     local keymap = vim.keymap
-    keymap.set(
-      "n",
-      "<leader>p",
-      "<cmd>Telescope find_files hidden=true no_ignore=true layout_config={width=0.99,height=0.99}<cr>",
-      { desc = "Fuzzy find files" }
-    )
+    keymap.set("n", "<leader>p", "<cmd>Telescope find_files hidden=true no_ignore=true layout_config={width=0.99,height=0.99}<cr>", { desc = "Fuzzy find files" })
     keymap.set(
       "n",
       "<leader>sf",
@@ -62,7 +57,7 @@ return {
     )
     keymap.set(
       "n",
-      "<leader>f",
+      "<leader>ff",
       "<cmd>Telescope find_files theme=dropdown layout_strategy=vertical layout_config={prompt_position='top',width=0.99,height=0.99,vertical={preview_height=0.50},horizontal={preview_height=0.46}}<cr>",
       { desc = "Fuzzy find files" }
     )
