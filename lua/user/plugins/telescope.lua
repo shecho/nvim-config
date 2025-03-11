@@ -19,33 +19,29 @@ return {
     {
       "nvim-telescope/telescope-ui-select.nvim",
       event = "VeryLazy",
-      -- config = function(_, opts)
-      -- require("ui-select").setup(opts)
-      -- require("telescope").load_extension("ui-select")
-      -- end,
     },
     { "nvim-telescope/telescope-file-browser.nvim" },
-    { "danielvolchek/tailiscope.nvim" },
-    -- { "rcarriga/nvim-notify" },
     { "nvim-telescope/telescope-media-files.nvim" },
+    -- { "danielvolchek/tailiscope.nvim" }, // just for tailwind prjects
   },
   opts = function()
     local telescope = require("telescope")
     -- local builtin = require("telescope.builtin")
+    -- local add_to_trouble = require("trouble.sources.telescope").add
     local actions = require("telescope.actions")
     local icons = require("user.icons")
     local trouble = require("trouble.sources.telescope")
-    -- local add_to_trouble = require("trouble.sources.telescope").add
 
     telescope.load_extension("fzf")
     telescope.load_extension("lazy")
     telescope.load_extension("projects")
     telescope.load_extension("ui-select")
     telescope.load_extension("file_browser")
-    telescope.load_extension("tailiscope")
     telescope.load_extension("harpoon")
     telescope.load_extension("egrepify")
     telescope.load_extension("media_files")
+    -- telescope.load_extension("tailiscope")
+
     local keymap = vim.keymap
     keymap.set("n", "<leader>p", "<cmd>Telescope find_files hidden=true no_ignore=true layout_config={width=0.99,height=0.99}<cr>", { desc = "Fuzzy find files" })
     keymap.set(

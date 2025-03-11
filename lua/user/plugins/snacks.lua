@@ -5,6 +5,16 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      image = { enabled = true },
+      input = { enabled = true },
+      scope = { enabled = true },
+      bigfile = { enabled = true, size = 1.5 * 1024 * 1024 },
+      quickfile = { enabled = true },
+      indent = { enabled = true },
+      notifier = { enabled = true, timeout = 3000 },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+      styles = { notification = {} },
       explorer = {
         enabled = true,
         replace_netrw = true,
@@ -14,25 +24,7 @@ return {
         enabled = true,
         sources = { explorer = { layout = { layout = { position = "right" } } } },
       },
-      image = { enabled = true },
-      input = { enabled = true },
-      scope = { enabled = true },
-      bigfile = { enabled = true, size = 1.5 * 1024 * 1024 },
-      quickfile = { enabled = true },
       dashboard = { enabled = false },
-      indent = { enabled = false },
-      -- input = { enabled = false },
-      notifier = {
-        enabled = true,
-        timeout = 3000,
-      },
-      statuscolumn = { enabled = true },
-      words = { enabled = true },
-      styles = {
-        notification = {
-          -- wo = { wrap = true } -- Wrap notifications
-        },
-      },
     },
     keys = {
       -- buffer
@@ -324,7 +316,7 @@ return {
           Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
           Snacks.toggle.inlay_hints():map("<leader>Uh")
           Snacks.toggle.indent():map("<leader>Ug")
-          Snacks.toggle.dim():map("<leader>UD")
+          Snacks.toggle.dim():map("T")
         end,
       })
     end,

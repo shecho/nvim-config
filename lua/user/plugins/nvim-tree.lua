@@ -12,7 +12,7 @@ return {
     vim.g.loaded_netrwPlugin = 1
     vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
     local icons = require("user.icons")
-    local utils = require("nvim-tree.utils")
+    -- local utils = require("nvim-tree.utils")
     local function my_on_attach(bufnr)
       local api = require("nvim-tree.api")
       local function opts(desc)
