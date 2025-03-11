@@ -41,13 +41,12 @@ keymap("n", "J", "mzJ`z", opts)
 keymap("c", "Q", "q", opt_nw)
 
 -- Naviagate buffers
-keymap("n", "<leader>d", ":BufferDelete<CR>", opts)
 keymap("n", "<leader>bn", ":BufferNext<CR>", opts)
 keymap("n", "<leader>bp", ":BufferPrevious<CR>", opts)
 keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
-keymap("n", "<leader>bd", ":bdelete<CR>", opts)
-keymap("n", "<leader>bc", ":BufferPick<CR>", opts)
-keymap("n", "<leader>bb", ":BufferCloseAllButCurrent<CR>", opts)
+-- keymap("n", "<leader>dD", ":BufferDelete<CR>", opts)
+-- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
+-- keymap("n", "<leader>bB", ":BufferCloseAllButCurrent<CR>", opts)
 --
 -- -- Move text up and down
 keymap("n", "<A-J>", "<Esc>:m .+1<CR>==gi", opts)

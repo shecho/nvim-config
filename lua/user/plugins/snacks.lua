@@ -35,6 +35,30 @@ return {
       },
     },
     keys = {
+      -- buffer
+      {
+        "<leader>d",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Delete buffer",
+      },
+      {
+        "<leader>D",
+        function()
+          Snacks.bufdelete.delete()
+        end,
+        desc = "Delere buffer force",
+      },
+      {
+        "<leader>bb",
+        function()
+          Snacks.bufdelete.other()
+        end,
+        desc = "Delete other buffers",
+      },
+
+      -- search
       {
         "<leader>E",
         function()
@@ -157,6 +181,7 @@ return {
         end,
         desc = "Goto T[y]pe Definition",
       },
+      -- new
       {
         "<leader>n",
         function()

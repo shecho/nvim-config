@@ -31,7 +31,7 @@ return {
     "junegunn/fzf",
     build = "./install --bin",
     keys = {
-      { "<leader>sS", "<leader>sS", "<cmd>Fzf files<cr>", nowait = true, desc = "Fuzzy find files" },
+      { "<leader>sS", "<cmd>Fzf files<cr>", nowait = true, desc = "Fuzzy find files" },
     },
   },
 }

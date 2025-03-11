@@ -1,11 +1,15 @@
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  -- keys = {
+  --   "<leader>e",
+  --   "<cmd>NvimTreeFindFileToggle<CR>",
+  --   desc = "Toggle file explorer",
+  -- },
   config = function()
     local nvimtree = require("nvim-tree")
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
-    -- change color for arrows in tree to light blue
     vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
     local icons = require("user.icons")
     local utils = require("nvim-tree.utils")
@@ -103,12 +107,9 @@ return {
               symlink_open = "",
             },
             git = {
-              added = icons.git.added,
-              commit = icons.git.commit, -- used by git log
               deleted = "",
               ignored = "◌",
               renamed = "➜",
-              modified = icons.git.modified,
               staged = "",
               unmerged = "",
               unstaged = "",

@@ -10,16 +10,12 @@ return {
     end,
     opts = {
       sidebar_filetypes = {
-        -- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
         NvimTree = true,
-        -- Or, specify the text used for the offset:
         undotree = {
           text = "undotree",
           align = "center", -- *optionally* specify an alignment (either 'left', 'center', or 'right')
         },
-        -- Or, specify the event which the sidebar executes when leaving:
         ["neo-tree"] = { event = "BufWipeout" },
-        -- Or, specify all three
         Outline = { event = "BufWinLeave", text = "symbols-outline", align = "right" },
       },
       animation = true,
@@ -27,7 +23,6 @@ return {
       tabpages = false,
       closable = true,
       clickable = true,
-      -- Enables / disables diagnostic symbols
       icons = {
         -- Configure the base icons on the bufferline.
         buffer_index = true,
@@ -48,20 +43,13 @@ return {
           enabled = true,
         },
         separator = { left = "▎", right = "" },
-
-        -- Configure the icons on the bufferline when modified or pinned.
-        -- Supports all the base icon options.
         modified = { button = "●" },
         pinned = { button = "📌" },
-        -- Configure the icons on the bufferline based on the visibility of a buffer.
-        -- Supports all the base icon options, plus `modified` and `pinned`.
         alternate = { filetype = { enabled = false } },
         current = { buffer_index = true },
         inactive = { button = "×" },
         visible = { modified = { buffer_number = false } },
       },
-      -- Excludes buffers from the tabline
-      -- exclude_ft = { "javascript" },
       exclude_name = {},
 
       -- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
@@ -122,8 +110,6 @@ return {
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
       -- animation = true,
       -- insert_at_start = true,
-      -- …etc.
     },
-    -- version = "^1.0.0", -- optional: only update when a new 1.x version is released
   },
 }
