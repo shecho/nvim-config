@@ -21,8 +21,20 @@ return {
         layout = { position = "right" },
       },
       picker = {
+        layout = {
+          layout = {
+            box = "horizontal",
+            width = 0.99,
+            height = 0.99,
+          },
+        },
         enabled = true,
-        sources = { explorer = { layout = { layout = { position = "right" } } } },
+        sources = {
+          explorer = { layout = { layout = { position = "right" } } },
+          -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
+          -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
+          -- seacrt_history = { layout = { layout = { width = 0.99, height = 0.99 } } },
+        },
       },
       dashboard = { enabled = false },
     },
@@ -50,7 +62,7 @@ return {
         desc = "Delete other buffers",
       },
 
-      -- search
+      -- search and explorer
       {
         "<leader>E",
         function()
@@ -59,7 +71,7 @@ return {
         desc = "File Explorer",
       },
       {
-        "<leader>fd",
+        "<leader>ff",
         function()
           Snacks.picker.smart()
         end,
@@ -96,7 +108,7 @@ return {
       {
         "<leader>fg",
         function()
-          Snacks.picker.git_files()
+          Snacks.picker.git_branches()
         end,
         desc = "Find Git Files",
       },
@@ -181,13 +193,7 @@ return {
         end,
         desc = "Notification History",
       },
-      -- {
-      --   "<leader>Z",
-      --   function()
-      --     Snacks.zen()
-      --   end,
-      --   desc = "Toggle Zen Mode",
-      -- },
+      -- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
       -- { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom", },
       -- { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer", },
       -- { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer", },
