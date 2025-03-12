@@ -80,63 +80,70 @@ return {
         desc = "File Explorer",
       },
       {
-        "<leader>ff",
+        "<leader>f",
         function()
           Snacks.picker.smart()
         end,
         desc = "Smart Find Files",
       },
       {
-        "<leader>fb",
+        "<leader>sf",
+        function()
+          Snacks.picker.smart()
+        end,
+        desc = "Smart Find Files",
+      },
+      {
+        "<leader>sb",
         function()
           Snacks.picker.buffers()
         end,
         desc = "Buffers",
       },
       {
-        "<leader>fh",
+        "<leader>sh",
         function()
           Snacks.picker.grep()
         end,
         desc = "Grep",
       },
       {
-        "<leader>fc",
+        "<leader>sc",
         function()
           Snacks.picker.command_history()
         end,
         desc = "Command History",
       },
       {
-        "<leader>fF",
+        "<leader>p",
         function()
           Snacks.picker.files()
         end,
         desc = "Find Files",
       },
       {
-        "<leader>fg",
+        "<leader>sG",
         function()
           Snacks.picker.git_branches()
         end,
-        desc = "Find Git Files",
+        desc = "Git Branches",
       },
       {
-        "<leader>fp",
+        "<leader>sp",
         function()
           Snacks.picker.projects()
         end,
         desc = "Projects",
       },
       {
-        "<leader>fo",
+        "<leader>so",
         function()
           Snacks.picker.recent()
         end,
         desc = "Recent",
       },
       {
-        "<leader>fm",
+        "<leader>sm",
         function()
           Snacks.picker.marks()
         end,

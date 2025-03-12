@@ -52,8 +52,7 @@ keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
 keymap("n", "<A-J>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-K>", "<Esc>:m .-2<CR>==gi", opts)
 
--- Insert --
--- Press jk fast to enter
+-- Insert  Press jk fast to enter
 keymap("i", "kj", "<ESC>", opts)
 
 -- Visual --
@@ -78,7 +77,7 @@ keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opt
 
 -- Floaterm
 opts.desc = "Floaterm toogle"
-keymap({ "n", "v" }, "<leader>t", "<cmd>FloatermToggle<cr>", opts)
+keymap({ "n", "v" }, "<leader>T", "<cmd>FloatermToggle<cr>", opts)
 keymap({ "n", "t" }, "<C-t>", "<cmd>FloatermToggle<cr>", opts)
 
 opts.desc = "Enter cmd mode"
