@@ -21,19 +21,28 @@ return {
         layout = { position = "right" },
       },
       picker = {
-        layout = {
-          layout = {
-            box = "horizontal",
-            width = 0.99,
-            height = 0.99,
-          },
-        },
         enabled = true,
+        layouts = {
+          default = {
+            layout = { width = 0.98, height = 0.98 },
+          },
+          vscode = { layout = { width = 0.60 } },
+          dropdown = { layout = { width = 0.70 } },
+          telescope = { layout = { width = 0.95, height = 0.95 } },
+        },
+        -- layout = {
+        --   layout = { box = "horizontal" },
+        -- },
         sources = {
-          explorer = { layout = { layout = { position = "right" } } },
+          explorer = { layout = { preset = "right" } }, -- explorer = { layout = { layout = { position = "right" }, border = "none" } }
+          recent = { layout = { preset = "vscode" }, focus = "list" },
+          buffers = { layout = { preset = "vscode" }, focus = "list" },
+          marks = { layout = { preset = "telescope" }, focus = "list" },
+          smart = { layout = { preset = "dropdown", layout = { width = 0.99, height = 0.99 } } },
+          command_history = { focus = "list" },
+          projects = { layout = { preset = "dropdown" }, focus = "list" },
           -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
-          -- seacrt_history = { layout = { layout = { width = 0.99, height = 0.99 } } },
         },
       },
       dashboard = { enabled = false },
@@ -125,6 +134,13 @@ return {
           Snacks.picker.recent()
         end,
         desc = "Recent",
+      },
+      {
+        "<leader>fm",
+        function()
+          Snacks.picker.marks()
+        end,
+        desc = "Marks",
       },
       {
         "<leader>sB",
