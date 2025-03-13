@@ -33,6 +33,7 @@ return {
           marks = { layout = { preset = "telescope" }, focus = "list" },
           files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.99, height = 0.99 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
+          diagnostics_buffer = { layout = { preset = "select" }, focus = "list" },
         },
       },
       dashboard = { enabled = false },
@@ -99,9 +100,9 @@ return {
       {
         "<leader>sh",
         function()
-          Snacks.picker.grep()
+          Snacks.picker.highlights()
         end,
-        desc = "Grep",
+        desc = "Highlights",
       },
       {
         "<leader>sc",
@@ -118,7 +119,7 @@ return {
         desc = "Find Files",
       },
       {
-        "<leader>sG",
+        "<leader>lG",
         function()
           Snacks.picker.git_branches()
         end,
@@ -145,13 +146,6 @@ return {
         end,
         desc = "Marks",
       },
-      -- {
-      --   "<leader>sB",
-      --   function()
-      --     Snacks.picker.grep_buffers()
-      --   end,
-      --   desc = "Grep Open Buffers",
-      -- },
       {
         "<leader>sg",
         function()
@@ -202,12 +196,12 @@ return {
         function()
           Snacks.picker.lsp_type_definitions()
         end,
-        desc = "Goto T[y]pe Definition",
+        desc = "Goto Type Definition",
       },
       {
         "<leader>lG",
         function()
-          Snacks.picker.lsp_type_definitions()
+          Snacks.picker.diagnostics()
         end,
         desc = "Diagnostic",
       },
@@ -216,7 +210,7 @@ return {
         function()
           Snacks.picker.diagnostics_buffer()
         end,
-        desc = "Diagnostic",
+        desc = "Diagnostic Buffer",
       },
       -- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
       -- { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom", },
