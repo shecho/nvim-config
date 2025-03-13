@@ -15,7 +15,7 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
       styles = { notification = {} },
-      -- explorer = { enabled = true, replace_netrw = true, layout = { position = "right" } },
+      explorer = { enabled = true, replace_netrw = true, layout = { position = "right" } },
       picker = {
         enabled = true,
         layouts = {
@@ -27,7 +27,7 @@ return {
         -- layout = { layout = { box = "horizontal" } },
         sources = {
           command_history = { focus = "list" },
-          explorer = { layout = { preset = "right" } }, --  same as explorer = { layout = { layout = { position = "right" }, border = "none" } }
+          explorer = { layout = { layout = { position = "right" }, border = "none" } }, -- explorer = { layout = { preset = "right" } }, --  same as
           recent = { layout = { preset = "vscode" }, focus = "list" },
           buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
@@ -164,7 +164,7 @@ return {
         function()
           Snacks.picker.grep_word()
         end,
-        desc = "Visual selection or word",
+        desc = "Selection or word",
         mode = { "n", "x" },
       },
       --LSP
