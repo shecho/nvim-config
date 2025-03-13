@@ -15,17 +15,11 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
       styles = { notification = {} },
-      explorer = {
-        enabled = true,
-        replace_netrw = true,
-        layout = { position = "right" },
-      },
+      -- explorer = { enabled = true, replace_netrw = true, layout = { position = "right" } },
       picker = {
         enabled = true,
         layouts = {
-          default = {
-            layout = { width = 0.98, height = 0.98 },
-          },
+          default = { layout = { width = 0.98, height = 0.98 } },
           vscode = { layout = { width = 0.60 } },
           dropdown = { layout = { width = 0.70 } },
           telescope = { layout = { width = 0.95, height = 0.95 } },
