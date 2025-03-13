@@ -187,6 +187,7 @@ return {
         virtual_text = "bold,italic",
       },
       highlights = {
+        BufferCurrent = { fg = "${blue}", bold = true, italic = true, extend = true },
         Visual = { bold = true, italic = true, extend = true },
         -- Comment = {  italic = true },
         -- Constant = { fg = "${red}", bold = true },

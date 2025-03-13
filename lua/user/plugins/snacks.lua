@@ -30,17 +30,15 @@ return {
           dropdown = { layout = { width = 0.70 } },
           telescope = { layout = { width = 0.95, height = 0.95 } },
         },
-        -- layout = {
-        --   layout = { box = "horizontal" },
-        -- },
+        -- layout = { layout = { box = "horizontal" } },
         sources = {
-          explorer = { layout = { preset = "right" } }, -- explorer = { layout = { layout = { position = "right" }, border = "none" } }
+          explorer = { layout = { preset = "right" } }, --  same as explorer = { layout = { layout = { position = "right" }, border = "none" } }
           recent = { layout = { preset = "vscode" }, focus = "list" },
           buffers = { layout = { preset = "vscode" }, focus = "list" },
           marks = { layout = { preset = "telescope" }, focus = "list" },
           smart = { layout = { preset = "dropdown", layout = { width = 0.99, height = 0.99 } } },
           command_history = { focus = "list" },
-          projects = { layout = { preset = "dropdown" }, focus = "list" },
+          projects = { layout = { preset = "select" }, focus = "list" },
           -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
         },
@@ -70,10 +68,16 @@ return {
         end,
         desc = "Delete other buffers",
       },
-
+      {
+        "<leader>bd",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Delete Buffer",
+      },
       -- search and explorer
       {
-        "<leader>E",
+        "<leader>e",
         function()
           Snacks.explorer()
         end,
@@ -149,13 +153,13 @@ return {
         end,
         desc = "Marks",
       },
-      {
-        "<leader>sB",
-        function()
-          Snacks.picker.grep_buffers()
-        end,
-        desc = "Grep Open Buffers",
-      },
+      -- {
+      --   "<leader>sB",
+      --   function()
+      --     Snacks.picker.grep_buffers()
+      --   end,
+      --   desc = "Grep Open Buffers",
+      -- },
       {
         "<leader>sg",
         function()
@@ -208,6 +212,24 @@ return {
         end,
         desc = "Goto T[y]pe Definition",
       },
+      {
+        "<leader>lG",
+        function()
+          Snacks.picker.lsp_type_definitions()
+        end,
+        desc = "Diagnostic",
+      },
+      {
+        "<leader>lg",
+        function()
+          Snacks.picker.diagnostics_buffer()
+        end,
+        desc = "Diagnostic",
+      },
+      -- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
+      -- { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom", },
+      -- { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer", },
+      -- { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer", },
       -- new
       {
         "<leader>n",
@@ -216,10 +238,6 @@ return {
         end,
         desc = "Notification History",
       },
-      -- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
-      -- { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom", },
-      -- { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer", },
-      -- { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer", },
       {
         "<leader>N",
         function()
@@ -228,19 +246,22 @@ return {
         desc = "Notification History",
       },
       {
-        "<leader>bd",
-        function()
-          Snacks.bufdelete()
-        end,
-        desc = "Delete Buffer",
-      },
-      {
         "<leader>cR",
         function()
           Snacks.rename.rename_file()
         end,
         desc = "Rename File",
       },
+      -- Git
+      {
+        "<leader>gs",
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = "Git Browse",
+        mode = { "n", "v" },
+      },
+
       {
         "<leader>gB",
         function()
@@ -265,7 +286,7 @@ return {
       },
       -- { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit", },
       {
-        "<leader>gL",
+        "<leader>gl",
         function()
           Snacks.lazygit.log()
         end,

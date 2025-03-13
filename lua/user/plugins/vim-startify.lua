@@ -42,7 +42,7 @@ return {
       let g:startify_enable_special = 0
       ]])
       local keymap = vim.keymap -- for conciseness
-      keymap.set("n", "<leader>sp", "<cmd>Startify<cr>", { desc = "Start screen" })
+      keymap.set("n", "<leader>sP", "<cmd>Startify<cr>", { desc = "Start screen" })
     end,
   },
 }
