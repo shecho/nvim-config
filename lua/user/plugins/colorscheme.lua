@@ -267,6 +267,7 @@ return {
 
         ["@lsp.typemod.function.declaration"] = { bold = false, italic = false },
         ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },
+        ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
       },
       options = {
         highlight_inactive_windows = true,

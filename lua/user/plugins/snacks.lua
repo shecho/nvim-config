@@ -32,15 +32,13 @@ return {
         },
         -- layout = { layout = { box = "horizontal" } },
         sources = {
+          command_history = { focus = "list" },
           explorer = { layout = { preset = "right" } }, --  same as explorer = { layout = { layout = { position = "right" }, border = "none" } }
           recent = { layout = { preset = "vscode" }, focus = "list" },
-          buffers = { layout = { preset = "vscode" }, focus = "list" },
+          buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
-          smart = { layout = { preset = "dropdown", layout = { width = 0.99, height = 0.99 } } },
-          command_history = { focus = "list" },
+          files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.99, height = 0.99 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
-          -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
-          -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
         },
       },
       dashboard = { enabled = false },
@@ -84,18 +82,18 @@ return {
         desc = "File Explorer",
       },
       {
-        "<leader>f",
+        "<leader>p",
         function()
           Snacks.picker.smart()
         end,
-        desc = "Smart Find Files",
+        desc = "Smart Files",
       },
       {
         "<leader>sf",
         function()
           Snacks.picker.smart()
         end,
-        desc = "Smart Find Files",
+        desc = "Smart Files",
       },
       {
         "<leader>sb",
@@ -119,7 +117,7 @@ return {
         desc = "Command History",
       },
       {
-        "<leader>p",
+        "<leader>f",
         function()
           Snacks.picker.files()
         end,

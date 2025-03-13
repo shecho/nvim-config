@@ -20,7 +20,7 @@ return {
       { "<leader>b", group = "Buffer" },
       { "<leader>c", group = "Copilot" },
       { "<leader>g", group = "Git" },
-      { "<leader>f", group = "Search Snaks" },
+      -- { "<leader>f", group = "Search Snaks" },
       { "<leader>l", group = "Lsp" },
       { "<leader>n", group = "Harpoon" },
       { "<leader>r", group = "Rename" },
