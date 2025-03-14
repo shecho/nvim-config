@@ -14,8 +14,9 @@ return {
       notifier = { enabled = true, timeout = 3000 },
       statuscolumn = { enabled = true },
       words = { enabled = true },
-      styles = { notification = {} },
-      explorer = { enabled = true, replace_netrw = true, layout = { position = "right" } },
+      styles = { notification = {}, zen = { width = 0.90, backdrop = { transparent = true, blend = 20 } } },
+      explorer = { minimal = true, enabled = true, replace_netrw = true, layout = { position = "right" } },
+      zen = { enabled = true, toggles = { dim = false } },
       picker = {
         enabled = true,
         layouts = {
@@ -98,6 +99,13 @@ return {
         desc = "Buffers",
       },
       {
+        "<leader>sk",
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = "Highlights",
+      },
+      {
         "<leader>sh",
         function()
           Snacks.picker.highlights()
@@ -111,6 +119,14 @@ return {
         end,
         desc = "Command History",
       },
+      {
+        "<leader>sd",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "Find Files",
+      },
+
       {
         "<leader>f",
         function()
@@ -132,6 +148,14 @@ return {
         end,
         desc = "Projects",
       },
+      {
+        "<C-p>",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Recent",
+      },
+
       {
         "<leader>so",
         function()
@@ -212,8 +236,20 @@ return {
         end,
         desc = "Diagnostic Buffer",
       },
-      -- { "<leader>Z", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
-      -- { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Toggle Zoom", },
+      {
+        "<leader>z",
+        function()
+          Snacks.zen()
+        end,
+        desc = "Toggle Zen Mode",
+      },
+      {
+        "<leader>Z",
+        function()
+          Snacks.zen.zoom()
+        end,
+        desc = "Toggle Zoom",
+      },
       -- { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer", },
       -- { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer", },
       -- new

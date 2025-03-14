@@ -70,9 +70,7 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- zen mode
-keymap("n", "<C-z>", "<cmd>ZenMode<cr>", opts)
-keymap("n", "<leader>z", "<cmd>ZenMode<cr>", opts)
+-- Node actions to toggle some values
 keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opts)
 
 -- Floaterm

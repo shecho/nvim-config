@@ -162,6 +162,7 @@ return {
         light_grey = "#848b98",
         red2 = "#e86671",
         black = "#181a1f",
+        bg_d = "#21252b",
         bg1 = "#31353f",
         bg2 = "#393f4a",
         bg3 = "#3b3f4c",
@@ -187,11 +188,13 @@ return {
         virtual_text = "bold,italic",
       },
       highlights = {
+
+        LineNr = { extend = true, italic = true },
         BufferCurrent = { fg = "${blue}", bold = true, italic = true, extend = true },
         Visual = { bold = true, italic = true, extend = true },
         -- Comment = {  italic = true },
         -- Constant = { fg = "${red}", bold = true },
-        Special = { fg = "${red}", bg = "${bg0}", bold = true },
+        Special = { fg = "${red}", bold = true, extend = true },
         Identifier = { bold = true },
         Directory = { bold = true },
         MatchParen = { fg = "${red}", bold = true, italic = true, undercurl = true },
@@ -258,9 +261,9 @@ return {
         ["@lsp.type.property"] = { fg = "${red}", italic = true },
         ["@lsp.type.parameter"] = { italic = true },
 
-        ["BufferCurrentIndex"] = { fg = "${fg}", bg = "${bg0}", italic = true },
-        ["BufferCurrentBtn"] = { italic = true },
-        ["BufferCurrentHINT"] = { fg = "${red}", italic = true },
+        ["BufferCurrentIndex"] = { fg = "${fg}", italic = true, extend = true },
+        -- ["BufferCurrentBtn"] = { italic = true },
+        -- ["BufferCurrentHINT"] = { fg = "${red}", italic = true },
 
         ["DiagnosticVirtualTextHint"] = { bold = true },
         ["DiagnosticVirtualTextEror"] = { bold = true },
@@ -269,7 +272,7 @@ return {
         ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },
         ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
-        ["FloatBorder"] = { fg = "${bg}", extend = true },
+        ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
       },
       options = {
         highlight_inactive_windows = true,

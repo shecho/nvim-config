@@ -27,9 +27,7 @@ return {
           jsx = [["]],
         },
       })
-      -- import nvim-treesitter plugin
       local treesitter = require("nvim-treesitter.configs")
-      -- configure treesitter
       treesitter.setup({ -- enable syntax highlighting
         highlight = { enable = true },
         autotag = {
@@ -38,7 +36,6 @@ return {
           enable_close = true,
           enable_close_on_slash = true,
         },
-        -- ensure these language parsers are installed
         ignore_install = { "php", "phpdoc", "sql", "erlang" },
         ensure_installed = {
           "json",
@@ -130,8 +127,6 @@ return {
             },
           },
           swap = {
-            -- swap_next = { ["<leader>."] = "@parameter.inner" },
-            -- swap_previous = { ["<leader>,"] = "@parameter.inner" },
             enable = true,
             swap_next = {
               ["<leader>on"] = "@parameter.inner", -- swap object under cursor with next
