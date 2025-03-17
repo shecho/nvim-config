@@ -39,7 +39,7 @@ return {
       },
       dashboard = {
         enabled = true,
-        width = 80,
+        width = 90,
         -- sections = { { section = "keys", gap = 1, padding = 1 }, { section = "startup" } },
         sections = {
 
@@ -54,7 +54,7 @@ return {
             indent = 2,
             padding = 1,
             { icon = "車", key = "i", desc = "init.lua", action = ":e $MYVIMRC" },
-            { icon = "Z", key = "Z", desc = "zshrc", action = ":e ~/.zshrc", padding = 1 },
+            { icon = " ", key = "Z", desc = "zshrc", action = ":e ~/.zshrc", padding = 1 },
             { icon = "", key = "s", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua", padding = 1 },
           },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
