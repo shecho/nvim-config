@@ -18,12 +18,12 @@ return {
     },
     opts = {
       options = {
+        always_show_bufferline = true,
         -- stylua: ignore
         close_command = function(n) Snacks.bufdelete(n) end,
         -- stylua: ignore
         right_mouse_command = function(n) Snacks.bufdelete(n) end,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
+        -- diagnostics = "nvim_lsp",
         diagnostics_indicator = function(_, _, diag)
           local icons = require("user.icons").diagnostics
           local ret = (diag.error and icons.Error .. diag.error .. " " or "") .. (diag.warning and icons.Warning .. diag.warning or "")
