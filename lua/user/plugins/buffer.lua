@@ -27,6 +27,4 @@ return {
     keys = { { "=", "<cmd>FlyBuf<cr>", nowait = true, desc = "Buffers" } },
     opts = {},
   },
-  -- { "rbgrouleff/bclose.vim", event = { "BufReadPre", "BufNewFile" }, confing = true },
-  -- { "moll/vim-bbye", cmd = { "Bdelete" } },
 }
