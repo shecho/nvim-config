@@ -189,10 +189,9 @@ return {
       },
       highlights = {
 
-        LineNr = { extend = true, italic = true },
+        LineNr = { bg = "${bg}", extend = true, italic = true },
         BufferCurrent = { fg = "${blue}", bold = true, italic = true, extend = true },
         Visual = { bold = true, italic = true, extend = true },
-        -- Comment = {  italic = true },
         -- Constant = { fg = "${red}", bold = true },
         Special = { fg = "${red}", bold = true, extend = true },
         Identifier = { bold = true },
@@ -265,14 +264,14 @@ return {
         -- ["BufferCurrentBtn"] = { italic = true },
         -- ["BufferCurrentHINT"] = { fg = "${red}", italic = true },
 
-        ["DiagnosticVirtualTextHint"] = { bold = true },
-        ["DiagnosticVirtualTextEror"] = { bold = true },
+        -- ["DiagnosticVirtualTextWarn"] = { fg = "${dark_yellow}", extend = true, bold = true, italic = true },
+        -- ["DiagnosticVirtualTextEror"] = { fg = "${dark_red}", extend = true, bold = true },
 
         ["@lsp.typemod.function.declaration"] = { bold = false, italic = false },
         ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },
+        ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
         ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
-        ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
       },
       options = {
         highlight_inactive_windows = true,
