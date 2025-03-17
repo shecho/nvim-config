@@ -18,7 +18,7 @@ return {
     -- { "nvim-telescope/telescope-file-browser.nvim" },
     -- { "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
     -- { "nvim-telescope/telescope-media-files.nvim" },
-    -- { "danielvolchek/tailiscope.nvim" }, // just for tailwind prjects
+    -- { "danielvolchek/tailiscope.nvim" },
   },
   opts = function()
     local telescope = require("telescope")
@@ -31,7 +31,7 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("projects")
-    telescope.load_extension("egrepify")
+    -- telescope.load_extension("egrepify")
 
     -- telescope.load_extension("harpoon")
     -- telescope.load_extension("ui-select")
@@ -52,7 +52,7 @@ return {
     -- keymap.set("n", "<leader>so", "<cmd>Telescope oldfiles initial_mode=normal<cr>", { desc = "Recent files" })
     -- keymap.set("n", "<leader>sa", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
     -- keymap.set("n", "<leader>sw", "<cmd>Telescope grep_string<cr>", { desc = "Find string in cwd" })
-    -- keymap.set("n", "<C-p>", "<cmd>Telescope projects theme=dropdown<cr>", { desc = "Projects" })
+    keymap.set("n", "<leader>sP", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", { desc = "Projects" })
 
     return {
       defaults = {
@@ -168,7 +168,6 @@ return {
             ["<Up>"] = actions.move_selection_previous,
             ["gg"] = actions.move_to_top,
             ["G"] = actions.move_to_bottom,
-
             ["?"] = actions.which_key,
           },
         },
@@ -193,11 +192,6 @@ return {
           override_file_sorter = true,
           case_mode = "smart_case",
         },
-        -- file_browser = {
-        --   theme = "ivy",
-        --   hijack_netrw = true,
-        --   initial_mode = "normal",
-        -- },
       },
     }
   end,

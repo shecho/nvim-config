@@ -20,7 +20,7 @@ return {
       picker = {
         enabled = true,
         layouts = {
-          default = { layout = { width = 0.98, height = 0.98 } },
+          default = { layout = { width = 0.97, height = 0.97 } },
           vscode = { layout = { width = 0.60 } },
           dropdown = { layout = { width = 0.70 } },
           telescope = { layout = { width = 0.95, height = 0.95 } },
@@ -42,9 +42,21 @@ return {
         width = 80,
         -- sections = { { section = "keys", gap = 1, padding = 1 }, { section = "startup" } },
         sections = {
+
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
-          { pane = 2, icon = " ", title = "Recent Files", limit = 10, section = "recent_files", indent = 2, padding = 1 },
+          {
+            pane = 2,
+            icon = " ",
+            title = "Recent Files",
+            limit = 10,
+            section = "recent_files",
+            indent = 2,
+            padding = 1,
+            { icon = "車", key = "i", desc = "init.lua", action = ":e $MYVIMRC" },
+            { icon = "Z", key = "Z", desc = "zshrc", action = ":e ~/.zshrc", padding = 1 },
+            { icon = "", key = "s", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua", padding = 1 },
+          },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
           {
             pane = 2,
@@ -148,7 +160,7 @@ return {
       {
         "<leader>sd",
         function()
-          Snacks.picker.files()
+          Snacks.picker.files({ layout = "dropdown" })
         end,
         desc = "Find Files",
       },
@@ -161,7 +173,7 @@ return {
         desc = "Find Files",
       },
       {
-        "<leader>lG",
+        "<leader>sG",
         function()
           Snacks.picker.git_branches()
         end,
@@ -177,9 +189,9 @@ return {
       {
         "<C-p>",
         function()
-          Snacks.picker.recent()
+          Snacks.picker.files({ layout = "vscode" })
         end,
-        desc = "Recent",
+        desc = "Files",
       },
 
       {

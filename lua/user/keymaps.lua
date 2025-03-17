@@ -6,7 +6,7 @@ local keymap = vim.keymap.set
 -- Remap space as leader key
 keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
--- vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
 keymap("n", "<C-i>", "<C-i>", opts)
 
@@ -44,6 +44,7 @@ keymap("c", "Q", "q", opt_nw)
 keymap("n", "<leader>bn", ":BufferNext<CR>", opts)
 keymap("n", "<leader>bp", ":BufferPrevious<CR>", opts)
 keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
+keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", opts)
 -- keymap("n", "<leader>dD", ":BufferDelete<CR>", opts)
 -- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
 -- keymap("n", "<leader>bB", ":BufferCloseAllButCurrent<CR>", opts)
@@ -75,8 +76,10 @@ keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opt
 
 -- Floaterm
 opts.desc = "Floaterm toogle"
-keymap({ "n", "v" }, "<leader>T", "<cmd>FloatermToggle<cr>", opts)
-keymap({ "n", "t" }, "<C-t>", "<cmd>FloatermToggle<cr>", opts)
+-- keymap({ "n", "v" }, "<leader>T", "<cmd>FloatermToggle<cr>", opts)
+-- keymap({ "n", "t" }, "<C-t>", "<cmd>FloatermToggle<cr>", opts)
+keymap({ "n", "t" }, "<C-t>", "<cmd>ToggleTerm<cr>", opts)
+keymap({ "n" }, "<leader>T", "<cmd>ToggleTerm<cr>", opts)
 
 opts.desc = "Enter cmd mode"
 keymap("n", "<leader>;", ":", opts)
