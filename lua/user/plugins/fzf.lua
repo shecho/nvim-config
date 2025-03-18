@@ -11,13 +11,8 @@ return {
       keymap.set("n", "<leader>sB", "<cmd>FzfLua buffers<cr>", { desc = "Find buffers" })
       keymap.set("n", "<leader>sO", "<cmd>FzfLua oldfiles<cr>", { desc = "Find oldfiles" })
       keymap.set({ "n", "v", "x" }, "<leader>sW", "<cmd>FzfLua grep_cword<cr>", { desc = "Find current word" })
-      keymap.set(
-        "n",
-        "<leader>sF",
-        "<cmd>lua require('fzf-lua').files({ ['winopts.split'] = 'belowright new' })<cr>",
-        -- :FzfLua files winopts.split=belowright\ new
-        { desc = "Files system" }
-      )
+      keymap.set("n", "<leader>sF", "<cmd>lua require('fzf-lua').files({ ['winopts.split'] = 'belowright new' })<cr>", { desc = "Files system" })
+      -- :FzfLua files winopts.split=belowright\ new
       return { winopts = { height = 0.95, width = 0.90 } }
     end,
   },

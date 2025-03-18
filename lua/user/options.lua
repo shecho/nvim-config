@@ -1,8 +1,6 @@
 vim.g.mapleader = " "
--- vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
--- opt.relativenumber = true -- Relative line numbers
 
 opt.numberwidth = 4
 opt.incsearch = true

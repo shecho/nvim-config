@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
--- https://github.com/microsoft/vscode/blob/main/src/vs/base/common/codicons.s
 -- icon = "",
 -- icon = "",
 -- icon = "﯑",

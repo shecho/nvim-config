@@ -54,11 +54,9 @@ return {
         -- See Configuration section for rest
       },
       keys = {
-        -- See Keymaps section for default keymaps if you want to lazy load on them
         { "<leader>ct", "<cmd>CopilotChatToggle<cr>", nowait = true, desc = "Toggle copilot chat" },
         { "<leader>cc", "<cmd>CopilotChatToggle<cr>", nowait = true, desc = "Toggle copilot chat" },
       },
-      -- See Commands section for default commands if you want to lazy load on them
     },
   },
 }

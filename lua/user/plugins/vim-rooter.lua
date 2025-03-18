@@ -16,8 +16,6 @@ return {
   event = "VeryLazy",
 
   config = function()
-    vim.cmd([[
-        let g:rooter_silent_chdir = 1
-            ]])
+    vim.cmd([[ let g:rooter_silent_chdir = 1 ]])
   end,
 }
