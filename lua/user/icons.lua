@@ -125,11 +125,11 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       saved = " ",
     },
     diagnostics = {
-      Error = "",
-      Warning = "",
-      Information = "",
-      Question = "",
-      Hint = "",
+      Error = " ",
+      Warning = " ",
+      Information = " ",
+      Question = " ",
+      Hint = " ",
     },
     lsp = {
       unavailable = "",

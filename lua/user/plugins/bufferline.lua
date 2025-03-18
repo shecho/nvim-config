@@ -23,11 +23,14 @@ return {
         close_command = function(n) Snacks.bufdelete(n) end,
         -- stylua: ignore
         right_mouse_command = function(n) Snacks.bufdelete(n) end,
-        -- diagnostics = "nvim_lsp",
-        diagnostics_indicator = function(_, _, diag)
+        diagnostics = "nvim_lsp",
+        diagnostics_indicator = function(count, level, diag, context)
           local icons = require("user.icons").diagnostics
-          local ret = (diag.error and icons.Error .. diag.error .. " " or "") .. (diag.warning and icons.Warning .. diag.warning or "")
-          return vim.trim(ret)
+          local icon = (level:match("error") and icons.Error or "")
+            .. (level:match("warning") and icons.Warning or "")
+            .. (level:match("info") and icons.Information or "")
+            .. (level:match("hint") and icons.Hint or "")
+          return " " .. icon .. count
         end,
         offsets = {
           {
