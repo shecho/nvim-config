@@ -14,18 +14,17 @@ return {
       local opts = { noremap = true, silent = true, buffer = bufnr }
       opts.buffer = bufnr
       opts.desc = "Show LSP references"
+      -- keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts) -- see available code actions
       keymap.set("n", "<leader>lr", "<cmd>Trouble lsp_references<CR>", opts) -- see available code actions
       keymap.set("n", "<leader>ls", "<cmd>FzfLua lsp_references<CR>", opts) -- show definition, references
-      -- keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts) -- see available code actions
+      keymap.set("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts) -- show definition, references
       --
       opts.desc = "Show LSP definitions"
       keymap.set("n", "<leader>ld", "<cmd>Trouble lsp_definitions<CR>", opts) -- show lsp definitions
       keymap.set("n", "<leader>lD", vim.lsp.buf.definition, opts) -- go to declaration
 
-      opts.desc = "Show LSP implementation"
-      keymap.set("n", "<leader>lI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-
       opts.desc = "Show LSP implementations"
+      -- keymap.set("n", "<leader>lI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
       keymap.set("n", "<leader>li", "<cmd>Trouble lsp_implementations<CR>", opts) -- show lsp implementations
 
       opts.desc = "Show LSP type definitions"
@@ -207,27 +206,23 @@ return {
       },
     })
 
-    -- configure lua server (with special settings)
     lspconfig["lua_ls"].setup({
       capabilities = capabilities,
-      -- on_attach = on_attach,
       on_attach = function(_, bufnr)
         on_attach(_, bufnr)
       end,
 
-      settings = { -- custom settings for lua
-        Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = { globals = { "vim" } },
-          workspace = {
-            -- make language server aware of runtime files
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.stdpath("config") .. "/lua"] = true,
-            },
-          },
-        },
-      },
+      -- settings = {
+      --   Lua = {
+      --     -- diagnostics = { globals = { "vim" } },
+      --     workspace = {
+      --       library = {
+      --         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+      --         [vim.fn.stdpath("config") .. "/lua"] = true,
+      --       },
+      --     },
+      --   },
+      -- },
     })
   end,
 }

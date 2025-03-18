@@ -20,9 +20,9 @@ return {
       picker = {
         enabled = true,
         layouts = {
-          default = { layout = { width = 0.97, height = 0.97 } },
+          default = { layout = { width = 0.95, height = 0.95 } },
           vscode = { layout = { width = 0.60 } },
-          dropdown = { layout = { width = 0.70 } },
+          dropdown = { layout = { width = 0.75 } },
           telescope = { layout = { width = 0.95, height = 0.95 } },
         },
         -- layout = { layout = { box = "horizontal" } },
@@ -32,9 +32,11 @@ return {
           recent = { layout = { preset = "vscode" }, focus = "list" },
           buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
-          files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.99, height = 0.99 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
+          files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.95, height = 0.95 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
           diagnostics_buffer = { layout = { preset = "select" }, focus = "list" },
+          diagnostics = { layout = { preset = "ivy" }, focus = "list" },
+          git_diff = { layout = { preset = "ivy" }, focus = "list" },
         },
       },
       dashboard = {
@@ -42,7 +44,6 @@ return {
         width = 90,
         -- sections = { { section = "keys", gap = 1, padding = 1 }, { section = "startup" } },
         sections = {
-
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
           {
@@ -58,14 +59,13 @@ return {
             { icon = "", key = "s", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua", padding = 1 },
           },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          -- stylua: ignore
           {
             pane = 2,
             icon = " ",
             title = "Git Status",
             section = "terminal",
-            enabled = function()
-              return Snacks.git.get_root() ~= nil
-            end,
+            enabled = function() return Snacks.git.get_root() ~= nil end,
             cmd = "git status --short --branch --renames",
             height = 5,
             padding = 1,
@@ -101,15 +101,20 @@ return {
       { "<leader>so", function() Snacks.picker.recent() end,                       desc = "Recent", },
       { "<leader>sm", function() Snacks.picker.marks() end,                        desc = "Marks", },
       { "<leader>sg", function() Snacks.picker.grep() end,                         desc = "Grep", },
-      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection or word",            mode = { "n", "x" }, },
+      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection or word",            mode = { "n", "x", "v" }, },
       --LSP
       { "gd",         function() Snacks.picker.lsp_definitions() end,              desc = "Goto Definition", },
       { "gD",         function() Snacks.picker.lsp_declarations() end,             desc = "Goto Declaration", },
       { "gr",         function() Snacks.picker.lsp_references() end,               nowait = true,                         desc = "References", },
+      { "<leader>lS", function() Snacks.picker.lsp_references() end,               nowait = true,                         desc = "Goto Definition", },
       { "gI",         function() Snacks.picker.lsp_implementations() end,          desc = "Goto Implementation", },
+      { "<leader>lI", function() Snacks.picker.lsp_implementations() end,          desc = "Goto Implementation", },
       { "gy",         function() Snacks.picker.lsp_type_definitions() end,         desc = "Goto Type Definition", },
-      { "<leader>lG", function() Snacks.picker.diagnostics() end,                  desc = "Diagnostic", },
-      { "<leader>lg", function() Snacks.picker.diagnostics_buffer() end,           desc = "Diagnostic Buffer", },
+      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,         desc = "Goto Type Definition", },
+      { "<leader>lB", function() Snacks.picker.diagnostics() end,                  desc = "Diagnostic", },
+      { "<leader>lb", function() Snacks.picker.diagnostics_buffer() end,           desc = "Diagnostic Buffer", },
+
+      -- Zen
       { "<leader>z",  function() Snacks.zen() end,                                 desc = "Toggle Zen Mode", },
       { "<leader>Z",  function() Snacks.zen.zoom() end,                            desc = "Toggle Zoom", },
       -- News
@@ -117,9 +122,11 @@ return {
       { "<leader>N",  function() Snacks.notifier.show_history() end,               desc = "Notification History", },
       { "<leader>cR", function() Snacks.rename.rename_file() end,                  desc = "Rename File", },
       -- Git
-      { "<leader>gs", function() Snacks.gitbrowse() end,                           desc = "Git Browse",                   mode = { "n", "v" }, },
       { "<leader>gB", function() Snacks.gitbrowse() end,                           desc = "Git Browse",                   mode = { "n", "v" }, },
+      { "<leader>gs", function() Snacks.gitbrowse() end,                           desc = "Git Browse",                   mode = { "n", "v" }, },
       { "<leader>gb", function() Snacks.git.blame_line() end,                      desc = "Git Blame Line", },
+      { "<leader>gd", function() Snacks.picker.git_diff() end,                     desc = "Git diff", },
+      { "<leader>gF", function() Snacks.picker.git_log_file() end,                 desc = "Lazygit Current File History", },
       { "<leader>gf", function() Snacks.lazygit.log_file() end,                    desc = "Lazygit Current File History", },
       { "<leader>gl", function() Snacks.lazygit.log() end,                         desc = "Lazygit Log (cwd)", },
       { "<c-/>",      function() Snacks.terminal() end,                            desc = "Toggle Terminal",              mode = { "t", "n" }, },
@@ -127,6 +134,7 @@ return {
       { "]]",         function() Snacks.words.jump(vim.v.count1) end,              desc = "Next Reference",               mode = { "n", "t" }, },
       { "[[",         function() Snacks.words.jump(-vim.v.count1) end,             desc = "Prev Reference",               mode = { "n", "t" }, },
 
+      -- { "<leader>gF", function() Snacks.picker.git_log() end,                    desc = "Lazygit Current File History", },
       -- { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer", },
       -- { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer", },
       -- { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications", },
@@ -139,13 +147,7 @@ return {
             file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
             width = 0.7,
             height = 0.7,
-            wo = {
-              spell = false,
-              wrap = false,
-              signcolumn = "yes",
-              statuscolumn = " ",
-              conceallevel = 3,
-            },
+            wo = { spell = false, wrap = false, signcolumn = "yes", statuscolumn = " ", conceallevel = 3, },
           })
         end,
       },

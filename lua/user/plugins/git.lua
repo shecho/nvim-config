@@ -15,8 +15,6 @@ return {
       { "<leader>gD", "<cmd>Git diff<cr>", nowait = true, desc = "Diff" },
       { "<leader>gg", "<cmd>Gvdiffsplit<cr>", nowait = true, desc = "Diff split" },
       -- { "<leader>gd", "<cmd>Gdiffsplit<cr>", nowait = true, desc = "Diff split" },
-      -- Gdiffsplit
-      -- { "<leader>gd", "<cmd>Git diff<cr>", nowait = true, desc = "Diff" },
       { "<leader>gp", "<cmd>Git push<cr>", nowait = true, desc = "Push" },
       { "<leader>gP", "<cmd>Git pull<cr>", nowait = true, desc = "Pull" },
     },
