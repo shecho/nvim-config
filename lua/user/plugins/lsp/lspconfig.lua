@@ -18,7 +18,7 @@ return {
       keymap.set("n", "<leader>lr", "<cmd>Trouble lsp_references<CR>", opts) -- see available code actions
       keymap.set("n", "<leader>ls", "<cmd>FzfLua lsp_references<CR>", opts) -- show definition, references
       keymap.set("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts) -- show definition, references
-      --
+
       opts.desc = "Show LSP definitions"
       keymap.set("n", "<leader>ld", "<cmd>Trouble lsp_definitions<CR>", opts) -- show lsp definitions
       keymap.set("n", "<leader>lD", vim.lsp.buf.definition, opts) -- go to declaration
@@ -51,6 +51,7 @@ return {
 
       opts.desc = "Show documentation under cursor"
       keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+      keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
       opts.desc = "Format"
       keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts) -- nnoremap <leader>lf :lua vim.lsp.buf.format({async = true})<CR>
@@ -67,7 +68,7 @@ return {
     local signs = {
       Error = " ",
       Warn = " ",
-      Hint = "󰠠 ",
+      Hint = " ", -- "󰠠 "
       Info = " ",
     }
     for type, icon in pairs(signs) do
