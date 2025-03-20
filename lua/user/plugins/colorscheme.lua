@@ -190,7 +190,7 @@ return {
       highlights = {
 
         LineNr = { bg = "${bg}", extend = true, italic = true },
-        BufferCurrent = { fg = "${blue}", bg = "${blue}", bold = true, italic = true, extend = true },
+        -- BufferCurrent = { fg = "${blue}", bg = "${blue}", bold = true, italic = true, extend = true },
         Visual = { bold = true, italic = true, extend = true },
         -- Constant = { fg = "${red}", bold = true },
         Special = { fg = "${red}", bold = true, extend = true },
@@ -272,6 +272,7 @@ return {
         ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
         ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
+        -- ["BufferLineBackground"] = { bg = "${black}", fg = "${selection}" },
       },
       options = {
         highlight_inactive_windows = true,

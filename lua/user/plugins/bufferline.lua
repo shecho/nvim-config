@@ -7,24 +7,25 @@ return {
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
       { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
       { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-      -- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
       { "<S-TAB>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
       { "<TAB>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
-      -- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
       { "<leader>bn", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
       { "<leader>bp", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
       { "<leader>bB", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
       { "<leader>bN", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+      -- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      -- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
     },
     opts = {
       options = {
+        themable = true,
         always_show_bufferline = true,
         -- stylua: ignore
         close_command = function(n) Snacks.bufdelete(n) end,
         -- stylua: ignore
         right_mouse_command = function(n) Snacks.bufdelete(n) end,
         diagnostics = "nvim_lsp",
-        diagnostics_indicator = function(count, level, diag, context)
+        diagnostics_indicator = function(count, level)
           local icons = require("user.icons").diagnostics
           local icon = (level:match("error") and icons.Error or "")
             .. (level:match("warning") and icons.Warning or "")

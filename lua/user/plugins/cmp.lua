@@ -133,6 +133,7 @@ return {
       }),
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
+        expandable_indicator = true,
         fields = {
           cmp.ItemField.Abbr,
           cmp.ItemField.Kind,
