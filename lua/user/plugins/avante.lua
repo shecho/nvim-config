@@ -8,7 +8,7 @@ return {
     -- for example
     provider = "copilot",
     copilot = {
-      model = "claude-3.5-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
+      model = "gpt-4o", -- o1-preview | o1-mini | claude-3.5-sonnet
     },
     auto_suggestions_provider = "copilot",
     openai = {
