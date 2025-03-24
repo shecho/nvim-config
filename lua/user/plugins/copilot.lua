@@ -41,6 +41,7 @@ return {
     },
   },
   {
+
     {
       "CopilotC-Nvim/CopilotChat.nvim",
       branch = "canary",
@@ -50,6 +51,8 @@ return {
       },
       build = "make tiktoken", -- Only on MacOS or Linux
       opts = {
+        model = "gpt-4o",
+        -- answer_header = "󱗞 ",
         debug = true, -- Enable debugging
         -- See Configuration section for rest
       },
