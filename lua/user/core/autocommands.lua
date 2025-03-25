@@ -67,6 +67,15 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
+-- resize splits
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
 -- vim.api.nvim_create_autocmd({ "VimResized" }, {
 --   callback = function()
 --     vim.cmd("tabdo wincmd =")
@@ -86,10 +95,17 @@ vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
 -- })
 
 -- highlight on yank
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--   callback = function()
+--     vim.highlight.on_yank()
+--     -- vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+--   end,
+-- })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
   callback = function()
-    vim.highlight.on_yank()
-    -- vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+    (vim.hl or vim.highlight).on_yank()
   end,
 })
 

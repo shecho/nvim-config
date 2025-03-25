@@ -46,7 +46,6 @@ function M.smart_quit()
 end
 
 function M.saveFile()
-  -- Check if a buffer with a file is open
   if vim.fn.empty(vim.fn.expand("%:t")) == 1 then
     vim.notify("No file to save", vim.log.levels.WARN)
     return
