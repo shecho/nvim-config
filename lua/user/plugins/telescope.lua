@@ -14,7 +14,7 @@ return {
       end,
     },
 
-    -- { "ThePrimeagen/harpoon", event = "VeryLazy" },
+    { "ThePrimeagen/harpoon", event = "VeryLazy" },
     -- { "nvim-telescope/telescope-file-browser.nvim" },
     -- { "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
     -- { "nvim-telescope/telescope-media-files.nvim" },
@@ -44,8 +44,8 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("projects")
+    telescope.load_extension("harpoon")
     -- telescope.load_extension("egrepify")
-    -- telescope.load_extension("harpoon")
     -- telescope.load_extension("ui-select")
     -- telescope.load_extension("file_browser")
     -- telescope.load_extension("media_files")

@@ -25,25 +25,27 @@ return {
   },
   opts = function()
     local cmp = require("cmp")
+    local defaults = require("cmp.config.default")()
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
     local keymap = require("cmp.utils.keymap")
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require("luasnip.loaders.from_vscode").lazy_load()
-    vim.api.nvim_set_hl(0, "CmpItemKind", { fg = "#61afef" })
-    vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = "#528bff" })
-    vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#c678dd" })
-    vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = "#98c379" })
-    vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = "#d19a66" })
-    vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = "#526fff" })
+    local highlight = vim.api.nvim_set_hl
+    highlight(0, "CmpItemKind", { fg = "#61afef" })
+    highlight(0, "CmpItemKindColor", { fg = "#528bff" })
+    highlight(0, "CmpItemKindFunction", { fg = "#c678dd" })
+    highlight(0, "CmpItemKindConstant", { fg = "#98c379" })
+    highlight(0, "CmpItemKindSnippet", { fg = "#d19a66" })
+    highlight(0, "CmpItemKindVariable", { fg = "#526fff" })
 
     local has_words_before = function()
       ---@diagnostic disable-next-line: deprecated
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
-    vim.opt.completeopt = { "menu", "menuone", "noselect" }
+    vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 
     local feedkey = function(key, mode)
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
@@ -117,6 +119,7 @@ return {
         { name = "luasnip" }, -- snippets
         { name = "vsnip" }, -- For vsnip users.
         { name = "nvim_lsp" },
+        { name = "lazydev" },
         { name = "nvim_lua" },
         {
           name = "buffer",
@@ -160,8 +163,8 @@ return {
       },
       experimental = { ghost_text = false },
       window = {
-        documentation = cmp.config.window.bordered(),
-        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered({ border = "" }),
+        completion = cmp.config.window.bordered({ border = "" }),
       },
     })
     vim.cmd([[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]])

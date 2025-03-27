@@ -64,10 +64,14 @@ return {
       dashboard = {
         enabled = true,
         width = 90,
-        -- sections = { { section = "keys", gap = 1, padding = 1 }, { section = "startup" } },
+        -- preset = {
+        --   keys = {
+        --     { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+        --   },
+        -- },
         sections = {
           { section = "header" },
-          { section = "keys", gap = 1, padding = 1 },
+          { section = "keys", gap = 1, padding = 1, { icon = " ", key = "s", action = ":lua require('persistence').select()", desc = "Restore Session" } },
           {
             pane = 2,
             icon = require("user.icons").kind.File,
@@ -77,8 +81,8 @@ return {
             indent = 2,
             padding = 1,
             { icon = "車", key = "i", desc = "init.lua", action = ":e $MYVIMRC" },
-            { icon = " ", key = "s", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua" },
             { icon = " ", key = "Z", desc = "zshrc", action = ":e ~/.zshrc" },
+            -- { icon = " ", key = "S", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua" },
           },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
           -- stylua: ignore
@@ -140,7 +144,7 @@ return {
       { "<leader>z",  function() Snacks.zen() end,                                                       desc = "Toggle Zen Mode", },
       { "<leader>Z",  function() Snacks.zen.zoom() end,                                                  desc = "Toggle Zoom", },
       -- News
-      { "<leader>n",  function() Snacks.picker.notifications() end,                                      desc = "History", },
+      { "<leader>Un", function() Snacks.picker.notifications() end,                                      desc = "History", },
       { "<leader>N",  function() Snacks.notifier.show_history() end,                                     desc = "History", },
       { "<leader>cR", function() Snacks.rename.rename_file() end,                                        desc = "Rename File", },
       -- Git
@@ -194,7 +198,7 @@ return {
           Snacks.toggle.line_number():map("<leader>Ul")
           Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>Uc")
           Snacks.toggle.treesitter():map("<leader>UT")
-          Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
+          -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
           Snacks.toggle.inlay_hints():map("<leader>Uh")
           Snacks.toggle.indent():map("<leader>Ug")
           Snacks.toggle.dim():map("T")
