@@ -31,7 +31,7 @@ return {
     local keymap = require("cmp.utils.keymap")
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-    require("luasnip.loaders.from_vscode").lazy_load()
+    -- require("luasnip.loaders.from_vscode").lazy_load()
     local highlight = vim.api.nvim_set_hl
     highlight(0, "CmpItemKind", { fg = "#61afef" })
     highlight(0, "CmpItemKindColor", { fg = "#528bff" })

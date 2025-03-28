@@ -71,7 +71,13 @@ return {
         -- },
         sections = {
           { section = "header" },
-          { section = "keys", gap = 1, padding = 1, { icon = " ", key = "s", action = ":lua require('persistence').select()", desc = "Restore Session" } },
+          {
+            section = "keys",
+            gap = 1,
+            padding = 1,
+            { icon = " ", key = "s", action = ":lua require('persistence').select()", desc = "Restore Session" },
+            { icon = "󱄋 ", key = "L", action = ":lua require('persistence').load({ last = true })", desc = "Restore Last Session" },
+          },
           {
             pane = 2,
             icon = require("user.icons").kind.File,
@@ -82,7 +88,7 @@ return {
             padding = 1,
             { icon = "車", key = "i", desc = "init.lua", action = ":e $MYVIMRC" },
             { icon = " ", key = "Z", desc = "zshrc", action = ":e ~/.zshrc" },
-            -- { icon = " ", key = "S", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua" },
+            { icon = " ", key = "S", desc = "snacks.lua", action = ":e ~/.config/nvim/lua/user/plugins/snacks.lua" },
           },
           { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
           -- stylua: ignore

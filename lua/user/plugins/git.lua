@@ -46,10 +46,7 @@ return {
   -- },
   {
     "mbbill/undotree",
-    keys = {
-      { "<leader>UU", "<cmd>UndotreeToggle<cr>", desc = "UndotreeToggle", noremap = true, nowait = true, silent = true },
-    },
-    -- event = { "BufReadPre", "BufNewFile" },
+    keys = { { "<leader>UU", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle", noremap = true, nowait = true, silent = true } },
     cmd = { "UndotreeToggle" },
     config = function() end,
   },
