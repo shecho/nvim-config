@@ -3,6 +3,7 @@ return {
   -- event = "InsertEnter",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer", -- source for text in buffer
     "hrsh7th/cmp-path", -- source for file system paths
     {
@@ -24,22 +25,22 @@ return {
   opts = function()
     local cmp = require("cmp")
     local defaults = require("cmp.config.default")()
+    local auto_slect = true
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
     local keymap = require("cmp.utils.keymap")
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     -- require("luasnip.loaders.from_vscode").lazy_load()
-    local highlight = vim.api.nvim_set_hl
-    highlight(0, "CmpItemKind", { fg = "#61afef" })
-    highlight(0, "CmpItemKindColor", { fg = "#528bff" })
-    highlight(0, "CmpItemKindFunction", { fg = "#c678dd" })
-    highlight(0, "CmpItemKindConstant", { fg = "#98c379" })
-    highlight(0, "CmpItemKindSnippet", { fg = "#d19a66" })
-    highlight(0, "CmpItemKindVariable", { fg = "#526fff" })
+    local hl = vim.api.nvim_set_hl
+    hl(0, "CmpItemKind", { fg = "#61afef" })
+    hl(0, "CmpItemKindColor", { fg = "#528bff" })
+    hl(0, "CmpItemKindFunction", { fg = "#c678dd" })
+    hl(0, "CmpItemKindConstant", { fg = "#98c379" })
+    hl(0, "CmpItemKindSnippet", { fg = "#d19a66" })
+    hl(0, "CmpItemKindVariable", { fg = "#526fff" })
 
     local has_words_before = function()
-      ---@diagnostic disable-next-line: deprecated
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
@@ -49,8 +50,8 @@ return {
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
     end
     cmp.setup({
-      preselect = cmp.PreselectMode.None,
-      -- preselect = true,
+      -- preselect = cmp.PreselectMode.None,
+      preselect = auto_slect and cmp.PreselectMode.Item or cmp.PreselectMode.None,
       completion = { completeopt = "menu,menuone,preview,noselect" },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
         expand = function(args)
@@ -113,13 +114,13 @@ return {
           c = cmp.mapping.close(),
         }),
       }),
-      -- sources for autocompletion
       sources = cmp.config.sources({
         { name = "luasnip" }, -- snippets
-        { name = "vsnip" }, -- For vsnip users.
+        -- { name = "vsnip" }, -- For vsnip users.
         { name = "nvim_lsp" },
         { name = "lazydev" },
-        { name = "nvim_lua" },
+        { name = "path" },
+        -- { name = "nvim_lua" },
         {
           name = "buffer",
           option = {
@@ -147,7 +148,7 @@ return {
             vim_item.menu = ({
               luasnip = "",
               nvim_lsp = "",
-              nvim_lua = "ﲳ",
+              -- nvim_lua = "ﲳ",
               treesitter = "",
               buffer = "﬘",
               path = "ﱮ",
@@ -166,43 +167,19 @@ return {
         completion = cmp.config.window.bordered({ border = "" }),
       },
     })
-    vim.cmd([[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]])
-    local autocmd = vim.api.nvim_create_autocmd
+    -- vim.cmd([[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]])
+    -- local autocmd = vim.api.nvim_create_autocmd
 
-    autocmd("FileType", {
-      pattern = "conf",
-      callback = function()
-        require("cmp").setup.buffer({ enabled = false })
-      end,
-    })
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
         { name = "buffer" },
       },
     })
-    -- cmp.setup.cmdline("/", {
-    --   mapping = cmp.mapping.preset.cmdline(),
-    --   sources = { { name = "buffer" } },
-    -- })
-    -- cmp.setup.cmdline(":", {
-    --   mapping = cmp.mapping.preset.cmdline(),
-    --   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-    -- })
     cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        {
-          name = "cmdline",
-          option = {
-            ignore_cmds = { "Man", "!" },
-          },
-        },
-      }),
+      sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } } }),
     })
-
     cmp.event:on("menu_opened", function()
       vim.b.copilot_suggestion_hidden = false
     end)

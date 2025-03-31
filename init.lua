@@ -10,7 +10,11 @@ require("user.core")
 require("user.keymaps")
 require("user.lazy")
 
-vim.cmd([[colorscheme onedark]])
+vim.cmd([[
+  colorscheme onedark
+  let g:VM_theme = 'purplegray'
+]])
+
 vim.cmd([[ set rtp+=/opt/homebrew/opt/fzf ]])
 
 --   highlight Normal guibg=none

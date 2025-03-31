@@ -272,6 +272,8 @@ return {
         ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
         ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
+
+        ["IlluminatedWordRead"] = { fg = "#828997", underline = true, italic = true, bold = true, extend = true },
         -- ["BufferLineBackground"] = { bg = "${black}", fg = "${selection}" },
       },
       options = {

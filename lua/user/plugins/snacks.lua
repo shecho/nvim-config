@@ -13,7 +13,7 @@ return {
       indent = { enabled = true },
       notifier = { enabled = true, timeout = 3000 },
       statuscolumn = { enabled = true },
-      words = { enabled = true },
+      -- words = { enabled = true },
       styles = { notification = {}, zen = { width = 0.90, backdrop = { transparent = true, blend = 20 } } },
       explorer = { minimal = true, enabled = true, replace_netrw = true, layout = { position = "right" } },
       zen = { enabled = true, toggles = { dim = false } },
