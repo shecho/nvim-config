@@ -16,12 +16,10 @@ return {
       opts = { history = true, delete_check_events = "TextChanged" },
     },
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    -- "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim",
     "hrsh7th/cmp-nvim-lua",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-look",
-    "luckasRanarison/tailwind-tools.nvim",
   },
   opts = function()
     local cmp = require("cmp")
@@ -96,6 +94,7 @@ return {
           end
         end, { "i", "s" }),
         ["<CR>"] = cmp.mapping.confirm(),
+        ["<D-j>"] = cmp.mapping.confirm(),
         -- ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         -- ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion

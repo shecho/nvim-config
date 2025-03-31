@@ -42,12 +42,19 @@ return {
       keymap.set("n", "<leader>lD", "<cmd>Trouble diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
       -- keymap.set("n", "<leader>ll", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
+      -- opts.desc = "Go to previous diagnostic"
+      -- keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+
       opts.desc = "Go to previous diagnostic"
-      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+      keymap.set("n", "<leader>ln", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, opts)
 
       opts.desc = "Go to next diagnostic"
-      keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-      keymap.set("n", "<leader>ll", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+      keymap.set("n", "<leader>ll", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, opts)
+      -- keymap.set("n", "<leader>ll", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
       opts.desc = "Show documentation under cursor"
       keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -56,7 +63,7 @@ return {
       opts.desc = "Format"
       keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts) -- nnoremap <leader>lf :lua vim.lsp.buf.format({async = true})<CR>
 
-      opts.desc = "Show line diagnostics"
+      -- opts.desc = "Show line diagnostics"
 
       -- opts.desc = "Restart LSP"
       -- keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
