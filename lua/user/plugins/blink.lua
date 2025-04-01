@@ -1,19 +1,25 @@
 return {
   {
     "saghen/blink.compat",
-    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
     version = "*",
-    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
     lazy = true,
-    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
     opts = {},
   },
   {
     "saghen/blink.cmp",
     dependencies = {
-      "rafamadriz/friendly-snippets",
-      -- "moyiz/blink-emoji.nvim",
-      -- "ray-x/cmp-sql",
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+          config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+          end,
+        },
+        opts = { history = true, delete_check_events = "TextChanged" },
+      },
+      -- "rafamadriz/friendly-snippets",
     },
 
     version = "1.*",
@@ -37,6 +43,8 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
+      snippets = { preset = "luasnip" },
+
       keymap = {
         preset = "default",
         ["<C-Z>"] = { "accept", "fallback" },
@@ -44,8 +52,6 @@ return {
         ["<D-j>"] = { "accept", "fallback" },
         ["<C-Enter>"] = { "accept", "fallback" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<C-Space>"] = { "complete", "fallback" },
-        ["<C-e>"] = { "close", "fallback" },
       },
       cmdline = { completion = { ghost_text = { enabled = true }, menu = { auto_show = true } } },
       appearance = {
@@ -57,12 +63,17 @@ return {
       -- (Default) Only show the documentation popup when manually triggered
       completion = {
         documentation = { auto_show = true },
-        max_width = 20,
-        winblend = 0.8,
+        -- max_width = 20,
         menu = {
           draw = {
-            columns = { { "label", "label_description", gap = 1 }, { "kind_icon" } },
+            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon" }, { "source_name" } },
             components = {
+              item_idx = {
+                text = function(ctx)
+                  return ctx.idx == 10 and "0" or ctx.idx >= 10 and " " or tostring(ctx.idx)
+                end,
+                highlight = "BlinkCmpItemIdx", -- optional, only if you want to change its color
+              },
               kind_icon = {
                 text = function(ctx)
                   local lspkind = require("lspkind")
@@ -73,7 +84,7 @@ return {
                       icon = dev_icon
                     end
                   else
-                    icon = require("lspkind").symbolic(ctx.kind, {
+                    icon = lspkind.symbolic(ctx.kind, {
                       mode = "symbol",
                     })
                   end
@@ -97,55 +108,14 @@ return {
       },
       signature = { enabled = true },
 
-      -- Default list of enabled providers defined so that you can extend it
-      -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { "snippets", "lsp", "path", "buffer" },
-        providers = {
-          -- emoji = {
-          --   module = "blink-emoji",
-          --   name = "Emoji",
-          --   score_offset = 15, -- Tune by preference
-          --   opts = { insert = true }, -- Insert emoji (default) or complete its name
-          --   should_show_items = function()
-          --     return vim.tbl_contains(
-          --       -- Enable emoji completion only for git commits and markdown.
-          --       -- By default, enabled for all file-types.
-          --       { "gitcommit", "markdown" },
-          --       vim.o.filetype
-          --     )
-          --   end,
-          -- },
-          -- sql = {
-          --   -- IMPORTANT: use the same name as you would for nvim-cmp
-          --   name = "sql",
-          --   module = "blink.compat.source",
-          --
-          --   -- all blink.cmp source config options work as normal:
-          --   score_offset = -3,
-          --
-          --   -- this table is passed directly to the proxied completion source
-          --   -- as the `option` field in nvim-cmp's source config
-          --   --
-          --   -- this is NOT the same as the opts in a plugin's lazy.nvim spec
-          --   opts = {},
-          --   should_show_items = function()
-          --     return vim.tbl_contains(
-          --       -- Enable emoji completion only for git commits and markdown.
-          --       -- By default, enabled for all file-types.
-          --       { "sql" },
-          --       vim.o.filetype
-          --     )
-          --   end,
-          -- },
-        },
+        -- providers = {},
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
       -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-      --
-      -- See the fuzzy documentation for more information
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
     opts_extend = { "sources.default" },

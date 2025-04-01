@@ -12,7 +12,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
     kind = {
       Boolean = "󰨙 ",
       Class = " ",
-      Constructor = "", -- Constructor = "",
+      Constructor = "󰦮", --Constructor = "", -- Constructor = "",
       Color = "",
       Control = " ",
       Constant = "", -- Constant = " ",
@@ -42,7 +42,8 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       Unit = " ", -- Unit = "",
       Unknown = "",
       Value = " ", -- Value = " ",
-      Variable = "󰀫", -- Variable = "", -- Variable = "",
+      -- Variable = "󰀫",
+      Variable = "", -- Variable = "",
     },
     type = {
       Array = " ", -- Array = " ",
