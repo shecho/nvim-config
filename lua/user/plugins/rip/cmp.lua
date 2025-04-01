@@ -1,11 +1,10 @@
 return {
   "hrsh7th/nvim-cmp",
-  -- event = "InsertEnter",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer", -- source for text in buffer
-    "hrsh7th/cmp-path", -- source for file system paths
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
     {
       "L3MON4D3/LuaSnip",
       dependencies = {
@@ -29,8 +28,6 @@ return {
     local lspkind = require("lspkind")
     local keymap = require("cmp.utils.keymap")
 
-    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-    -- require("luasnip.loaders.from_vscode").lazy_load()
     local hl = vim.api.nvim_set_hl
     hl(0, "CmpItemKind", { fg = "#61afef" })
     hl(0, "CmpItemKindColor", { fg = "#528bff" })
@@ -159,8 +156,6 @@ return {
         completion = cmp.config.window.bordered({ border = "" }),
       },
     })
-    -- vim.cmd([[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]])
-
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
@@ -171,11 +166,11 @@ return {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } } }),
     })
-    cmp.event:on("menu_opened", function()
-      vim.b.copilot_suggestion_hidden = false
-    end)
-    cmp.event:on("menu_closed", function()
-      vim.b.copilot_suggestion_hidden = false
-    end)
+    -- cmp.event:on("menu_opened", function()
+    -- vim.b.copilot_suggestion_hidden = false
+    -- end)
+    -- cmp.event:on("menu_closed", function()
+    --   vim.b.copilot_suggestion_hidden = false
+    -- end)
   end,
 }

@@ -19,7 +19,6 @@ return {
         },
         opts = { history = true, delete_check_events = "TextChanged" },
       },
-      -- "rafamadriz/friendly-snippets",
     },
 
     version = "1.*",
@@ -31,6 +30,7 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
       -- 'super-tab' for mappings similar to vscode (tab to accept)
       -- 'enter' for enter to accept
@@ -46,23 +46,23 @@ return {
       snippets = { preset = "luasnip" },
 
       keymap = {
-        preset = "default",
+        preset = "super-tab",
         ["<C-Z>"] = { "accept", "fallback" },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "accept", "fallback" },
         ["<C-Enter>"] = { "accept", "fallback" },
         ["<C-CR>"] = { "accept", "fallback" },
       },
-      cmdline = { completion = { ghost_text = { enabled = true }, menu = { auto_show = true } } },
+      cmdline = { completion = { ghost_text = { enabled = false }, menu = { auto_show = true } } },
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = "mono",
+        nerd_font_variant = "normal",
       },
-
-      -- (Default) Only show the documentation popup when manually triggered
       completion = {
+        accept = { auto_brackets = { enabled = false } },
         documentation = { auto_show = true },
+
         -- max_width = 20,
         menu = {
           draw = {
@@ -109,8 +109,15 @@ return {
       signature = { enabled = true },
 
       sources = {
-        default = { "snippets", "lsp", "path", "buffer" },
-        -- providers = {},
+        default = { "lazydev", "snippets", "lsp", "path", "buffer" },
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
+          },
+        },
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance

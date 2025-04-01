@@ -15,7 +15,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       Constructor = "󰦮", --Constructor = "", -- Constructor = "",
       Color = "",
       Control = " ",
-      Constant = "", -- Constant = " ",
+      Constant = "󰏿", --Constant = "", -- Constant = " ",
       Enum = " ",
       EnumMember = "",
       Event = "", -- Event = " ",
