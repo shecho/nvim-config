@@ -24,7 +24,6 @@ return {
   },
   opts = function()
     local cmp = require("cmp")
-    local defaults = require("cmp.config.default")()
     local auto_slect = true
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
@@ -103,12 +102,8 @@ return {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         }),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-l>"] = nil,
-        -- ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c", "n" }),
-        -- ["<C-e>"] = cmp.mapping.abort(), -- close completion window
         ["<C-e>"] = cmp.mapping({
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
@@ -131,10 +126,7 @@ return {
         },
         -- { name = "spell" },
         { name = "path" }, -- file system paths
-        -- { name = "buffer" }, -- text within current buffer
-        -- { name = "copilot", group_index = 2 },
       }),
-      -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
         expandable_indicator = true,
         fields = {
@@ -168,7 +160,6 @@ return {
       },
     })
     -- vim.cmd([[ autocmd FileType lua lua require'cmp'.setup.buffer { sources = { { name = 'buffer' },{ name = 'nvim_lua'},{name = "nvim_lsp"}},} ]])
-    -- local autocmd = vim.api.nvim_create_autocmd
 
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
