@@ -30,27 +30,34 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-
-      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
       -- 'super-tab' for mappings similar to vscode (tab to accept)
-      -- 'enter' for enter to accept
-      -- 'none' for no mappings
-      --
-      -- All presets have the following mappings:
-      -- C-space: Open menu or open docs if already open
-      -- C-n/C-p or Up/Down: Select next/previous item
-      -- C-e: Hide menu
-      -- C-k: Toggle signature help (if signature.enabled = true)
-      --
-      -- See :h blink-cmp-config-keymap for defining your own keymap
       snippets = { preset = "luasnip" },
 
       keymap = {
-        preset = "super-tab",
+        preset = "enter",
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.accept()
+            elseif vim.fn.pumvisible() == 1 then
+              return require("user.core.functions").feedkey("<C-n>")
+            elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
+              return cmp.select_next()
+            elseif cmp.is_menu_visible() then
+              return cmp.select_next()
+            elseif require("user.core.functions").has_words_before() then
+              return cmp.select_and_accept()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
         ["<C-Z>"] = { "accept", "fallback" },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "accept", "fallback" },
+        ["<C-j>"] = { "accept", "fallback" },
         ["<C-Enter>"] = { "accept", "fallback" },
+        ["<Enter>"] = { "accept", "fallback" },
         ["<C-CR>"] = { "accept", "fallback" },
       },
       cmdline = { completion = { ghost_text = { enabled = false }, menu = { auto_show = true } } },
@@ -60,12 +67,16 @@ return {
         nerd_font_variant = "normal",
       },
       completion = {
+        -- trigger = { prefetch_on_insert = false },
+        -- list = { selection = { preselect = false } },
         accept = { auto_brackets = { enabled = false } },
-        documentation = { auto_show = true },
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
 
         -- max_width = 20,
         menu = {
+          winblend = 35,
           draw = {
+            treesitter = { "lsp" },
             columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon" }, { "source_name" } },
             components = {
               item_idx = {

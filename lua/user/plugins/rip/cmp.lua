@@ -60,7 +60,7 @@ return {
             luasnip.expand_or_jump()
           elseif vim.fn.pumvisible() == 1 then
             feedkey("<C-n>")
-          elseif cmp.visible() and has_words_before() then
+          elseif cmp.is_menu_visible() and has_words_before() then
             -- cmp.select_next_item()
             cmp.select_next_item({
               behavior = cmp.SelectBehavior.Select,
