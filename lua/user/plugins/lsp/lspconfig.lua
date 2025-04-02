@@ -2,14 +2,19 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
+    -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local lspconfig = require("lspconfig")
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local keymap = vim.keymap
-
+    vim.diagnostic.config({
+      virtual_text = false,
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
+    })
     local on_attach = function(_, bufnr)
       local opts = { noremap = true, silent = true, buffer = bufnr }
       opts.buffer = bufnr
@@ -40,10 +45,6 @@ return {
 
       opts.desc = "Show buffer diagnostics"
       keymap.set("n", "<leader>lD", "<cmd>Trouble diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-      -- keymap.set("n", "<leader>ll", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-      -- opts.desc = "Go to previous diagnostic"
-      -- keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
       opts.desc = "Go to previous diagnostic"
       keymap.set("n", "<leader>ln", function()
@@ -62,15 +63,18 @@ return {
 
       opts.desc = "Format"
       keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts) -- nnoremap <leader>lf :lua vim.lsp.buf.format({async = true})<CR>
-
-      -- opts.desc = "Show line diagnostics"
-
-      -- opts.desc = "Restart LSP"
-      -- keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
     end
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local capabilities = {
+      textDocument = {
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        },
+      },
+    }
+
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
     local signs = {
       Error = " ",
@@ -95,7 +99,6 @@ return {
     -- configure css server
     lspconfig["cssls"].setup({
       capabilities = capabilities,
-      -- on_attach = on_attach,
       on_attach = function(_, bufnr)
         on_attach(_, bufnr)
       end,

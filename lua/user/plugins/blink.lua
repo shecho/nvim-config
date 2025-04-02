@@ -3,7 +3,6 @@ return {
     "saghen/blink.compat",
     version = "*",
     lazy = true,
-    opts = {},
   },
   {
     "saghen/blink.cmp",
@@ -30,16 +29,14 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      -- 'super-tab' for mappings similar to vscode (tab to accept)
       snippets = { preset = "luasnip" },
-
       keymap = {
         preset = "enter",
         ["<Tab>"] = {
           function(cmp)
             if cmp.snippet_active() then
               return cmp.accept()
-            elseif vim.fn.pumvisible() == 1 then
+            elseif not vim.fn.pumvisible() == 0 then
               return require("user.core.functions").feedkey("<C-n>")
             elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
               return cmp.select_next()
@@ -50,34 +47,30 @@ return {
             end
           end,
           "snippet_forward",
-          "fallback",
+          "fallback_to_mappings",
         },
-        ["<C-Z>"] = { "accept", "fallback" },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "accept", "fallback" },
-        ["<C-j>"] = { "accept", "fallback" },
-        ["<C-Enter>"] = { "accept", "fallback" },
-        ["<Enter>"] = { "accept", "fallback" },
+        ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
+        ["<CR>"] = { "accept" },
       },
       cmdline = { completion = { ghost_text = { enabled = false }, menu = { auto_show = true } } },
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = "normal",
       },
       completion = {
-        -- trigger = { prefetch_on_insert = false },
-        -- list = { selection = { preselect = false } },
+        trigger = { prefetch_on_insert = false },
+        list = { selection = { preselect = false } },
         accept = { auto_brackets = { enabled = false } },
         documentation = { auto_show = true, auto_show_delay_ms = 200 },
 
-        -- max_width = 20,
         menu = {
-          winblend = 35,
+          winblend = 15,
           draw = {
             treesitter = { "lsp" },
-            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon" }, { "source_name" } },
+            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon", "kind" }, { "source_name" } },
             components = {
               item_idx = {
                 text = function(ctx)
@@ -126,7 +119,16 @@ return {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             -- make lazydev completions top priority (see `:h blink.cmp`)
-            score_offset = 100,
+            -- score_offset = 100,
+          },
+          buffer = {
+            opts = {
+              get_bufnrs = function(bufnr)
+                return vim.tbl_filter(function(b)
+                  return vim.api.nvim_buf_is_loaded(b) and b ~= bufnr
+                end, vim.api.nvim_list_bufs())
+              end,
+            },
           },
         },
       },
@@ -136,6 +138,10 @@ return {
       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-    opts_extend = { "sources.default" },
+    opts_extend = {
+      "sources.completion.enabled_providers",
+      "sources.compat",
+      "sources.default",
+    },
   },
 }

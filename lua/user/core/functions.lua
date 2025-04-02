@@ -84,6 +84,8 @@ end
 -- function M.toggleInlayHints()
 --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
 -- end
+--
+-- Blink/cmp functions
 M.has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
