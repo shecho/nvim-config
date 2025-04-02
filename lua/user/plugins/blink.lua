@@ -55,10 +55,27 @@ return {
         ["<C-CR>"] = { "accept", "fallback" },
         ["<CR>"] = { "accept" },
       },
-      cmdline = { completion = { ghost_text = { enabled = false }, menu = { auto_show = true } } },
+      cmdline = {
+        enabled = true,
+        keymap = {
+          preset = "cmdline",
+          ["<Tab>"] = {
+            function(cmp)
+              if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
+                return cmp.accept()
+              end
+            end,
+            "show_and_insert",
+            "select_next",
+          },
+          ["<C-j>"] = { "accept" },
+          ["<D-j>"] = { "accept" },
+        },
+        completion = { ghost_text = { enabled = false }, menu = { auto_show = true } },
+      },
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        nerd_font_variant = "normal",
+        nerd_font_variant = "mono",
       },
       completion = {
         trigger = { prefetch_on_insert = false },
@@ -70,7 +87,7 @@ return {
           winblend = 15,
           draw = {
             treesitter = { "lsp" },
-            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon", "kind" }, { "source_name" } },
+            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }, { "source_name" } },
             components = {
               item_idx = {
                 text = function(ctx)

@@ -263,6 +263,7 @@ return {
         ["BufferCurrentIndex"] = { fg = "${fg}", italic = true, extend = true },
         -- ["BufferCurrentBtn"] = { italic = true },
         -- ["BufferCurrentHINT"] = { fg = "${red}", italic = true },
+        -- ["BufferLineBackground"] = { bg = "${black}", fg = "${selection}" },
 
         -- ["DiagnosticVirtualTextWarn"] = { fg = "${dark_yellow}", extend = true, bold = true, italic = true },
         -- ["DiagnosticVirtualTextEror"] = { fg = "${dark_red}", extend = true, bold = true },
@@ -274,7 +275,9 @@ return {
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
 
         ["IlluminatedWordRead"] = { fg = "#828997", underline = true, italic = true, bold = true, extend = true },
-        -- ["BufferLineBackground"] = { bg = "${black}", fg = "${selection}" },
+
+        -- variable icon un cmenu
+        ["BlinkCmpKindVariable"] = { fg = "${blue2}", bold = true, extend = true },
       },
       options = {
         highlight_inactive_windows = true,
