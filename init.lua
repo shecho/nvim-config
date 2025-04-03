@@ -17,8 +17,7 @@ vim.cmd([[
 
 vim.cmd([[ set rtp+=/opt/homebrew/opt/fzf ]])
 
--- TODO add cmline mappings
--- TODO nvim lint and confort vim to replace null ls
+-- TODO nvim lint
 
 --   highlight Normal guibg=none
 --   highlight NonText guibg=none
