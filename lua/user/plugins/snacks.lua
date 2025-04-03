@@ -138,10 +138,12 @@ return {
       { "<leader>sw", function() Snacks.picker.grep_word() end,                                          desc = "Selection word",       mode = { "n", "x", "v" }, },
       --LSP
       { "gd",         function() Snacks.picker.lsp_definitions() end,                                    desc = "Definition", },
+      { "gh",         function() Snacks.picker.lsp_definitions() end,                                    desc = "Definition", },
       { "gD",         function() Snacks.picker.lsp_declarations() end,                                   desc = "Declaration", },
       { "gr",         function() Snacks.picker.lsp_references() end,                                     nowait = true,                 desc = "References", },
       { "<leader>ls", function() Snacks.picker.lsp_references() end,                                     nowait = true,                 desc = "Goto Definition", },
       { "gI",         function() Snacks.picker.lsp_implementations() end,                                desc = "Implementation", },
+      { "gi",         function() Snacks.picker.lsp_implementations() end,                                desc = "Implementation", },
       { "<leader>lI", function() Snacks.picker.lsp_implementations() end,                                desc = "Implementation", },
       { "gy",         function() Snacks.picker.lsp_type_definitions() end,                               desc = "Type Definition", },
       { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,                               desc = "Type Definition", },

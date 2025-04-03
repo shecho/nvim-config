@@ -70,7 +70,7 @@ return {
           ["<C-j>"] = { "accept" },
           ["<D-j>"] = { "accept_and_enter" },
         },
-        completion = { ghost_text = { enabled = false }, menu = { auto_show = true } },
+        completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
       },
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
