@@ -58,6 +58,7 @@ return {
           diagnostics_buffer = { layout = { preset = "select" }, focus = "list" },
           diagnostics = { layout = { preset = "ivy" }, focus = "list" },
           git_diff = { layout = { preset = "ivy" }, focus = "list" },
+          lsp_references = { layout = { preset = "ivy" }, focus = "list" },
           -- files = { layout = { preset = "my_vertical_layout" }, focus = "list" }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
         },
       },
