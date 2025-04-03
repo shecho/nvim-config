@@ -139,7 +139,7 @@ return {
       { "gd",         function() Snacks.picker.lsp_definitions() end,                                    desc = "Definition", },
       { "gD",         function() Snacks.picker.lsp_declarations() end,                                   desc = "Declaration", },
       { "gr",         function() Snacks.picker.lsp_references() end,                                     nowait = true,                 desc = "References", },
-      { "<leader>lS", function() Snacks.picker.lsp_references() end,                                     nowait = true,                 desc = "Goto Definition", },
+      { "<leader>ls", function() Snacks.picker.lsp_references() end,                                     nowait = true,                 desc = "Goto Definition", },
       { "gI",         function() Snacks.picker.lsp_implementations() end,                                desc = "Implementation", },
       { "<leader>lI", function() Snacks.picker.lsp_implementations() end,                                desc = "Implementation", },
       { "gy",         function() Snacks.picker.lsp_type_definitions() end,                               desc = "Type Definition", },
