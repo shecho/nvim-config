@@ -53,7 +53,7 @@ return {
         ["<D-j>"] = { "accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "accept" },
+        ["<CR>"] = { "accept", "fallback_to_mappings" },
       },
       cmdline = {
         enabled = true,
@@ -69,7 +69,7 @@ return {
             "select_next",
           },
           ["<C-j>"] = { "accept" },
-          ["<D-j>"] = { "accept" },
+          ["<D-j>"] = { "accept_and_enter" },
         },
         completion = { ghost_text = { enabled = false }, menu = { auto_show = true } },
       },
