@@ -2,8 +2,6 @@ return {
   {
     "stevearc/conform.nvim",
     event = { "BufReadPre" },
-    ---@module "conform"
-    ---@type conform.setupOpts
     opts = function()
       local conform = require("conform")
 
@@ -15,6 +13,8 @@ return {
         })
       end, { desc = "Format file or range (in visual mode)" })
 
+      ---@module "conform"
+      ---@type conform.setupOpts
       return {
         formatters_by_ft = {
           javascript = { "prettier", "prettierd", stop_after_first = true },
