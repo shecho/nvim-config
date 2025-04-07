@@ -18,8 +18,9 @@ return {
       severity_sort = true,
     })
 
+    local group = vim.api.nvim_create_augroup("UserLspConfig", {})
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      group = group,
       callback = function(ev)
         -- Buffer local mappings.
         local opts = { noremap = true, silent = true, buffer = ev.buf }

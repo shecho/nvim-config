@@ -45,7 +45,7 @@ return {
               return cmp.select_and_accept()
             end
           end,
-          "fallback",
+          "snippet_forward",
           "fallback_to_mappings",
         },
         ["<D-y>"] = { "accept", "fallback" },
@@ -64,7 +64,7 @@ return {
                 return cmp.accept()
               end
             end,
-            "show_and_insert",
+            "select_and_accept",
             "select_next",
           },
           ["<C-j>"] = { "accept" },
