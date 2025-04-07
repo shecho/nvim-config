@@ -45,7 +45,7 @@ return {
               return cmp.select_and_accept()
             end
           end,
-          "snippet_forward",
+          "fallback",
           "fallback_to_mappings",
         },
         ["<D-y>"] = { "accept", "fallback" },
@@ -60,7 +60,7 @@ return {
           preset = "cmdline",
           ["<Tab>"] = {
             function(cmp)
-              if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
+              if not cmp.is_menu_visible() then
                 return cmp.accept()
               end
             end,
