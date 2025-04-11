@@ -33,26 +33,21 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           function(cmp)
-            if cmp.snippet_active() then
+            if cmp.snippet_active() and not cmp.is_menu_visible then
               return cmp.accept()
-            elseif not vim.fn.pumvisible() == 0 then
-              return require("user.core.functions").feedkey("<C-n>")
             elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
-              return cmp.select_next()
-            elseif cmp.is_menu_visible() then
               return cmp.select_next()
             elseif require("user.core.functions").has_words_before() then
               return cmp.select_and_accept()
             end
           end,
-          "snippet_forward",
-          "fallback_to_mappings",
+          "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "accept", "fallback_to_mappings" },
+        ["<CR>"] = { "select_and_accept" },
       },
       cmdline = {
         enabled = true,
@@ -60,13 +55,19 @@ return {
           preset = "cmdline",
           ["<Tab>"] = {
             function(cmp)
-              if not cmp.is_menu_visible() then
+              if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
                 return cmp.accept()
               end
+              if not cmp.is_menu_visible() then
+                return cmp.accept_and_enter()
+              end
             end,
+            "show_and_insert",
             "select_and_accept",
             "select_next",
           },
+          ["<Up>"] = { "select_prev", "fallback" },
+          ["<Down>"] = { "select_next", "fallback" },
           ["<C-j>"] = { "accept" },
           ["<D-j>"] = { "accept_and_enter" },
         },
@@ -78,7 +79,7 @@ return {
       },
       completion = {
         trigger = { prefetch_on_insert = false },
-        list = { selection = { preselect = false } },
+        list = { selection = { preselect = true, auto_insert = true } },
         accept = { auto_brackets = { enabled = false } },
         documentation = { auto_show = true, auto_show_delay_ms = 200 },
 

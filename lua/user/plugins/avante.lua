@@ -36,13 +36,13 @@ return {
   build = "make",
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
-    "stevearc/dressing.nvim",
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-    "echasnovski/mini.pick",
+    -- "stevearc/dressing.nvim",
+    -- "MunifTanjim/nui.nvim",
+    -- "nvim-lua/plenary.nvim",
+    -- "echasnovski/mini.pick",
     -- "nvim-telescope/telescope.nvim",
-    "hrsh7th/nvim-cmp",
-    "ibhagwan/fzf-lua",
+    -- "hrsh7th/nvim-cmp",
+    -- "ibhagwan/fzf-lua",
     "nvim-tree/nvim-web-devicons",
     "zbirenbaum/copilot.lua",
     {

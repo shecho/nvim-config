@@ -3,6 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   --event = "VeryLazy",
   lazy = true,
+  version = "v2.*",
   -- version = "v2.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
@@ -15,7 +16,13 @@ return {
 
   -- stylua: ignore
   keys = {
-    { "<tab>", function() return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>" end, expr = true, silent = true, mode = "i", },
+    { "<Tab>", function()
+     if require("luasnip").jumpable(1) == true  then
+       return require("luasnip").jump(1)
+      elseif require("luasnip").expandable() == true then
+        return require("luasnip").expand()
+     end
+    end, expr = true, silent = true, mode = { "i", "n" }, },
     -- { "<tab>", function() require("luasnip").jump(1) end,                                                     mode = "s", },
   },
   config = function()

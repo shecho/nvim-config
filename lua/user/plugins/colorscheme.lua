@@ -158,6 +158,7 @@ return {
     opts = {
       colors = {
         blue2 = "#526fff",
+        blue3 = "#528bff",
         bg0 = "#282c34",
         light_grey = "#848b98",
         red2 = "#e86671",
