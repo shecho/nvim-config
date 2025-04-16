@@ -48,7 +48,7 @@ return {
         ["<D-j>"] = { "accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "select_and_accept" },
+        ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
       },
       cmdline = {
         enabled = true,
