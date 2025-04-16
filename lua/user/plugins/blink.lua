@@ -34,13 +34,14 @@ return {
         ["<Tab>"] = {
           function(cmp)
             if cmp.snippet_active() and not cmp.is_menu_visible then
-              return cmp.accept()
+              return cmp.snippet_forward()
             elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
               return cmp.select_next()
             elseif require("user.core.functions").has_words_before() then
               return cmp.select_and_accept()
             end
           end,
+          "fallback_to_mappings",
           "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
@@ -62,6 +63,7 @@ return {
                 return cmp.accept_and_enter()
               end
             end,
+            "snippet_forward",
             "show_and_insert",
             "select_and_accept",
             "select_next",

@@ -79,7 +79,7 @@ keymap("n", "<leader>;", ":", opts)
 -- remove S as a command
 opts.desc = "Remove 's'"
 keymap({ "n", "v", "x" }, "s", "<Esc>", opts)
-opts.desc = "Remov q"
+opts.desc = "Remove q"
 keymap({ "n", "v", "x" }, "q", "<Esc>", opts)
 
 -- TABS and buffer Naviagation
@@ -91,6 +91,8 @@ keymap("n", "<leader>1", "<c-^>", opt_nw)
 -- keymap("n", "<leader>bn", ":BufferNext<CR>", opts)
 -- keymap("n", "<leader>bp", ":BufferPrevious<CR>", opts)
 -- keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
+--
+opts.desc = "Telescope project"
 keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", opt_nw)
 keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opts)
 -- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
@@ -124,7 +126,7 @@ opt_nw.desc = "MyVimrc"
 keymap("n", "<leader>0", "<cmd>e $MYVIMRC<cr>", opt_nw)
 
 -- splits
--- keymap("n", "<leader>v", "<C-W>v", opt_nw)
+-- keyakeymap("n", "<leader>v", "<C-W>v", opt_nw)
 opt_nw.desc = "Vertical Split"
 keymap("n", "<leader>v", "<cmd>vsplit<cr>", opt_nw)
 opt_nw.desc = "Horizontal Split"

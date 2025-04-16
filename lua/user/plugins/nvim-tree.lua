@@ -61,7 +61,7 @@ return {
         -- preserve_window_proportions = true,
         width = 40,
         -- height = 30,
-        side = "right",
+        side = "left",
         -- auto_resize = true,
         number = false,
         relativenumber = false,
