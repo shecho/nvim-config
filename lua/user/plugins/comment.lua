@@ -30,10 +30,10 @@ return {
       local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
       local opts = { silent = true, desc = "Comment" }
 
-      keymap("n", "<leader>3", api.locked("toggle.linewise.current"), opts)
-      keymap("v", "<leader>3", api.locked("toggle.linewise.count"), opts)
+      -- keymap("n", "<leader>3", api.locked("toggle.linewise.current"), opts)
+      -- keymap("v", "<leader>3", api.locked("toggle.linewise.count"), opts)
       -- stylua: ignore
-      keymap("x", "<leader>3", function() vim.api.nvim_feedkeys(esc, "nx", false) api.locked("toggle.linewise")(vim.fn.visualmode()) end, opts)
+      -- keymap("x", "<leader>3", function() vim.api.nvim_feedkeys(esc, "nx", false) api.locked("toggle.linewise")(vim.fn.visualmode()) end, opts)
       keymap("n", "<leader>/", api.locked("toggle.linewise.current"), opts)
       keymap("v", "<leader>/", api.locked("toggle.linewise.count"), opts)
       -- stylua: ignore

@@ -16,20 +16,20 @@ return {
 
   -- stylua: ignore
   keys = {
-    {
-      "<Tab>",
-      function()
-        if require("luasnip").jumpable(1) == true then
-          return require("luasnip").jump(1)
-        elseif require("luasnip").expandable() == true then
-          return require("luasnip").expand()
-        end
-      end,
-      expr = true,
-      silent = true,
-      mode = { "i", "n" },
-    },
-    { "<tab>", function() require("luasnip").jump(1) end, mode = "s", },
+    -- {
+    --   "<Tab>",
+    --   function()
+    --     if require("luasnip").jumpable(1) == true then
+    --       return require("luasnip").jump(1)
+    --     elseif require("luasnip").expandable() == true then
+    --       return require("luasnip").expand()
+    --     end
+    --   end,
+    --   expr = true,
+    --   silent = true,
+    --   mode = { "i", "n" },
+    -- },
+    -- { "<tab>", function() require("luasnip").jump(1) end, mode = "s", },
   },
   config = function()
     local luasnip = require("luasnip")

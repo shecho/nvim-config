@@ -4,7 +4,10 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
-      "windwp/nvim-ts-autotag",
+      {
+        "windwp/nvim-ts-autotag",
+        config = function() end,
+      },
       "axelvc/template-string.nvim",
       "nvim-treesitter/nvim-treesitter-textobjects",
       -- "nvim-treesitter/nvim-treesitter-refactor",
