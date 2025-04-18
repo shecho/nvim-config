@@ -158,7 +158,7 @@ return {
     opts = {
       colors = {
         blue2 = "#526fff",
-        blue3 = "#528bff",
+        blue3 = "#528bFF",
         bg0 = "#282c34",
         light_grey = "#848b98",
         red2 = "#e86671",
@@ -269,7 +269,9 @@ return {
         -- ["DiagnosticVirtualTextWarn"] = { fg = "${dark_yellow}", extend = true, bold = true, italic = true },
         -- ["DiagnosticVirtualTextEror"] = { fg = "${dark_red}", extend = true, bold = true },
 
-        ["@lsp.typemod.function.declaration"] = { bold = false, italic = false },
+        ["@lsp.typemod.function.declaration"] = { fg = "${virtual_text_information}", bold = false, italic = false, extend = true },
+        -- ["@lsp.mod.declaration"] = { fg = "${virtual_text_information}", bold = false, italic = false, extend = true },
+
         ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },
         ["FloatBorder"] = { fg = "${bg}", bg = "${bg}", extend = true },
         ["SnacksPickerBorder"] = { fg = "${bg}", extend = true },
@@ -278,7 +280,12 @@ return {
         ["IlluminatedWordRead"] = { fg = "#828997", underline = true, italic = true, bold = true, extend = true },
 
         -- variable icon un cmenu
+
         ["BlinkCmpKindVariable"] = { fg = "${blue2}", bold = true, extend = true },
+
+        -- specificy overrrides
+        -- ["@lsp.typemod.variable.readonly"] = { fg = "${cyan}", bold = true },
+        -- ["@lsp.typemod.variable.local"] = { fg = "${bg_blue}", bold = true },
       },
       options = {
         highlight_inactive_windows = true,
