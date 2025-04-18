@@ -12,7 +12,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
     kind = {
       Boolean = "󰨙 ",
       Class = " ",
-      Constructor = "󰦮", --Constructor = "", -- Constructor = "",
+      Constructor = "󰦮 ", --Constructor = "", -- Constructor = "",
       Color = "",
       Control = " ",
       Constant = "󰏿", --Constant = "", -- Constant = " ",
@@ -27,7 +27,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       Keyword = "", -- Keyword = "",
       Method = "",
       Module = "",
-      Namespace = "󰦮",
+      Namespace = "󰦮 ",
       Null = "",
       Number = "󰎠 ",
       Object = " ",
@@ -93,6 +93,7 @@ if vim.fn.has("mac") == 1 or vim.g.use_nerd_icons then
       untracked = "?",
     },
     ui = {
+      copilitot = " ",
       live = "󰐰 ",
       hidden = "h",
       ignored = "i",

@@ -84,6 +84,7 @@ keymap({ "n", "v", "x" }, "q", "<Esc>", opts)
 
 -- TABS and buffer Naviagation
 --
+opts.desc = "Previus buffer"
 keymap("n", "<leader>1", "<c-^>", opt_nw)
 -- keymap("n", "<TAB>", "<cmd>bnext<cr>", opts)
 -- keymap("n", "<S-TAB>", "<cmd>bprevious<cr>", opts)

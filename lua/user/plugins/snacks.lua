@@ -179,7 +179,7 @@ return {
       -- { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications", },
       -- { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit", },
       {
-        "<leader>N",
+        "<leader>NN",
         desc = "Neovim News",
         function()
           Snacks.win({
