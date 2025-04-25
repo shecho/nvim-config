@@ -205,6 +205,9 @@ return {
         ["CursorLine"] = { italic = true, bold = true, link = "visual" },
         ["@attribute"] = { fg = "${purple}", italic = true },
         ["@string"] = { bold = true, fg = "${green}" },
+        ["@string.special"] = { extend = true, italic = true, bold = true },
+        ["@string.special.path"] = { extend = true, bold = true, fg = "${git_add}", italic = true },
+        ["@string.special.url"] = { extend = true, bold = true, fg = "${git_add}", italic = true, undercurl = true },
         ["@repeat"] = { fg = "${purple}", italic = true },
 
         ["@type"] = { fg = "${yellow}", bold = true },
@@ -212,9 +215,15 @@ return {
         ["@type.builtin.tsx"] = { fg = "${orange}", italic = true, bold = true },
         ["@type.definition"] = { bold = true },
 
+        ["@function"] = { bold = true },
+        ["Function"] = { fg = "${virtual_text_information}", bold = true, extend = true },
         ["@function.builtin"] = { fg = "${blue2}", bold = true, italic = true },
         ["@function.method"] = { fg = "${blue2}", italic = true },
         ["@function.macro"] = { fg = "${cyan}", italic = true },
+        ["@function.call"] = { fg = "${virtual_text_information}", bold = false, italic = true, link = "Function" },
+        ["@function.call.javascript"] = { fg = "${virtual_text_information}", link = "Function" },
+        ["@function.call.tsx"] = { fg = "${virtual_text_information}", link = "Function" },
+        -- ["@lsp.typemod.function.declaration"] = {  link = "@function" },
 
         ["@method"] = { fg = "${blue2}", italic = true },
         ["@interface"] = { fg = "${orange}", bold = true, italic = true },
@@ -228,6 +237,7 @@ return {
         ["@keyword.directive"] = { fg = "${purple}", italic = true },
         ["@keyword.exception"] = { fg = "${purple}", italic = true },
         ["@keyword.function"] = { fg = "${purple}", italic = true },
+
         ["@keyword.operator"] = { fg = "${purple}", italic = true },
         ["@keyword.import"] = { fg = "${purple}", italic = true },
         ["@keyword.repeat"] = { fg = "${purple}", italic = true },
@@ -269,7 +279,7 @@ return {
         -- ["DiagnosticVirtualTextWarn"] = { fg = "${dark_yellow}", extend = true, bold = true, italic = true },
         -- ["DiagnosticVirtualTextEror"] = { fg = "${dark_red}", extend = true, bold = true },
 
-        ["@lsp.typemod.function.declaration"] = { fg = "${virtual_text_information}", bold = false, italic = false, extend = true },
+        -- ["@lsp.typemod.function.declaration"] = { fg = "${virtual_text_information}", bold = false, italic = false, extend = true },
         -- ["@lsp.mod.declaration"] = { fg = "${virtual_text_information}", bold = false, italic = false, extend = true },
 
         ["NvimTreeFolderIcon"] = { fg = "${blue}", bold = false, extend = true },

@@ -33,7 +33,7 @@ return {
 
         opts.desc = "Show LSP definitions"
         keymap("n", "<leader>ld", "<cmd>Trouble lsp_definitions<CR>", opts)
-        keymap("n", "<leader>lD", vim.lsp.buf.definition, opts)
+        -- keymap("n", "<leader>lD", vim.lsp.buf.definition, opts)
 
         opts.desc = "Show LSP implementations"
         -- keymap("n", "<leader>lI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
@@ -57,7 +57,6 @@ return {
         keymap("n", "<leader>ln", function()
           vim.diagnostic.jump({ count = -1, float = true })
         end, opts)
-
         opts.desc = "Go to next diagnostic"
         keymap("n", "<leader>ll", function()
           vim.diagnostic.jump({ count = 1, float = true })
