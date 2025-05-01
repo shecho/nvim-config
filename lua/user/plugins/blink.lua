@@ -35,7 +35,9 @@ return {
           function(cmp)
             if cmp.snippet_active() and not cmp.is_menu_visible then
               return cmp.snippet_forward()
-            elseif require("user.core.functions").HAS_WORDS_BEFORE() and cmp.is_menu_visible() then
+            elseif not cmp.is_menu_visible() then
+              return cmp.show()
+            elseif require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.insert_next()
             elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
               return cmp.select_next()
