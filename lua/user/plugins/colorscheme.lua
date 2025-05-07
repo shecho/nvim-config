@@ -205,6 +205,7 @@ return {
         ["CursorLine"] = { italic = true, bold = true, link = "visual" },
         ["@attribute"] = { fg = "${purple}", italic = true },
         ["@string"] = { bold = true, fg = "${green}" },
+        ["@string.scape"] = { bold = true, fg = "${git_add}" },
         ["@string.special"] = { extend = true, italic = true, bold = true },
         ["@string.special.path"] = { extend = true, bold = true, fg = "${git_add}", italic = true },
         ["@string.special.url"] = { extend = true, bold = true, fg = "${git_add}", italic = true, undercurl = true },
@@ -266,6 +267,7 @@ return {
         ["@variable"] = { bold = true },
         ["@variable.builtin"] = { italic = true },
         ["@variable.parameter"] = { fg = "${red}", italic = true },
+        -- ["@variable.parameter.builtin"] = { fg = "${red}", italic = true },
         ["@variable.member"] = { fg = "${red}", italic = true },
 
         ["@lsp.type.property"] = { fg = "${red}", italic = true },

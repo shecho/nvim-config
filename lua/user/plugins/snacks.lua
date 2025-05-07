@@ -37,7 +37,7 @@ return {
                 title = "{title} {live} {flags}",
                 title_pos = "center",
               },
-              { win = "list", border = "none" },
+              { win = "list",    border = "none" },
               { win = "preview", title = "{preview}", height = 0.4, border = "top" },
             },
           },
@@ -49,9 +49,9 @@ return {
         -- layout = { layout = { box = "horizontal" } },
         sources = {
           command_history = { focus = "list" },
-          explorer = { layout = { layout = { position = "right" }, border = "none" } }, -- explorer = { layout = { preset = "right" } }, --  same as
+          explorer = { layout = { layout = { position = "right" }, border = "none" } },                            -- explorer = { layout = { preset = "right" } }, --  same as
           recent = { layout = { preset = "vscode" }, focus = "list" },
-          buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
+          buffers = { layout = { preset = "vscode" }, focus = "list" },                                            -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
           files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.95, height = 0.95 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
@@ -122,7 +122,9 @@ return {
       -- search and explorer
       { "<leader>e",  function() Snacks.explorer() end,                                                  desc = "File Explorer", },
       { "<leader>E",  function() Snacks.picker.files({ layout = "float_explorer", focus = 'list' }) end, desc = "File Explorer", },
-      { "<leader>p",  function() Snacks.picker.smart() end,                                              desc = "Smart Files", },
+      { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,                         desc = "Files", },
+      { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end,                       desc = "Find Files", },
+      { "<leader>p",  function() Snacks.picker.smart({ layout = "vscode", }) end,                        desc = "Smart Files", },
       { "<leader>sf", function() Snacks.picker.smart() end,                                              desc = "Smart Files", },
       { "<leader>sb", function() Snacks.picker.buffers() end,                                            desc = "Buffers", },
       { "<leader>sk", function() Snacks.picker.keymaps() end,                                            desc = "Keymaps", },
@@ -131,11 +133,16 @@ return {
       { "<leader>sh", function() Snacks.picker.highlights() end,                                         desc = "Highlights", },
       { "<leader>sj", function() Snacks.picker.jumps() end,                                              desc = "Jumps", },
       { "<leader>sH", function() Snacks.picker.search_history() end,                                     desc = "Search History", },
-      { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end,                       desc = "Find Files", },
+      { "<leader>sG", function() Snacks.picker.git_branches() end,                                       desc = "Git Branches", },
+      { "<leader>sp", function() Snacks.picker.projects() end,                                           desc = "Projects", },
+      { "<leader>so", function() Snacks.picker.recent() end,                                             desc = "Recent", },
+      { "<leader>sm", function() Snacks.picker.marks() end,                                              desc = "Marks", },
+      { "<leader>sg", function() Snacks.picker.grep() end,                                               desc = "Grep", },
+      { "<leader>sw", function() Snacks.picker.grep_word() end,                                          desc = "Selection word",       mode = { "n", "x", "v" }, },
       {
         "<leader>f",
         function()
-          ---@diagnostic disable-next-line: undefined-field
+          -- -@diagnostic disable-next-line: undefined-field
           local cwd = vim.loop.cwd()
           Snacks.picker.files({
             actions = {
@@ -153,44 +160,37 @@ return {
         end,
         desc = "Find Files",
       },
-      { "<leader>sG", function() Snacks.picker.git_branches() end,               desc = "Git Branches", },
-      { "<leader>sp", function() Snacks.picker.projects() end,                   desc = "Projects", },
-      { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end, desc = "Files", },
-      { "<leader>so", function() Snacks.picker.recent() end,                     desc = "Recent", },
-      { "<leader>sm", function() Snacks.picker.marks() end,                      desc = "Marks", },
-      { "<leader>sg", function() Snacks.picker.grep() end,                       desc = "Grep", },
-      { "<leader>sw", function() Snacks.picker.grep_word() end,                  desc = "Selection word",       mode = { "n", "x", "v" }, },
       --LSP
-      { "gd",         function() Snacks.picker.lsp_definitions() end,            desc = "Definition", },
-      { "gh",         function() Snacks.picker.lsp_definitions() end,            desc = "Definition", },
-      { "gD",         function() Snacks.picker.lsp_declarations() end,           desc = "Declaration", },
-      { "gr",         function() Snacks.picker.lsp_references() end,             nowait = true,                 desc = "References", },
-      { "<leader>ls", function() Snacks.picker.lsp_references() end,             nowait = true,                 desc = "Goto Definition", },
-      { "gI",         function() Snacks.picker.lsp_implementations() end,        desc = "Implementation", },
-      { "gi",         function() Snacks.picker.lsp_implementations() end,        desc = "Implementation", },
-      { "<leader>lI", function() Snacks.picker.lsp_implementations() end,        desc = "Implementation", },
-      { "gy",         function() Snacks.picker.lsp_type_definitions() end,       desc = "Type Definition", },
-      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,       desc = "Type Definition", },
-      { "<leader>lB", function() Snacks.picker.diagnostics() end,                desc = "Diagnostic", },
-      { "<leader>lb", function() Snacks.picker.diagnostics_buffer() end,         desc = "Diagnostic Buffer", },
+      { "gd",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
+      { "gh",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
+      { "gD",         function() Snacks.picker.lsp_declarations() end,     desc = "Declaration", },
+      { "gr",         function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "References", },
+      { "<leader>ls", function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "Goto Definition", },
+      { "gI",         function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
+      { "gi",         function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
+      { "<leader>lI", function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
+      { "gy",         function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
+      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
+      { "<leader>lB", function() Snacks.picker.diagnostics() end,          desc = "Diagnostic", },
+      { "<leader>lb", function() Snacks.picker.diagnostics_buffer() end,   desc = "Diagnostic Buffer", },
       -- Zen
-      { "<leader>z",  function() Snacks.zen() end,                               desc = "Toggle Zen Mode", },
-      { "<leader>Z",  function() Snacks.zen.zoom() end,                          desc = "Toggle Zoom", },
+      { "<leader>z",  function() Snacks.zen() end,                         desc = "Toggle Zen Mode", },
+      { "<leader>Z",  function() Snacks.zen.zoom() end,                    desc = "Toggle Zoom", },
       -- News
-      { "<leader>Un", function() Snacks.picker.notifications() end,              desc = "History", },
-      { "<leader>N",  function() Snacks.notifier.show_history() end,             desc = "History", },
-      { "<leader>cR", function() Snacks.rename.rename_file() end,                desc = "Rename File", },
+      { "<leader>Un", function() Snacks.picker.notifications() end,        desc = "History", },
+      { "<leader>N",  function() Snacks.notifier.show_history() end,       desc = "History", },
+      { "<leader>cR", function() Snacks.rename.rename_file() end,          desc = "Rename File", },
       -- Git
-      { "<leader>gB", function() Snacks.gitbrowse() end,                         desc = "Git Browse",           mode = { "n", "v" }, },
-      { "<leader>gb", function() Snacks.git.blame_line() end,                    desc = "Git Blame Line", },
-      { "<leader>gd", function() Snacks.picker.git_diff() end,                   desc = "Git diff", },
-      { "<leader>gF", function() Snacks.picker.git_log_file() end,               desc = "Current File History", },
-      { "<leader>gf", function() Snacks.lazygit.log_file() end,                  desc = "Lazygit File History", },
-      { "<leader>gl", function() Snacks.lazygit.log() end,                       desc = "Lazygit Log (cwd)", },
-      { "<c-/>",      function() Snacks.terminal() end,                          desc = "Terminal",             mode = { "t", "n" }, },
-      { "<c-_>",      function() Snacks.terminal() end,                          desc = "Terminal", },
-      { "]]",         function() Snacks.words.jump(vim.v.count1) end,            desc = "Next Reference",       mode = { "n", "t" }, },
-      { "[[",         function() Snacks.words.jump(-vim.v.count1) end,           desc = "Prev Reference",       mode = { "n", "t" }, },
+      { "<leader>gB", function() Snacks.gitbrowse() end,                   desc = "Git Browse",           mode = { "n", "v" }, },
+      { "<leader>gb", function() Snacks.git.blame_line() end,              desc = "Git Blame Line", },
+      { "<leader>gd", function() Snacks.picker.git_diff() end,             desc = "Git diff", },
+      { "<leader>gF", function() Snacks.picker.git_log_file() end,         desc = "Current File History", },
+      { "<leader>gf", function() Snacks.lazygit.log_file() end,            desc = "Lazygit File History", },
+      { "<leader>gl", function() Snacks.lazygit.log() end,                 desc = "Lazygit Log (cwd)", },
+      { "<c-/>",      function() Snacks.terminal() end,                    desc = "Terminal",             mode = { "t", "n" }, },
+      { "<c-_>",      function() Snacks.terminal() end,                    desc = "Terminal", },
+      { "]]",         function() Snacks.words.jump(vim.v.count1) end,      desc = "Next Reference",       mode = { "n", "t" }, },
+      { "[[",         function() Snacks.words.jump(-vim.v.count1) end,     desc = "Prev Reference",       mode = { "n", "t" }, },
 
       -- { "<leader>gs", function() Snacks.gitbrowse() end,                           desc = "Git Browse",                   mode = { "n", "v" }, },
       -- { "<leader>gF", function() Snacks.picker.git_log() end,                    desc = "Lazygit Current File History", },
@@ -229,7 +229,8 @@ return {
           Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>UL")
           Snacks.toggle.diagnostics():map("<leader>Ud")
           Snacks.toggle.line_number():map("<leader>Ul")
-          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>Uc")
+          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map(
+            "<leader>Uc")
           Snacks.toggle.treesitter():map("<leader>UT")
           -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
           Snacks.toggle.inlay_hints():map("<leader>Uh")
