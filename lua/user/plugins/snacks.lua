@@ -37,7 +37,7 @@ return {
                 title = "{title} {live} {flags}",
                 title_pos = "center",
               },
-              { win = "list",    border = "none" },
+              { win = "list", border = "none" },
               { win = "preview", title = "{preview}", height = 0.4, border = "top" },
             },
           },
@@ -49,9 +49,9 @@ return {
         -- layout = { layout = { box = "horizontal" } },
         sources = {
           command_history = { focus = "list" },
-          explorer = { layout = { layout = { position = "right" }, border = "none" } },                            -- explorer = { layout = { preset = "right" } }, --  same as
+          explorer = { layout = { layout = { position = "right" }, border = "none" } }, -- explorer = { layout = { preset = "right" } }, --  same as
           recent = { layout = { preset = "vscode" }, focus = "list" },
-          buffers = { layout = { preset = "vscode" }, focus = "list" },                                            -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
+          buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
           files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.95, height = 0.95 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
@@ -229,8 +229,7 @@ return {
           Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>UL")
           Snacks.toggle.diagnostics():map("<leader>Ud")
           Snacks.toggle.line_number():map("<leader>Ul")
-          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map(
-            "<leader>Uc")
+          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>Uc")
           Snacks.toggle.treesitter():map("<leader>UT")
           -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
           Snacks.toggle.inlay_hints():map("<leader>Uh")

@@ -6,8 +6,7 @@ return {
     { "mason-org/mason-lspconfig.nvim" },
     { "mason-org/mason.nvim" },
     { "mason-org/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" }
-
+    { "neovim/nvim-lspconfig" },
   },
   config = function()
     local lspconfig = require("lspconfig")
@@ -89,7 +88,6 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-
     lspconfig["graphql"].setup({
       capabilities = capabilities,
       filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
@@ -114,10 +112,10 @@ return {
     })
     lspconfig["ts_ls"].setup({
       capabilities = capabilities,
-      on_attach = function(client, _)
-        client.server_capabilities.document_formatting = false
-        client.server_capabilities.document_range_formatting = false
-      end,
+      -- on_attach = function(client, _)
+      -- client.server_capabilities.document_formatting = false
+      -- client.server_capabilities.document_range_formatting = false
+      -- end,
     })
   end,
 }
