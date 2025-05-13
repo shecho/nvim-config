@@ -290,11 +290,8 @@ return {
         ["SnacksPickerBoxBorder"] = { fg = "${bg}", extend = true },
 
         ["IlluminatedWordRead"] = { fg = "#828997", underline = true, italic = true, bold = true, extend = true },
-
         -- variable icon un cmenu
-
         ["BlinkCmpKindVariable"] = { fg = "${blue2}", bold = true, extend = true },
-
         -- specificy overrrides
         -- ["@lsp.typemod.variable.readonly"] = { fg = "${cyan}", bold = true },
         -- ["@lsp.typemod.variable.local"] = { fg = "${bg_blue}", bold = true },
