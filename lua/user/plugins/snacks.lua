@@ -60,6 +60,8 @@ return {
           git_diff = { layout = { preset = "ivy" }, focus = "list" },
           lsp_references = { layout = { preset = "ivy" }, focus = "list" },
           lsp_definitions = { layout = { preset = "dropdown" }, focus = "list" },
+          colorschemes = { layout = { preset = "dropdown" }, focus = "list" },
+
           -- files = { layout = { preset = "my_vertical_layout" }, focus = "list" }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
         },
       },

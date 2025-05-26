@@ -4,10 +4,10 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
-      {
-        "windwp/nvim-ts-autotag",
-        config = function() end,
-      },
+      -- {
+      -- "windwp/nvim-ts-autotag",
+      -- config = function() end,
+      -- },
       "axelvc/template-string.nvim",
       "nvim-treesitter/nvim-treesitter-textobjects",
       -- "nvim-treesitter/nvim-treesitter-refactor",
@@ -35,7 +35,7 @@ return {
         TSConfig = nil,
         sync_install = true,
         highlight = { enable = true },
-        autotag = { enable = true, enable_rename = true, enable_close = true, enable_close_on_slash = true },
+        -- autotag = { enable = true, enable_rename = true, enable_close = true, enable_close_on_slash = true },
         ignore_install = { "php", "phpdoc", "sql", "erlang" },
         ensure_installed = {
           "json",
