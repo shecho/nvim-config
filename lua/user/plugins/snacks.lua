@@ -145,7 +145,7 @@ return {
       {
         "<leader>f",
         function()
-          -- -@diagnostic disable-next-line: undefined-field
+          ---@diagnostic disable-next-line: undefined-field
           local cwd = vim.loop.cwd()
           Snacks.picker.files({
             actions = {

@@ -120,7 +120,7 @@ return {
   --
   --         ["@boolean"] = { fg = "$orange", fmt = "bolditalic" },
   --
-  --         -- ["@tags"] = { fg = "$green", fmt = "bold" },
+  --         ["@tags"] = { fg = "$green", fmt = "bold" },
   --         ["@tag"] = { fg = "$yellow", fmt = "bold" },
   --         ["@tag.delimiter"] = { fg = "$fg", fmt = "bold" },
   --         ["@tag.attribute"] = { fg = "$orange", fmt = "bold" },

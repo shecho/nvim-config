@@ -36,12 +36,12 @@ return {
               return cmp.show_and_insert()
             elseif cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
-              -- elseif not cmp.is_menu_visible() and not cmp.snippet_active() then
-              -- return cmp.show_and_insert()
+            elseif not cmp.is_menu_visible() and not cmp.snippet_active() then
+              return cmp.show_and_insert()
             elseif require("user.core.functions").has_words_before() then
               return cmp.select_next()
-              -- elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
-              -- return cmp.select_next()
+            elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
+              return cmp.select_next()
             elseif require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
             end
