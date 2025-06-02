@@ -7,18 +7,20 @@ return {
     -- add any opts here
     -- for example
     provider = "copilot",
-    copilot = {
-      model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
+    providers = {
+      copilot = {
+        model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
+      },
     },
     auto_suggestions_provider = "copilot",
-    openai = {
-      -- endpoint = "https://api.openai.com/v1",
-      -- model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- timeout in milliseconds
-      temperature = 0, -- adjust if needed
-      max_tokens = 4096,
-      reasoning_effort = "high", -- only supported for "o" models
-    },
+    -- openai = {
+    --   -- endpoint = "https://api.openai.com/v1",
+    --   -- model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+    --   timeout = 30000, -- timeout in milliseconds
+    --   temperature = 0, -- adjust if needed
+    --   max_tokens = 4096,
+    --   reasoning_effort = "high", -- only supported for "o" models
+    -- },
     mappings = {
       --- @class AvanteConflictMappings
       diff = {
