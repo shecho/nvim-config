@@ -190,6 +190,10 @@ return {
       },
       highlights = {
 
+        Comment = { extend = true, italic = true, fg = "${comment}" },
+        TodoFgFix = { extend = true, link = "comment" },
+        TodoFgTodo = { extend = true, link = "comment" },
+
         LineNr = { bg = "${bg}", extend = true, italic = true },
         -- BufferCurrent = { fg = "${blue}", bg = "${blue}", bold = true, italic = true, extend = true },
         Visual = { bold = true, italic = true, extend = true },
@@ -295,6 +299,7 @@ return {
         -- specificy overrrides
         -- ["@lsp.typemod.variable.readonly"] = { fg = "${cyan}", bold = true },
         -- ["@lsp.typemod.variable.local"] = { fg = "${bg_blue}", bold = true },
+        -- comments
       },
       options = {
         highlight_inactive_windows = true,
