@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.pairs",
-    version = "*", -- (recommended) only required with prebuilt binaries
+    -- version = "*", -- (recommended) only required with prebuilt binaries
 
     -- download prebuilt binaries from github releases
     dependencies = "saghen/blink.download",
@@ -19,12 +19,12 @@ return {
         pairs = {},
       },
       highlights = {
-        enabled = true,
-        groups = {
-          "BlinkPairsOrange",
-          "BlinkPairsPurple",
-          "BlinkPairsBlue",
-        },
+        enabled = false,
+        -- groups = {
+        --   "BlinkPairsOrange",
+        --   "BlinkPairsPurple",
+        --   "BlinkPairsBlue",
+        -- },
         matchparen = {
           enabled = true,
           group = "MatchParen",
@@ -36,9 +36,7 @@ return {
   -- {
   --   "windwp/nvim-autopairs",
   --   event = { "InsertEnter" },
-  --   dependencies = {
-  --     "hrsh7th/nvim-cmp",
-  --   },
+  -- dependencies = { "hrsh7th/nvim-cmp", },
   --   opts = function()
   --     -- import nvim-autopairs
   --     local autopairs = require("nvim-autopairs")
