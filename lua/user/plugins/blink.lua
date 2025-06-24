@@ -36,8 +36,6 @@ return {
               return cmp.show_and_insert()
             elseif cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
-            elseif not cmp.is_menu_visible() and not cmp.snippet_active() then
-              return cmp.show_and_insert()
             elseif require("user.core.functions").has_words_before() then
               return cmp.select_next()
             elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
@@ -46,6 +44,7 @@ return {
               return cmp.select_next()
             end
           end,
+          "select_next",
           "fallback_to_mappings",
           "fallback",
         },
@@ -149,6 +148,17 @@ return {
       sources = {
         default = { "lazydev", "snippets", "lsp", "path", "buffer" },
         providers = {
+          -- snippets = {
+          --   name = "Snippets",
+          --   module = "blink.cmp.sources.snippets",
+          --   should_show_items = function(ctx)
+          --     return ctx.trigger.initial_kind ~= "."
+          --   end,
+          --   opts = {
+          --     engine = "luasnip",
+          --     sources = { "friendly-snippets" },
+          --   },
+          -- },
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
