@@ -3,16 +3,19 @@ return {
   event = "VeryLazy",
   lazy = false,
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+  ---@module 'avante'
+  ---@type avante.Config
   opts = {
     -- add any opts here
     -- for example
     provider = "copilot",
     providers = {
       copilot = {
-        model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
+        -- model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
+        model = "gpt-4.1", -- o1-preview | o1-mini | claude-3.5-sonnet
       },
     },
-    auto_suggestions_provider = "copilot",
+    -- auto_suggestions_provider = "copilot",
     -- openai = {
     --   -- endpoint = "https://api.openai.com/v1",
     --   -- model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)

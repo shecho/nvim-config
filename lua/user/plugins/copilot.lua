@@ -51,7 +51,7 @@ return {
         local user = vim.env.USER or "User"
         user = user:sub(1, 1):upper() .. user:sub(2)
         return {
-          model = "gpt-4o",
+          model = "gpt-4.1",
           -- answer_header = "󱗞 ",
           question_header = "  " .. user .. " ",
           answer_header = "  Copilot ",
@@ -64,7 +64,13 @@ return {
         }
       end,
       keys = {
-        { mode = { "i", "n", "v" }, "<C-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt" },
+        {
+          mode = { "i", "n", "v" },
+          "<C-s>",
+          "<CR>",
+          ft = "copilot-chat",
+          desc = "Submit Prompt",
+        },
         { "<leader>ct", "<cmd>CopilotChatToggle<cr>", nowait = true, desc = "Toggle copilot chat" },
         -- { "<leader>cc", "<cmd>CopilotChatToggle<cr>", nowait = true, desc = "Toggle copilot chat" },
         -- stylua: ignore

@@ -49,10 +49,10 @@ return {
           "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
-        ["<D-j>"] = { "accept", "fallback" },
+        ["<D-j>"] = { "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "select_and_accept", "fallback_to_mappings" },
+        ["<CR>"] = { "select_and_accept", "fallback", "fallback_to_mappings" },
       },
       cmdline = {
         enabled = true,
