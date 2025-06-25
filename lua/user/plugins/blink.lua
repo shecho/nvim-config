@@ -76,6 +76,7 @@ return {
           ["<Down>"] = { "select_next", "fallback" },
           ["<C-j>"] = { "accept" },
           ["<D-j>"] = { "accept_and_enter" },
+          ["<CR>"] = { "select_accept_and_enter", "select_and_accept", "fallback", "fallback_to_mappings" },
         },
         completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
       },
@@ -87,7 +88,7 @@ return {
         trigger = { prefetch_on_insert = false },
         list = { selection = { preselect = true, auto_insert = true } },
         accept = { auto_brackets = { enabled = false } },
-        documentation = { auto_show = true, auto_show_delay_ms = 400 },
+        documentation = { auto_show = false, auto_show_delay_ms = 400 },
 
         menu = {
           winblend = 15,
