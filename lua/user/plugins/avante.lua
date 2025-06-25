@@ -36,6 +36,14 @@ return {
         prev = "cp",
       },
     },
+    selector = {
+      --- --@alias avante.SelectorProvider "native" | "fzf_lua" | "mini_pick" | "snacks" | "telescope" | fun(selector: avante.ui.Selector): nil
+      ---@type avante.SelectorProvider
+      provider = "snacks", -- "native" | "fzf_lua" | "mini_pick" | "snacks" | "telescope"
+    },
+    input = {
+      provider = "snacks", -- "dressing" | "nui" | "telescope" | "mini_pick" | "snacks"
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
