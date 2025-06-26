@@ -96,6 +96,12 @@ return {
       capabilities = capabilities,
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
+    lspconfig["tailwindcss"].setup({
+      capabilities = capabilities,
+      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+      -- filetypes = { "css", "scss", "less", "sass" },
+    })
+
     lspconfig["lua_ls"].setup({
       capabilities = capabilities,
       -- settings = {

@@ -67,7 +67,6 @@ return {
                 return cmp.accept_and_enter()
               end
             end,
-            "snippet_forward",
             "show_and_insert",
             "select_and_accept",
             "select_next",
@@ -85,7 +84,7 @@ return {
         nerd_font_variant = "mono",
       },
       completion = {
-        trigger = { prefetch_on_insert = false },
+        trigger = { prefetch_on_insert = false, show_on_insert = true, show_on_cmdline = true },
         list = { selection = { preselect = true, auto_insert = true } },
         accept = { auto_brackets = { enabled = false } },
         documentation = { auto_show = false, auto_show_delay_ms = 400 },
