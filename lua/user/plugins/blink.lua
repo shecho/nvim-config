@@ -84,7 +84,7 @@ return {
         nerd_font_variant = "mono",
       },
       completion = {
-        trigger = { prefetch_on_insert = false, show_on_insert = true, show_on_cmdline = true },
+        trigger = { prefetch_on_insert = false, show_on_insert = true },
         list = { selection = { preselect = true, auto_insert = true } },
         accept = { auto_brackets = { enabled = false } },
         documentation = { auto_show = false, auto_show_delay_ms = 400 },
