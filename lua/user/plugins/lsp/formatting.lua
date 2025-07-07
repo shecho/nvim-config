@@ -4,7 +4,6 @@ return {
     event = { "BufReadPre" },
     opts = function()
       local conform = require("conform")
-
       vim.keymap.set({ "n", "v" }, "<leader>lf", function()
         conform.format({
           lsp_fallback = true,
@@ -35,7 +34,7 @@ return {
         format_on_save = {
           lsp_fallback = true,
           async = false,
-          timeout_ms = 1000,
+          timeout_ms = 800,
         },
       }
     end,

@@ -48,6 +48,8 @@ return {
           "fallback_to_mappings",
           "fallback",
         },
+
+        ["<S-Tab>"] = { "select_prev" },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
