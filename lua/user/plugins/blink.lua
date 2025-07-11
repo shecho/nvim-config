@@ -32,19 +32,23 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           function(cmp)
-            if not cmp.is_menu_visible() and not cmp.snippet_active() then
+            if not cmp.is_menu_visible() and not cmp.snippet_active({ direction = 1 }) then
               return cmp.show_and_insert()
             end
-            if cmp.snippet_active() and not cmp.is_menu_visible() then
+            if cmp.snippet_active({ direction = 1 }) and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
-            elseif require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
+            end
+            if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
-              -- elseif cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
-              -- return cmp.select_next()
-            elseif require("user.core.functions").HAS_WORDS_BEFORE() then
+            end
+            if cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
+              return cmp.select_next()
+            end
+            if require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
             end
           end,
+          "snippet_forward",
           "select_next",
           "fallback_to_mappings",
           "fallback",
@@ -92,9 +96,9 @@ return {
       },
       completion = {
         trigger = { prefetch_on_insert = false, show_on_insert = true },
-        list = { selection = { preselect = true, auto_insert = true } },
-        accept = { auto_brackets = { enabled = false } },
-        documentation = { auto_show = false, auto_show_delay_ms = 400 },
+        -- list = { selection = { preselect = true, auto_insert = true } },
+        -- accept = { auto_brackets = { enabled = false } },
+        documentation = { auto_show = false, auto_show_delay_ms = 200 },
 
         menu = {
           winblend = 15,
@@ -104,7 +108,7 @@ return {
             components = {
               item_idx = {
                 text = function(ctx)
-                  return ctx.idx == 20 and "0" or ctx.idx >= 10 and " " or tostring(ctx.idx)
+                  return ctx.idx == 20 and "0" or ctx.idx >= 20 and " " or tostring(ctx.idx)
                 end,
                 highlight = "BlinkCmpItemIdx", -- optional, only if you want to change its color
               },
