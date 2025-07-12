@@ -17,6 +17,23 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- term_mode = "t",
 -- command_mode = "c",
 
+--disable some mac keymap
+keymap("i", "<D-a>", "<nop>", opt_nw)
+keymap("i", "<D-d>", "<nop>", opt_nw)
+keymap("i", "<D-z>", "<nop>", opt_nw)
+keymap("i", "<D-z>", "<nop>", opt_nw)
+keymap("i", "<D-x>", "<nop>", opt_nw)
+keymap("i", "<D-p>", "<nop>", opt_nw)
+keymap("i", "<D-o>", "<nop>", opt_nw)
+keymap("i", "<D-i>", "<nop>", opt_nw)
+keymap("i", "<D-u>", "<nop>", opt_nw)
+keymap("i", "<D-y>", "<nop>", opt_nw)
+keymap("i", "<D-j>", "<nop>", opt_nw)
+keymap("i", "<D-l>", "<nop>", opt_nw)
+keymap("i", "<D-m>", "<nop>", opt_nw)
+keymap("i", "<D-,>", "<nop>", opt_nw)
+keymap("i", "<D-.>", "<nop>", opt_nw)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opt_nw)
 keymap("n", "<C-j>", "<C-w>j", opt_nw)
@@ -114,6 +131,7 @@ keymap("i", "<C-b>", "<C-o>de", opt_nw)
 
 -- select_all
 keymap("n", "<C-a>", "gg<S-v>GY", opt_nw)
+keymap("n", "<D-a>", "gg<S-v>GY", opt_nw)
 
 -- Alternate way to save
 keymap("n", "<C-s>", "<cmd>w<cr>", opt_nw)

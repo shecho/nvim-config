@@ -41,13 +41,11 @@ return {
             if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
             end
-            if cmp.is_menu_visible() and require("user.core.functions").has_words_before() then
-              return cmp.select_next()
-            end
             if require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
             end
           end,
+          "show_and_insert",
           "snippet_forward",
           "select_next",
           "fallback_to_mappings",
@@ -104,14 +102,14 @@ return {
           winblend = 15,
           draw = {
             treesitter = { "lsp" },
-            columns = { { "item_idx" }, { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }, { "source_name" } },
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }, { "source_name" } },
             components = {
-              item_idx = {
-                text = function(ctx)
-                  return ctx.idx == 20 and "0" or ctx.idx >= 20 and " " or tostring(ctx.idx)
-                end,
-                highlight = "BlinkCmpItemIdx", -- optional, only if you want to change its color
-              },
+              -- item_idx = {
+              --   text = function(ctx)
+              --     return ctx.idx == 10 and "0" or ctx.idx >= 10 and " " or tostring(ctx.idx)
+              --   end,
+              --   highlight = "BlinkCmpItemIdx", -- optional, only if you want to change its color
+              -- },
               kind_icon = {
                 text = function(ctx)
                   local lspkind = require("lspkind")
