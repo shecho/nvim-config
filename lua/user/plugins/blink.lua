@@ -32,7 +32,7 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           function(cmp)
-            if not cmp.is_menu_visible() and not cmp.snippet_active({ direction = 1 }) then
+            if not cmp.is_menu_visible() and (not cmp.snippet_active({ direction = 1 }) or cmp.snippet_active({ direction = -1 })) then
               return cmp.show_and_insert()
             end
             if cmp.snippet_active({ direction = 1 }) and not cmp.is_menu_visible() then
@@ -46,8 +46,8 @@ return {
             end
           end,
           "show_and_insert",
-          "snippet_forward",
           "select_next",
+          "snippet_forward",
           "fallback_to_mappings",
           "fallback",
         },
