@@ -32,22 +32,19 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           function(cmp)
-            if not cmp.is_menu_visible() and (not cmp.snippet_active({ direction = 1 }) or cmp.snippet_active({ direction = -1 })) then
-              return cmp.show_and_insert()
-            end
-            if cmp.snippet_active({ direction = 1 }) and not cmp.is_menu_visible() then
+            if cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
+            end
+            if not cmp.is_menu_visible() and cmp.snippet_active() and not (cmp.snippet_active({ direction = 1 }) or cmp.snippet_active({ direction = -1 })) then
+              return cmp.show_and_insert()
             end
             if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
               return cmp.select_next()
             end
-            if require("user.core.functions").HAS_WORDS_BEFORE() then
-              return cmp.select_next()
-            end
           end,
+          "snippet_forward",
           "show_and_insert",
           "select_next",
-          "snippet_forward",
           "fallback_to_mappings",
           "fallback",
         },
@@ -96,7 +93,7 @@ return {
         trigger = { prefetch_on_insert = false, show_on_insert = true },
         -- list = { selection = { preselect = true, auto_insert = true } },
         -- accept = { auto_brackets = { enabled = false } },
-        documentation = { auto_show = false, auto_show_delay_ms = 200 },
+        documentation = { auto_show = false, auto_show_delay_ms = 100 },
 
         menu = {
           winblend = 15,
