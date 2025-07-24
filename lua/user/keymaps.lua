@@ -110,6 +110,7 @@ keymap("n", "<leader>1", "<c-^>", opt_nw)
 -- keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
 --
 opts.desc = "Telescope project"
+
 keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", opt_nw)
 keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opts)
 -- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
@@ -129,14 +130,18 @@ keymap("i", "<C-b>", "<C-o>de", opt_nw)
 -- keymap({ "i", "n", "v" }, "<C-c>", [[<C-\><C-n>]], opt_nw)
 
 -- select_all
+opt_nw.desc = "Select All"
 keymap("n", "<C-a>", "gg<S-v>GY", opt_nw)
 keymap("n", "<D-a>", "gg<S-v>GY", opt_nw)
 
 -- Alternate way to save
+opt_nw.desc = "Save"
 keymap("n", "<C-s>", "<cmd>w<cr>", opt_nw)
 keymap({ "n", "i" }, "<D-s>", "<cmd>w<cr>")
 keymap({ "n", "i" }, "<M-s>", "<cmd>w<cr>")
--- })
+
+-- Save and quit
+opt_nw.desc = "Save and Quit"
 keymap("n", "<C-q>", "<cmd>:wq!<cr>", opt_nw)
 keymap("n", "<leader>q", "<cmd>:wq!<cr>", opt_nw)
 
@@ -161,6 +166,7 @@ opt_nw.desc = "Cursorline"
 keymap("n", "<leader>ac", "<cmd>lua require('user.core.functions').toggle_option('cursorline')<cr>", opt_nw)
 
 -- keymap("n", "K", ":lua require('user.core.functions').show_documentation()<CR>", opts)
+opts.desc = "Smart Quit"
 keymap("n", "Q", ":lua require('user.core.functions').smart_quit()<CR>", opts)
 
 -- return M

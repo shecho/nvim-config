@@ -10,6 +10,7 @@ return {
     vim.o.timeoutlen = 200
   end,
   opts = {
+    preset = "helix",
     plugins = { spelling = true },
   },
   config = function(_, opts)
