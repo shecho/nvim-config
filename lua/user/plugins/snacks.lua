@@ -53,7 +53,30 @@ return {
           recent = { layout = { preset = "vscode" }, focus = "list" },
           buffers = { layout = { preset = "vscode" }, focus = "list" }, -- buffers = { layout = { layout = { width = 0.99, height = 0.99 } } },
           marks = { layout = { preset = "telescope" }, focus = "list" },
-          files = { layout = { border = "none", preset = "dropdown", layout = { width = 0.65, height = 0.90 } } }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
+          files = {
+            actions = {
+              parent = {
+                action = function(picker)
+                  picker.opts.cwd = vim.fs.dirname(picker.opts.cwd or vim.uv.cwd())
+                  -- local cwd = vim.loop.fs_realpath(vim.loop.cwd() .. "/..")
+                  -- picker:set_cwd(cwd)
+                  picker:find()
+                end,
+              },
+            },
+            win = {
+              input = {
+                keys = { ["<c-w>"] = { "parent", mode = { "i", "n" } } },
+              },
+              list = {
+                keys = {
+                  ["<c-w>"] = { "parent", mode = { "i", "n" } },
+                  ["<BS>"] = { "parent", mode = { "i", "n" } },
+                },
+              },
+            },
+            layout = { border = "none", preset = "dropdown", layout = { width = 0.75, height = 0.90 } },
+          }, -- files = { layout = { layout = { width = 0.90, height = 0.90 } } },
           projects = { layout = { preset = "select" }, focus = "list" },
           diagnostics_buffer = { layout = { preset = "select" }, focus = "list" },
           diagnostics = { layout = { preset = "ivy" }, focus = "list" },
@@ -146,19 +169,19 @@ return {
         "<leader>f",
         function()
           ---@diagnostic disable-next-line: undefined-field
-          local cwd = vim.loop.cwd()
+          -- local cwd = vim.loop.cwd()
           Snacks.picker.files({
-            actions = {
-              parent = {
-                action = function(picker)
-                  ---@diagnostic disable-next-line: undefined-field
-                  cwd = vim.loop.fs_realpath(cwd .. "/..")
-                  picker:set_cwd(cwd)
-                  picker:find()
-                end,
-              },
-            },
-            win = { input = { keys = { ["<c-w>"] = { "parent", mode = { "i", "n" } }, }, }, },
+            -- actions = {
+            --   parent = {
+            --     action = function(picker)
+            --       ---@diagnostic disable-next-line: undefined-field
+            --       cwd = vim.loop.fs_realpath(cwd .. "/..")
+            --       picker:set_cwd(cwd)
+            --       picker:find()
+            --     end,
+            --   },
+            -- },
+            -- win = { input = { keys = { ["<c-w>"] = { "parent", mode = { "i", "n" } }, }, }, },
           })
         end,
         desc = "Find Files",

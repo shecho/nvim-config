@@ -16,7 +16,7 @@ return {
       { "<leader>bN", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
       { "<leader>BN", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
       { "<leader>bs", "<cmd>BufferLineSortByDirectory<cr>", desc = "Sort by Directory" },
-      { "<leader>bs", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Extension" },
+      { "<leader>bo", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Extension" },
       -- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
       -- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
     },
