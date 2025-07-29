@@ -31,11 +31,12 @@ return {
       keymap = {
         preset = "enter",
         ["<Tab>"] = {
+          "snippet_forward",
           function(cmp)
             if cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
             end
-            if not cmp.is_menu_visible() and cmp.snippet_active() and not (cmp.snippet_active({ direction = 1 }) or cmp.snippet_active({ direction = -1 })) then
+            if not cmp.is_menu_visible() and not (cmp.snippet_active() or (cmp.snippet_active({ direction = 1 }) or cmp.snippet_active({ direction = -1 }))) then
               return cmp.show_and_insert()
             end
             if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
@@ -58,7 +59,7 @@ return {
         ["<D-j>"] = { "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "select_and_accept", "fallback", "fallback_to_mappings" },
+        ["<CR>"] = { "select_and_accept", "accept", "fallback_to_mappings", "fallback" },
       },
       cmdline = {
         enabled = true,
