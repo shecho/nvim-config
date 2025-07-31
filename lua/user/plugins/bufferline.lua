@@ -18,6 +18,7 @@ return {
       { "<leader>bs", "<cmd>BufferLineSortByDirectory<cr>", desc = "Sort by Directory" },
       { "<leader>bo", "<cmd>BufferLineSortByExtension<cr>", desc = "Sort by Extension" },
       { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
       -- { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
       -- { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
     },

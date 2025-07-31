@@ -50,16 +50,16 @@ return {
           "fallback_to_mappings",
         },
         ["<S-Tab>"] = {
-          "snippet_backward",
           "select_prev",
           "fallback_to_mappings",
+          "snippet_backward",
           "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "select_and_accept", "accept", "fallback_to_mappings", "fallback" },
+        ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "fallback_to_mappings", "fallback" },
       },
       cmdline = {
         enabled = true,
