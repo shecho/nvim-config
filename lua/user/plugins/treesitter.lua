@@ -15,19 +15,10 @@ return {
     config = function()
       local template_string = require("template-string")
       template_string.setup({
-        filetypes = {
-          "typescript",
-          "javascript",
-          "typescriptreact",
-          "javascriptreact",
-          "python",
-        },
+        filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "python" },
         jsx_brackets = true,
         remove_template_string = false, -- remove backticks when there are no template string
-        restore_quotes = {
-          normal = [[']],
-          jsx = [["]],
-        },
+        restore_quotes = { normal = [[']], jsx = [["]] },
       })
       local treesitter = require("nvim-treesitter.configs")
       treesitter.setup({
@@ -56,12 +47,7 @@ return {
           "gitignore",
         },
         auto_install = true,
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25,
-          persist_queries = false,
-        },
+        playground = { enable = true, disable = {}, updatetime = 25, persist_queries = false },
         autopairs = { enable = true },
         indent = { enable = true, disable = { "python", "css", "rust" } },
         incremental_selection = {
@@ -83,18 +69,18 @@ return {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              ["am"] = "@function.outer",
+              -- ["am"] = "@function.outer",
             },
             goto_next_end = {
-              ["AM"] = "@function.outer",
+              -- ["AM"] = "@function.outer",
             },
             goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
+              -- ["[m"] = "@function.outer",
+              -- ["[["] = "@class.outer",
             },
             goto_previous_end = {
               ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
+              -- ["[]"] = "@class.outer",
             },
           },
           swap = {

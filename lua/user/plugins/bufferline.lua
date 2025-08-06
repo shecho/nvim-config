@@ -26,6 +26,7 @@ return {
       options = {
         themable = true,
         always_show_bufferline = true,
+        -- icon_pinned = "󰐃",
         -- stylua: ignore
         close_command = function(n) Snacks.bufdelete(n) end,
         -- stylua: ignore

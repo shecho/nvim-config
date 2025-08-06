@@ -17,6 +17,9 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- term_mode = "t",
 -- command_mode = "c",
 
+-- delete single character without copying into register
+keymap("n", "x", '"_x', opts)
+
 --disable some mac keymap
 keymap("i", "<D-a>", "<nop>", opt_nw)
 keymap("i", "<D-d>", "<nop>", opt_nw)

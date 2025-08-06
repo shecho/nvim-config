@@ -28,6 +28,7 @@ return {
         local opts = { noremap = true, silent = true, buffer = ev.buf }
         -- keymap.set("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts)
         -- keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
+
         opts.desc = "Show LSP references"
         keymap("n", "<leader>lr", "<cmd>Trouble lsp_references<CR>", opts)
         keymap("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts)
@@ -35,27 +36,40 @@ return {
         opts.desc = "Show LSP definitions"
         keymap("n", "<leader>ld", "<cmd>Trouble lsp_definitions<CR>", opts)
         -- keymap("n", "<leader>lD", vim.lsp.buf.definition, opts)
+        --
         opts.desc = "Show LSP implementations"
         -- keymap("n", "<leader>lI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
         keymap("n", "<leader>li", "<cmd>Trouble lsp_implementations<CR>", opts)
         opts.desc = "Show LSP type definitions"
         keymap("n", "<leader>lT", "<cmd>Trouble lsp_type_definitions<CR>", opts)
+
         opts.desc = "See available code actions"
         keymap({ "n", "v" }, "<leader>lq", vim.lsp.buf.code_action, opts)
         keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
+
         opts.desc = "Rename"
         keymap("n", "<leader>le", vim.lsp.buf.rename, opts)
         keymap("n", "<leader>lR", vim.lsp.buf.rename, opts)
+
         opts.desc = "Show buffer diagnostics"
         keymap("n", "<leader>lD", "<cmd>Trouble diagnostics bufnr=0<CR>", opts)
+
         opts.desc = "Go to previous diagnostic"
         keymap("n", "<leader>ln", function()
           vim.diagnostic.jump({ count = -1, float = true })
         end, opts)
+        keymap("n", "[[", function()
+          vim.diagnostic.jump({ count = -1, float = true })
+        end, opts)
+
         opts.desc = "Go to next diagnostic"
         keymap("n", "<leader>ll", function()
           vim.diagnostic.jump({ count = 1, float = true })
         end, opts)
+        keymap("n", "]]", function()
+          vim.diagnostic.jump({ count = 1, float = true })
+        end, opts)
+
         opts.desc = "Show documentation under cursor"
         keymap("n", "K", vim.lsp.buf.hover, opts)
         keymap("n", "<leader>k", vim.lsp.buf.hover, opts)
