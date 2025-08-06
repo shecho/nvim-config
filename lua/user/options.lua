@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 
 local opt = vim.opt
 
+opt.autochdir = true -- Change working directory to the file's directory
 opt.numberwidth = 4
 opt.incsearch = true
 opt.hlsearch = true
