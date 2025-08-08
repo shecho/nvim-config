@@ -150,7 +150,7 @@ return {
       { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,                         desc = "Files", },
       { "<D-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,                         desc = "Files", },
       { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end,                       desc = "Find Files", },
-      { "<leader>p",  function() Snacks.picker.smart({ layout = "vscode", }) end,                        desc = "Smart Files", },
+      { "<leader>f",  function() Snacks.picker.smart({ layout = "vscode", }) end,                        desc = "Smart Files", },
       { "<leader>sf", function() Snacks.picker.smart() end,                                              desc = "Smart Files", },
       { "<leader>sb", function() Snacks.picker.buffers() end,                                            desc = "Buffers", },
       { "<leader>sk", function() Snacks.picker.keymaps() end,                                            desc = "Keymaps", },
@@ -166,7 +166,7 @@ return {
       { "<leader>sg", function() Snacks.picker.grep() end,                                               desc = "Grep", },
       { "<leader>sw", function() Snacks.picker.grep_word() end,                                          desc = "Selection word",       mode = { "n", "x", "v" }, },
       {
-        "<leader>f",
+        "<leader>p",
         function()
           ---@diagnostic disable-next-line: undefined-field
           -- local cwd = vim.loop.cwd()

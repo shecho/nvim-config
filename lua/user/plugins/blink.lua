@@ -21,7 +21,7 @@ return {
     },
 
     version = "1.*",
-    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- AND/OR build from source, requires nightly: 'https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust'
     build = "cargo build --release",
     -- build = 'nix run .#build-plugin',
     ---@module 'blink.cmp'
