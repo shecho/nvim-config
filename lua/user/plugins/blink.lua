@@ -32,20 +32,27 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           "select_next",
+          "snippet_forward",
+          "show_and_insert",
           function(cmp)
             if not cmp.is_menu_visible() and not cmp.snippet_active() then
               return cmp.show_and_insert()
             end
-            if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
-              return cmp.select_next()
-            end
             if cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
             end
+            if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
+              if cmp.is_menu_visible() then
+                return cmp.select_next()
+              end
+              if cmp.snippet_active() then
+                return cmp.snippet_forward()
+              end
+              -- return cmp.select_next()
+            end
           end,
-          "snippet_forward",
-          "show_and_insert",
-          "select_next",
+          -- "snippet_forward",
+          -- "select_next",
           "fallback",
           "fallback_to_mappings",
         },
