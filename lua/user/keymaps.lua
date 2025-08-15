@@ -16,7 +16,9 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- visual_block_mode = "x",
 -- term_mode = "t",
 -- command_mode = "c",
-
+--
+-- Normal -- Go to Definition
+-- keymap("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true, desc = "Goto Preview Definition" })
 -- delete single character without copying into register
 keymap("n", "x", '"_x', opts)
 
@@ -83,7 +85,7 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Node actions to toggle some values
-keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opts)
+-- keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opts)
 
 -- Floaterm
 opts.desc = "Floaterm toogle"

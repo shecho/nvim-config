@@ -66,7 +66,10 @@ return {
             },
             win = {
               input = {
-                keys = { ["<c-w>"] = { "parent", mode = { "i", "n" } } },
+                keys = {
+                  ["<c-w>"] = { "parent", mode = { "i", "n" } },
+                  ["<BS>"] = { "parent", mode = { "n" } },
+                },
               },
               list = {
                 keys = {
