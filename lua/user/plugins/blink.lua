@@ -45,17 +45,17 @@ return {
               return cmp.snippet_forward()
             end
             if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
-              if cmp.is_menu_visible() then
-                return cmp.select_next()
-              end
               if cmp.snippet_active() then
                 return cmp.snippet_forward()
+              end
+              if cmp.is_menu_visible() and not cmp.snippet_active() then
+                return cmp.select_next()
               end
               -- return cmp.select_next()
             end
           end,
-          -- "snippet_forward",
-          -- "select_next",
+          "snippet_forward",
+          "select_next",
           "fallback",
           "fallback_to_mappings",
         },
