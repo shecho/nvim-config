@@ -20,7 +20,8 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- Normal -- Go to Definition
 -- keymap("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true, desc = "Goto Preview Definition" })
 -- delete single character without copying into register
-keymap("n", "x", '"_x', opts)
+-- keymap("n", "x", '"_x', opts)
+-- Dell markks
 
 --disable some mac keymap
 keymap("i", "<D-a>", "<nop>", opt_nw)
@@ -174,4 +175,16 @@ keymap("n", "<leader>ac", "<cmd>lua require('user.core.functions').toggle_option
 opts.desc = "Smart Quit"
 keymap("n", "Q", ":lua require('user.core.functions').smart_quit()<CR>", opts)
 
+opt_nw.desc = "Delete all marks"
+keymap("n", "md", function()
+  local marks = vim.fn.getmarklist()
+  if #marks == 0 then
+    print("No marks to delete")
+    return
+  end
+  vim.cmd("delmarks a-z1-9")
+  print("All marks deleted")
+end, opt_nw)
+
+keymap("n", "mD", "<cmd> delmarks A-Z1-9<CR>", opt_nw)
 -- return M
