@@ -34,9 +34,9 @@ return {
       keymap = {
         preset = "enter",
         ["<Tab>"] = {
-          "select_next",
-          "snippet_forward",
           "show_and_insert",
+          "snippet_forward",
+          "select_next",
           function(cmp)
             if not cmp.is_menu_visible() and not cmp.snippet_active() then
               return cmp.show_and_insert()
@@ -44,18 +44,20 @@ return {
             if cmp.snippet_active() and not cmp.is_menu_visible() then
               return cmp.snippet_forward()
             end
-            if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
-              if cmp.snippet_active() then
+            if cmp.snippet_active() and cmp.is_menu_visible() then
+              if not require("user.core.functions").has_words_before() or not require("user.core.functions").HAS_WORDS_BEFORE() then
                 return cmp.snippet_forward()
               end
-              if cmp.is_menu_visible() and not cmp.snippet_active() then
+              if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
                 return cmp.select_next()
               end
-              -- return cmp.select_next()
+            end
+            if not cmp.snippet_active() and cmp.is_menu_visible() then
+              if require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE() then
+                return cmp.select_next()
+              end
             end
           end,
-          "snippet_forward",
-          "select_next",
           "fallback",
           "fallback_to_mappings",
         },
@@ -66,7 +68,7 @@ return {
           "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
-        ["<D-j>"] = { "select_and_accept", "fallback" },
+        ["<D-j>"] = { "snippet_forward", "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
         ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "fallback_to_mappings", "fallback" },
@@ -76,6 +78,7 @@ return {
         keymap = {
           preset = "cmdline",
           ["<Tab>"] = {
+            "show_and_insert",
             function(cmp)
               if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
                 return cmp.accept()
@@ -84,9 +87,9 @@ return {
                 return cmp.accept_and_enter()
               end
             end,
-            "show_and_insert",
-            "select_and_accept",
             "select_next",
+            -- "show_and_insert",
+            "select_and_accept",
           },
           ["<Up>"] = { "select_prev", "fallback" },
           ["<Down>"] = { "select_next", "fallback" },
