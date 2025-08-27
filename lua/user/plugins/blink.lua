@@ -35,7 +35,6 @@ return {
         preset = "enter",
         ["<Tab>"] = {
           -- "show_and_insert",
-          -- "snippet_forward",
           -- "select_next",
           function(cmp)
             local menu_visible = cmp.is_menu_visible()
@@ -63,8 +62,8 @@ return {
         },
         ["<S-Tab>"] = {
           "select_prev",
-          "fallback_to_mappings",
           "snippet_backward",
+          "fallback_to_mappings",
           "fallback",
         },
         ["<D-y>"] = { "accept", "fallback" },
@@ -88,7 +87,6 @@ return {
               end
             end,
             "select_next",
-            -- "show_and_insert",
             "select_and_accept",
           },
           ["<Up>"] = { "select_prev", "fallback" },
