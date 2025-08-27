@@ -1,1 +1,1 @@
-# Shecho's config
+# Shecho's NVIM config

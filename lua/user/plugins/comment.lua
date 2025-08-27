@@ -12,11 +12,25 @@ return {
   -- ]])
   -- end,
   -- },
+  --
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
   {
     "numToStr/Comment.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-    config = function()
+    -- stylua: ignore
+    keys = {
+      -- { "<leader>3", function() lua qu end, nowait = true, desc = "Comment", mode = { "n", "v" }, },
+    },
+    opts = function()
       local comment = require("Comment")
       local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
       -- local config = require("Comment.config"):get()
@@ -26,26 +40,19 @@ return {
       local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
       local opts = { silent = true, desc = "Comment" }
 
-      keymap("n", "<leader>3", api.locked("toggle.linewise.current"), opts)
-      keymap("v", "<leader>3", api.locked("toggle.linewise.count"), opts)
-      keymap("x", "<leader>3", function()
-        vim.api.nvim_feedkeys(esc, "nx", false)
-        api.locked("toggle.linewise")(vim.fn.visualmode())
-      end, opts)
+      -- keymap("n", "<leader>3", api.locked("toggle.linewise.current"), opts)
+      -- keymap("v", "<leader>3", api.locked("toggle.linewise.count"), opts)
+      -- stylua: ignore
+      -- keymap("x", "<leader>3", function() vim.api.nvim_feedkeys(esc, "nx", false) api.locked("toggle.linewise")(vim.fn.visualmode()) end, opts)
       keymap("n", "<leader>/", api.locked("toggle.linewise.current"), opts)
       keymap("v", "<leader>/", api.locked("toggle.linewise.count"), opts)
-      keymap("x", "<leader>/", function()
-        vim.api.nvim_feedkeys(esc, "nx", false)
-        api.locked("toggle.linewise")(vim.fn.visualmode())
-      end, opts)
+      -- stylua: ignore
+      keymap("x", "<leader>/", function() vim.api.nvim_feedkeys(esc, "nx", false) api.locked("toggle.linewise")(vim.fn.visualmode()) end, opts)
       keymap({ "n", "i" }, "<D-/>", api.locked("toggle.linewise.current"), opts)
       keymap("v", "<D-/>", api.locked("toggle.linewise.count"), opts)
-      keymap("x", "<D-/>", function()
-        vim.api.nvim_feedkeys(esc, "nx", false)
-        api.locked("toggle.linewise")(vim.fn.visualmode())
+      -- stylua: ignore
+      keymap("x", "<D-/>", function() vim.api.nvim_feedkeys(esc, "nx", false) api.locked("toggle.linewise")(vim.fn.visualmode())
       end, opts)
-
-      -- Linewise toggle using C-/
     end,
   },
 }

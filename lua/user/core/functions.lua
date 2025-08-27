@@ -46,7 +46,6 @@ function M.smart_quit()
 end
 
 function M.saveFile()
-  -- Check if a buffer with a file is open
   if vim.fn.empty(vim.fn.expand("%:t")) == 1 then
     vim.notify("No file to save", vim.log.levels.WARN)
     return
@@ -85,5 +84,23 @@ end
 -- function M.toggleInlayHints()
 --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
 -- end
+--
+-- Blink/cmp functions
+M.has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
+M.HAS_WORDS_BEFORE = function()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  if col == 0 then
+    return false
+  end
+  local line = vim.api.nvim_get_current_line():sub(col, col)
+  return line:sub(col, col):match("%s") == nil
+end
+
+M.feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 return M
