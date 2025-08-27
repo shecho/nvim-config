@@ -149,7 +149,8 @@ return {
       { "<leader>bd", function() Snacks.bufdelete() end,                                                 desc = "Delete Buffer", },
       -- search and explorer
       { "<leader>e",  function() Snacks.explorer() end,                                                  desc = "File Explorer", },
-      { "<leader>E",  function() Snacks.picker.files({ layout = "float_explorer", focus = 'list' }) end, desc = "File Explorer", },
+      { "<leader>E",  function() Snacks.explorer.reveal() end, desc = "File Explorer", },
+      -- { "<leader>E",  function() Snacks.picker.files({ layout = "float_explorer", focus = 'list' }) end, desc = "File Explorer", },
       { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,                         desc = "Files", },
       { "<D-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,                         desc = "Files", },
       { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end,                       desc = "Find Files", },
