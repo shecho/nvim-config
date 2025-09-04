@@ -34,24 +34,24 @@ return {
       keymap = {
         preset = "enter",
         ["<Tab>"] = {
-          -- "show_and_insert",
-          -- "select_next",
+          ---@param cmp table The blink.cmp instance
+          ---@return boolean|nil
           function(cmp)
             local menu_visible = cmp.is_menu_visible()
             local snippet_active = cmp.snippet_active()
-            local has_words = require("user.core.functions").has_words_before() or require("user.core.functions").HAS_WORDS_BEFORE()
+            local has_words = require("user.core.functions").has_words_before()
+
             if not menu_visible and not snippet_active then
               return cmp.show_and_insert()
             end
             if snippet_active and not menu_visible then
               return cmp.snippet_forward()
             end
-            if menu_visible then
-              if snippet_active and not has_words then
-                return cmp.snippet_forward()
-              elseif has_words then
-                return cmp.select_next()
-              end
+            if menu_visible and snippet_active and not has_words then
+              return cmp.snippet_forward()
+            end
+            if menu_visible and has_words then
+              return cmp.select_next()
             end
           end,
           "show_and_insert",
@@ -70,7 +70,7 @@ return {
         ["<D-j>"] = { "snippet_forward", "show_and_insert", "select_and_accept", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
-        ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "fallback_to_mappings", "fallback" },
+        ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
       },
       cmdline = {
         enabled = true,
@@ -78,13 +78,18 @@ return {
           preset = "cmdline",
           ["<Tab>"] = {
             "show_and_insert",
+            ---@param cmp table The blink.cmp instance
+            ---@return boolean|nil
             function(cmp)
               if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
                 return cmp.accept()
               end
+
               if not cmp.is_menu_visible() then
                 return cmp.accept_and_enter()
               end
+
+              return cmp.select_next()
             end,
             "select_next",
             "select_and_accept",
