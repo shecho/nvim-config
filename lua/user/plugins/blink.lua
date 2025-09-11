@@ -62,9 +62,9 @@ return {
         },
         ["<S-Tab>"] = {
           "select_prev",
-          "snippet_backward",
-          "fallback_to_mappings",
+          -- "snippet_backward",
           "fallback",
+          "fallback_to_mappings",
         },
         ["<D-y>"] = { "accept", "fallback" },
         ["<D-j>"] = { "snippet_forward", "show_and_insert", "select_and_accept", "fallback" },
