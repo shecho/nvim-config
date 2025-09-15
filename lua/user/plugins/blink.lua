@@ -40,7 +40,6 @@ return {
             local menu_visible = cmp.is_menu_visible()
             local snippet_active = cmp.snippet_active()
             local has_words = require("user.core.functions").has_words_before()
-
             if not menu_visible and not snippet_active then
               return cmp.show_and_insert()
             end
