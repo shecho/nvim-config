@@ -128,6 +128,23 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- })
 --
 -- remove trailing whitespaces and ^M chars
+--
+f.autocmd("BufReadPost", {
+  group = augroup("restore_cursor_position"),
+  callback = function()
+    local excludes = { "gitcommit", "gitrebase", "help" }
+    if vim.tbl_contains(excludes, vim.bo.ft) then
+      return
+    end
+
+    -- restore last cursor position
+    local m = vim.api.nvim_buf_get_mark(0, '"')
+    if m[1] > 0 and m[1] <= vim.api.nvim_buf_line_count(0) then
+      pcall(vim.api.nvim_win_set_cursor, 0, m)
+    end
+  end,
+})
+
 f.autocmd({ "BufWritePre" }, {
   pattern = { "*" },
   callback = function(_)

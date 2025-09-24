@@ -6,12 +6,22 @@ return {
     { "mason-org/mason-lspconfig.nvim" },
     { "mason-org/mason.nvim" },
     { "mason-org/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua",
+      opts = {
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          { path = "LazyVim", words = { "LazyVim" } },
+          { path = "snacks.nvim", words = { "Snacks" } },
+          { path = "lazy.nvim", words = { "LazyVim" } },
+        },
+      },
+    },
   },
   config = function()
-    local lspconfig = require("lspconfig")
-    -- local mason_lspconfig = require("mason-lspconfig")
     local keymap = vim.keymap.set
+    ---@type vim.diagnostic.Opts
     vim.diagnostic.config({
       virtual_text = true,
       signs = true,
@@ -88,55 +98,43 @@ return {
     }
 
     local _, blink_cmp = pcall(require, "blink.cmp")
-
     capabilities = blink_cmp.get_lsp_capabilities(capabilities)
-
     local signs = {
       Error = " ",
       Warn = " ",
-      Hint = " ", -- "󰠠 "
-      Info = " ",
+      Hint = " ", -- "󰠠 " Info = " ",
     }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
-
-    lspconfig["graphql"].setup({
-      capabilities = capabilities,
-      filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-    })
-    lspconfig["emmet_ls"].setup({
+    -- vim.lsp.config"graphql"]{
+    --   capabilities = capabilities,
+    --   filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+    -- })
+    vim.lsp.config("emmet_ls", {
       capabilities = capabilities,
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
-    lspconfig["tailwindcss"].setup({
+    vim.lsp.config("tailwindcss", {
       capabilities = capabilities,
       filetypes = { "html", "typescriptreact", "javascriptreact", "jsx", "tsx", "css", "sass", "scss", "less", "svelte" },
-
-      -- filetypes = { "css", "scss", "less", "sass" },
     })
 
-    lspconfig["lua_ls"].setup({
+    vim.lsp.config("lua_ls", {
       capabilities = capabilities,
-      -- settings = {
-      --   Lua = {
-      --     -- make the language server recognize "vim" global
-      --     diagnostics = {
-      --       globals = { "vim" },
-      --     },
-      --     completion = {
-      --       callSnippet = "Replace",
-      --     },
-      --   },
-      -- },
     })
-    lspconfig["ts_ls"].setup({
+
+    -- vim.lsp.config("luals", {
+    --   capabilities = capabilities,
+    -- })
+    vim.lsp.config("ts_ls", {
       capabilities = capabilities,
-      -- on_attach = function(client, _)
       -- client.server_capabilities.document_formatting = false
       -- client.server_capabilities.document_range_formatting = false
       -- end,
     })
+
+    vim.lsp.enable({ "emmet_ls", "tailwindcss", "lua_ls", "ts_ls" })
   end,
 }

@@ -115,13 +115,11 @@ keymap("n", "<leader>1", "<c-^>", opt_nw)
 -- keymap("n", "<leader>bp", ":BufferPrevious<CR>", opts)
 -- keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
 --
-opts.desc = "Telescope project"
-
+opt_nw.desc = "Telescope project"
 keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", opt_nw)
-keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opts)
--- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
--- keymap("n", "<leader>bB", ":BufferCloseAllButCurrent<CR>", opts)
+keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opt_nw)
 
+-- keymap("n", "<leader>bB", ":BufferCloseAllButCurrent<CR>", opts)
 -- esc
 opt_nw.desc = "Esc"
 keymap("n", "<C-c>", "<Esc>", opt_nw)
