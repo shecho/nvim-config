@@ -82,7 +82,9 @@ return {
 
         opts.desc = "Show documentation under cursor"
         keymap("n", "K", vim.lsp.buf.hover, opts)
-        keymap("n", "<leader>k", vim.lsp.buf.hover, opts)
+        keymap("n", "<leader>k", function()
+          vim.lsp.buf.hover({ close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LSPDetach" } })
+        end, opts)
         opts.desc = "Format"
         keymap("n", "<leader>lf", vim.lsp.buf.format, opts) -- nnoremap <leader>lf :lua vim.lsp.buf.format({async = true})<CR>
       end,

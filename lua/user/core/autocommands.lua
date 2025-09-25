@@ -1,6 +1,6 @@
 local f = require("user.core.functions")
 -- show cursor line only in active window
--- vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+-- f.autocmd({ "InsertLeave", "WinEnter" }, {
 --   callback = function()
 --     if vim.w.auto_cursorline then
 --       vim.wo.cursorline = true
@@ -19,7 +19,7 @@ local f = require("user.core.functions")
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
-vim.api.nvim_create_autocmd("FileType", {
+f.autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+f.autocmd({ "BufEnter" }, {
   pattern = { "" },
   callback = function()
     local get_project_dir = function()
@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 
 -- resize splits
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+f.autocmd({ "VimResized" }, {
   group = augroup("resize_splits"),
   callback = function()
     local current_tab = vim.fn.tabpagenr()
@@ -76,40 +76,40 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     vim.cmd("tabnext " .. current_tab)
   end,
 })
--- vim.api.nvim_create_autocmd({ "VimResized" }, {
+-- f.autocmd({ "VimResized" }, {
 --   callback = function()
 --     vim.cmd("tabdo wincmd =")
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+f.autocmd({ "CmdWinEnter" }, {
   callback = function()
     vim.cmd("quit")
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+-- f.autocmd({ "BufWinEnter" }, {
 --   callback = function()
 --     vim.cmd("set formatoptions-=cro")
 --   end,
 -- })
 
 -- highlight on yank
--- vim.api.nvim_create_autocmd("TextYankPost", {
+-- f.autocmd("TextYankPost", {
 --   callback = function()
 --     vim.highlight.on_yank()
 --     -- vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
+f.autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function()
     (vim.hl or vim.highlight).on_yank()
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave" }, {
+-- f.autocmd({ "TextChanged", "InsertLeave" }, {
 --   pattern = { "*" },
 --   callback = function()
 --     if vim.bo.ft == "harpoon" then
@@ -120,7 +120,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 --   nested = true,
 -- })
 --
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+-- f.autocmd({ "BufWritePost" }, {
 --   pattern = { "*.ts" },
 --   callback = function()
 --     vim.lsp.buf.format({ async = true })
@@ -155,7 +155,7 @@ f.autocmd({ "BufWritePre" }, {
 })
 
 -- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
+f.autocmd({ "FileType" }, {
   group = augroup("json_conceal"),
   pattern = { "json", "jsonc", "json5" },
   callback = function()
@@ -166,7 +166,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- addance lsp
 -- ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 -- local progress = vim.defaulttable()
--- vim.api.nvim_create_autocmd("LspProgress", {
+-- f.autocmd("LspProgress", {
 --   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
 --   callback = function(ev)
 --     local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -208,7 +208,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd("User", {
+-- f.autocmd("User", {
 --   pattern = "BlinkCmpAccept",
 --   callback = function(ev)
 --     local item = ev.data.item
