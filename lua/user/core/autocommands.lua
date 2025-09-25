@@ -19,6 +19,18 @@ local f = require("user.core.functions")
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
+
+-- hover on cursor hold
+-- f.autocmd("CursorHold", {
+--   group = augroup("lsp_hover"),
+--   pattern = { "*" }, -- Apply to all file types
+--   callback = function()
+--     if not require("blink-cmp").is_visible() and require("user.core.functions").has_words_before() then
+--       vim.lsp.buf.hover({ focusable = false })
+--     end
+--   end,
+-- })
+
 f.autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
