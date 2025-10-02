@@ -11,7 +11,7 @@ return {
     provider = "copilot",
     providers = {
       copilot = {
-        model = "claude-sonnet-4", -- o1-preview | o1-mini | claude-3.5-sonnet
+        model = "claude-sonnet-4.5", -- o1-preview | o1-mini | claude-3.5-sonnet
         -- model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
         -- model = "gpt-4.1", -- o1-preview | o1-mini | claude-3.5-sonnet
       },
