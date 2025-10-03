@@ -193,6 +193,7 @@ return {
       --LSP
       { "gd",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
       { "gh",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
+      { "<leader>LD", function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
       { "gD",         function() Snacks.picker.lsp_declarations() end,     desc = "Declaration", },
       { "gr",         function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "References", },
       { "<leader>ls", function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "Goto Definition", },
@@ -202,6 +203,7 @@ return {
       { "gy",         function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
       { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
       { "<leader>lB", function() Snacks.picker.diagnostics() end,          desc = "Diagnostic", },
+      { "<leader>LB", function() Snacks.picker.diagnostics() end,          desc = "Diagnostic", },
       { "<leader>lb", function() Snacks.picker.diagnostics_buffer() end,   desc = "Diagnostic Buffer", },
       -- Zen
       { "<leader>z",  function() Snacks.zen() end,                         desc = "Toggle Zen Mode", },
@@ -252,7 +254,6 @@ return {
             Snacks.debug.backtrace()
           end
           vim.print = _G.dd -- Override print to use snacks for `:=` command
-
           -- Create some toggle mappings
           Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>Us")
           Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>Uw")

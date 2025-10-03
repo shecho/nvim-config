@@ -51,7 +51,8 @@ return {
         local user = vim.env.USER or "User"
         user = user:sub(1, 1):upper() .. user:sub(2)
         return {
-          model = "gpt-4.1",
+          -- model = "gpt-4.1",
+          model = "claude-sonnet-4.5",
           -- answer_header = "󱗞 ",
           question_header = "  " .. user .. " ",
           answer_header = "  Copilot ",

@@ -149,7 +149,6 @@ return {
     },
   },
   config = function()
-    -- Setup diagnostics
     vim.diagnostic.config(setup_diagnostics())
 
     -- Setup capabilities
