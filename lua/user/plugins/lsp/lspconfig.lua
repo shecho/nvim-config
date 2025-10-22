@@ -125,6 +125,14 @@ local function get_server_configs(capabilities)
       capabilities = capabilities,
       filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
     },
+    eslint = {
+      capabilities = capabilities,
+      filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
+    },
+    eslind_server = {
+      capabilities = capabilities,
+      filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
+    },
   }
 end
 

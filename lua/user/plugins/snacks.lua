@@ -5,6 +5,7 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      scratch = { enabled = true, autosave = true, persist = true },
       image = { enabled = true },
       input = { enabled = true },
       scope = { enabled = true },
@@ -142,6 +143,10 @@ return {
 
     -- stylua: ignore
     keys = {
+      -- Scratch
+      { "<leader>.",  function() Snacks.scratch() end,                             desc = "Toggle Scratch Buffer", },
+      { "<leader>Sa",  function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
+      { "<leader>SA",  function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
       -- buffer
       { "<leader>d",  function() Snacks.bufdelete() end,                           desc = "Delete buffer", },
       { "<leader>D",  function() Snacks.bufdelete.delete() end,                    desc = "Delere buffer force", },
@@ -152,7 +157,7 @@ return {
       { "<leader>E",  function() Snacks.explorer.reveal() end,                     desc = "File Explorer", },
       -- { "<leader>E",  function() Snacks.picker.files({ layout = "float_explorer", focus = 'list' }) end, desc = "File Explorer", },
       { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,   desc = "Files", },
-      { "<D-p>",      function() Snacks.picker.smart({ layout = "vscode", }) end,  desc = "Smart Files", },
+      { "<D-p>",      function() Snacks.picker.smart({ layout = "vscode" }) end,   desc = "Smart Files", },
       { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end, desc = "Find Files", },
       { "<leader>f",  function() Snacks.picker.files({ layout = "vscode" }) end,   desc = "Files", },
       { "<leader>sf", function() Snacks.picker.smart() end,                        desc = "Smart Files", },
@@ -168,7 +173,7 @@ return {
       { "<leader>so", function() Snacks.picker.recent() end,                       desc = "Recent", },
       { "<leader>sm", function() Snacks.picker.marks() end,                        desc = "Marks", },
       { "<leader>sg", function() Snacks.picker.grep() end,                         desc = "Grep", },
-      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection word",       mode = { "n", "x", "v" }, },
+      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection word",        mode = { "n", "x", "v" }, },
       {
         "<leader>p",
         function()
