@@ -46,9 +46,6 @@ return {
             if snippet_active and not menu_visible then
               return cmp.snippet_forward()
             end
-            if menu_visible and snippet_active and not has_words then
-              return cmp.snippet_forward()
-            end
             if menu_visible and has_words then
               return cmp.select_next()
             end
@@ -66,9 +63,10 @@ return {
           "fallback_to_mappings",
         },
         ["<D-y>"] = { "accept", "fallback" },
-        ["<D-j>"] = { "snippet_forward", "show_and_insert", "select_and_accept", "fallback" },
+        ["<D-j>"] = { "show_and_insert", "select_and_accept", "accept", "select_accept_and_enter", "fallback" },
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
+        -- ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
         ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
       },
       cmdline = {
@@ -96,7 +94,7 @@ return {
           ["<Up>"] = { "select_prev", "fallback" },
           ["<Down>"] = { "select_next", "fallback" },
           ["<C-j>"] = { "accept" },
-          ["<D-j>"] = { "accept_and_enter" },
+          ["<D-j>"] = { "accept_and_enter", "accept", "fallback" },
           ["<CR>"] = { "select_accept_and_enter", "select_and_accept", "fallback", "fallback_to_mappings" },
         },
         completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
@@ -117,49 +115,40 @@ return {
             treesitter = { "lsp" },
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }, { "source_name" } },
             components = {
-              -- item_idx = {
-              --   text = function(ctx)
-              --     return ctx.idx == 10 and "0" or ctx.idx >= 10 and " " or tostring(ctx.idx)
-              --   end,
-              --   highlight = "BlinkCmpItemIdx", -- optional, only if you want to change its color
-              -- },
               kind_icon = {
                 text = function(ctx)
-                  local lspkind = require("lspkind")
-                  local icon = ctx.kind_icon
                   if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                    local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                    if dev_icon then
-                      icon = dev_icon
+                    local mini_icon, _ = require("mini.icons").get_icon(ctx.item.data.type, ctx.label)
+                    if mini_icon then
+                      return mini_icon .. ctx.icon_gap
                     end
-                  else
-                    icon = lspkind.symbolic(ctx.kind, {
-                      mode = "symbol",
-                    })
                   end
 
+                  local icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
                   return icon .. ctx.icon_gap
                 end,
+
                 highlight = function(ctx)
-                  local hl = "BlinkCmpKind" .. ctx.kind or require("blink.cmp.completion.windows.render.tailwind").get_hl(ctx)
                   if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                    local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                    if dev_icon then
-                      hl = dev_hl
+                    local mini_icon, mini_hl = require("mini.icons").get_icon(ctx.item.data.type, ctx.label)
+                    if mini_icon then
+                      return mini_hl
                     end
                   end
-                  return hl
+                  return ctx.kind_hl
                 end,
-                -- highlight = function(ctx)
-                --   local hl = ctx.kind_hl
-                --   if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                --     local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                --     if dev_icon then
-                --       hl = dev_hl
-                --     end
-                --   end
-                --   return hl
-                -- end,
+              },
+              kind = {
+                -- Optional, use highlights from mini.icons
+                highlight = function(ctx)
+                  if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                    local mini_icon, mini_hl = require("mini.icons").get_icon(ctx.item.data.type, ctx.label)
+                    if mini_icon then
+                      return mini_hl
+                    end
+                  end
+                  return ctx.kind_hl
+                end,
               },
             },
           },

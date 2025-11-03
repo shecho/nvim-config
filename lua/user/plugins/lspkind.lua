@@ -2,7 +2,7 @@ return {
   "onsails/lspkind.nvim",
   event = "VeryLazy",
   lazy = true,
-  init = function()
+  config = function()
     local icons = require("user.icons")
     require("lspkind").init({
       mode = "symbol_text",

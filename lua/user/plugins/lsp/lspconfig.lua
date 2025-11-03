@@ -1,12 +1,13 @@
+local keymap = vim.keymap.set
 ---@param bufnr number
 local function setup_lsp_keymaps(bufnr)
-  local keymap = vim.keymap.set
   local opts = { noremap = true, silent = true, buffer = bufnr }
 
   -- References
   opts.desc = "Show LSP references"
   keymap("n", "<leader>lr", "<cmd>Trouble lsp_references<CR>", opts)
   keymap("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts)
+  keymap("n", "<leader>LS", "<cmd>FzfLua lsp_references<CR>", opts)
 
   -- Definitions
   opts.desc = "Show LSP definitions"
@@ -67,19 +68,20 @@ end
 ---@return vim.diagnostic.Opts
 local function setup_diagnostics()
   local signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
+    Error = "  ",
+    Warn = "  ",
+    Hint = "  ", -- "󰠠 "
+    Info = "  ",
   }
 
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+    vim.fn.sign_define(hl, { text = icon, texthl = "", numhl = "" })
   end
 
   return {
     virtual_text = true,
-    signs = true,
+    signs = false,
     underline = true,
     update_in_insert = false,
     severity_sort = true,

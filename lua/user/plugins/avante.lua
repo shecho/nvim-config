@@ -14,7 +14,7 @@ return {
         -- model = "claude-sonnet-4.5", -- o1-preview | o1-mini | claude-3.5-sonnet
         -- model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
         -- model = "gpt-4.1", -- o1-preview | o1-mini | claude-3.5-sonnet
-        model = "gpt-4", -- o1-preview | o1-mini | claude-3.5-sonnet
+        model = "gpt-4.1", -- o1-preview | o1-mini | claude-3.5-sonnet
       },
     },
     -- auto_suggestions_provider = "copilot",
@@ -52,9 +52,9 @@ return {
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
     -- "stevearc/dressing.nvim",
-    -- "MunifTanjim/nui.nvim",
-    -- "nvim-lua/plenary.nvim",
-    -- "echasnovski/mini.pick",
+    "MunifTanjim/nui.nvim",
+    "nvim-lua/plenary.nvim",
+    "echasnovski/mini.pick",
     -- "nvim-telescope/telescope.nvim",
     -- "hrsh7th/nvim-cmp",
     -- "ibhagwan/fzf-lua",

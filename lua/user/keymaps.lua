@@ -23,31 +23,26 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- keymap("n", "x", '"_x', opts)
 -- Dell markks
 
---disable some mac keymap
-keymap("i", "<D-a>", "<nop>", opt_nw)
-keymap("i", "<D-d>", "<nop>", opt_nw)
-keymap("i", "<D-z>", "<nop>", opt_nw)
-keymap("i", "<D-z>", "<nop>", opt_nw)
-keymap("i", "<D-x>", "<nop>", opt_nw)
-keymap("i", "<D-p>", "<nop>", opt_nw)
-keymap("i", "<D-o>", "<nop>", opt_nw)
-keymap("i", "<D-i>", "<nop>", opt_nw)
-keymap("i", "<D-u>", "<nop>", opt_nw)
-keymap("i", "<D-y>", "<nop>", opt_nw)
-keymap("i", "<D-l>", "<nop>", opt_nw)
-keymap("i", "<D-m>", "<nop>", opt_nw)
-keymap("i", "<D-,>", "<nop>", opt_nw)
-keymap("i", "<D-.>", "<nop>", opt_nw)
+-- Disable macOS-specific shortcuts in insert mode
+local mac_keybinds = { "a", "d", "z", "x", "p", "o", "i", "u", "y", "l", "m", ",", "." }
+for _, key in ipairs(mac_keybinds) do
+  keymap("i", "<D-" .. key .. ">", "<nop>", opt_nw)
+end
 
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opt_nw)
-keymap("n", "<C-j>", "<C-w>j", opt_nw)
-keymap("n", "<C-k>", "<C-w>k", opt_nw)
-keymap("n", "<C-l>", "<C-w>l", opt_nw)
-keymap("n", "<C-j>", "<cmd> resize -2<CR>", opt_nw)
-keymap("n", "<C-k>", "<cmd> resize +2<CR>", opt_nw)
-keymap("n", "<S-h>", "<cmd> vertical resize -2<CR>", opt_nw)
-keymap("n", "<S-l>", "<cmd> vertical resize +2<CR>", opt_nw)
+-- Better window navigation and resizing
+local window_nav_keys = {
+  ["<C-h>"] = "<C-w>h",
+  -- ["<C-j>"] = "<C-w>j",
+  -- ["<C-k>"] = "<C-w>k",
+  ["<C-l>"] = "<C-w>l",
+  ["<C-j>"] = "<cmd> resize -2<CR>",
+  ["<C-k>"] = "<cmd> resize +2<CR>",
+  ["<S-h>"] = "<cmd> vertical resize -2<CR>",
+  ["<S-l>"] = "<cmd> vertical resize +2<CR>",
+}
+for key, cmd in pairs(window_nav_keys) do
+  keymap("n", key, cmd, opt_nw)
+end
 
 -- Resize with arrows
 -- keymap("n", "<S-Up>", ":resize -2<CR>", opts)
@@ -185,4 +180,6 @@ keymap("n", "md", function()
 end, opt_nw)
 
 keymap("n", "mD", "<cmd> delmarks A-Z1-9<CR>", opt_nw)
+keymap("n", "MD", "<cmd> delmarks A-Z1-9<CR>", opt_nw)
+opt_nw.desc = ""
 -- return M
