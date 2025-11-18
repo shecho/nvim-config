@@ -15,7 +15,7 @@ return {
       notifier = { enabled = true, timeout = 3000 },
       statuscolumn = { enabled = true },
       -- words = { enabled = true },
-      styles = { notification = {}, zen = { width = 0.90, backdrop = { transparent = true, blend = 20 } } },
+      styles = { notification = {}, zen = { width = 0.85, backdrop = { transparent = true, blend = 10 } } },
       explorer = { minimal = true, enabled = true, replace_netrw = true, layout = { position = "right" } },
       zen = { enabled = true, toggles = { dim = false } },
       picker = {

@@ -22,7 +22,6 @@ return {
         opts = { history = true, delete_check_events = "TextChanged" },
       },
     },
-
     version = "1.*",
     -- AND/OR build from source, requires nightly: 'https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust'
     build = "cargo build --release",
@@ -50,11 +49,11 @@ return {
               return cmp.select_next()
             end
           end,
-          "show_and_insert",
-          "snippet_forward",
-          "select_next",
-          "fallback",
-          "fallback_to_mappings",
+          -- "show_and_insert",
+          -- "snippet_forward",
+          -- "select_next",
+          -- "fallback",
+          -- "fallback_to_mappings",
         },
         ["<S-Tab>"] = {
           "select_prev",
@@ -67,7 +66,7 @@ return {
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
         -- ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
-        ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
+        ["<CR>"] = { "select_and_accept", "accept", "select_accept_and_enter", "accept_and_enter", "fallback" },
       },
       cmdline = {
         enabled = true,
@@ -157,7 +156,7 @@ return {
       signature = { enabled = true },
 
       sources = {
-        default = { "lazydev", "snippets", "lsp", "path", "buffer" },
+        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
         providers = {
           -- snippets = {
           --   name = "Snippets",
