@@ -145,8 +145,8 @@ return {
     keys = {
       -- Scratch
       { "<leader>.",  function() Snacks.scratch() end,                             desc = "Toggle Scratch Buffer", },
-      { "<leader>Sa",  function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
-      { "<leader>SA",  function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
+      { "<leader>Sa", function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
+      { "<leader>SA", function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
       -- buffer
       { "<leader>d",  function() Snacks.bufdelete() end,                           desc = "Delete buffer", },
       { "<leader>D",  function() Snacks.bufdelete.delete() end,                    desc = "Delere buffer force", },
@@ -159,7 +159,7 @@ return {
       { "<C-p>",      function() Snacks.picker.files({ layout = "vscode" }) end,   desc = "Files", },
       { "<D-p>",      function() Snacks.picker.smart({ layout = "vscode" }) end,   desc = "Smart Files", },
       { "<leader>sd", function() Snacks.picker.files({ layout = "dropdown" }) end, desc = "Find Files", },
-      { "<leader>f",  function() Snacks.picker.files({ layout = "vscode" }) end,   desc = "Files", },
+      { "<leader>f",  function() Snacks.picker.files({ layout = "vscode" }) end,   desc = "Files",                 mode = { "n", "x", "v" } },
       { "<leader>sf", function() Snacks.picker.smart() end,                        desc = "Smart Files", },
       { "<leader>sb", function() Snacks.picker.buffers() end,                      desc = "Buffers", },
       { "<leader>sk", function() Snacks.picker.keymaps() end,                      desc = "Keymaps", },
@@ -170,10 +170,12 @@ return {
       { "<leader>sH", function() Snacks.picker.search_history() end,               desc = "Search History", },
       { "<leader>sG", function() Snacks.picker.git_branches() end,                 desc = "Git Branches", },
       { "<leader>sp", function() Snacks.picker.projects() end,                     desc = "Projects", },
-      { "<leader>so", function() Snacks.picker.recent() end,                       desc = "Recent", },
-      { "<leader>sm", function() Snacks.picker.marks() end,                        desc = "Marks", },
-      { "<leader>sg", function() Snacks.picker.grep() end,                         desc = "Grep", },
+      { "<leader>so", function() Snacks.picker.recent() end,                       desc = "Recent",                mode = { "n", "x", "v" }, },
+      { "<leader>sm", function() Snacks.picker.marks() end,                        desc = "Marks",                 mode = { "n", "x", "v" }, },
       { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection word",        mode = { "n", "x", "v" }, },
+      { "<leader>sg", function() Snacks.picker.grep_buffers() end,                 desc = "Grep on file",          mode = { "n", "x", "v" }, },
+      { "<leader>sl", function() Snacks.picker.lines() end,                        desc = "Find lines",            mode = { "n", "x", "v" }, },
+      { "<leader>SG", function() Snacks.picker.grep() end,                         desc = "Grep",                  mode = { "n", "x", "v" }, },
       {
         "<leader>p",
         function()
