@@ -87,8 +87,8 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 opts.desc = "Floaterm toogle"
 -- keymap({ "n", "v" }, "<leader>T", "<cmd>FloatermToggle<cr>", opts)
 -- keymap({ "n", "t" }, "<C-t>", "<cmd>FloatermToggle<cr>", opts)
-keymap({ "n", "t" }, "<C-t>", "<cmd>ToggleTerm<cr>", opts)
-keymap({ "n" }, "<leader>T", "<cmd>ToggleTerm<cr>", opts)
+keymap({ "n", "t" }, "<c-/>", "<cmd>ToggleTerm<cr>", opts)
+keymap({ "n" }, "<c-_>", "<cmd>ToggleTerm<cr>", opts)
 
 opts.desc = "Enter cmd mode"
 keymap("n", "<leader>;", ":", opts)

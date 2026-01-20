@@ -15,7 +15,7 @@ vim.cmd([[
   let g:VM_theme = 'purplegray'
 ]])
 
-vim.o.winblend = 20
+vim.o.winblend = 5
 vim.cmd([[ set rtp+=/opt/homebrew/opt/fzf ]])
 
 -- TODO nvim lint

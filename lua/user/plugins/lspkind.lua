@@ -5,7 +5,7 @@ return {
   config = function()
     local icons = require("user.icons")
     require("lspkind").init({
-      mode = "symbol_text",
+      -- mode = "symbol_text",
       preset = "codicons",
       symbol_map = {
         Copilot = "",

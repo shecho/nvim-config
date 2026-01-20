@@ -15,7 +15,7 @@ return {
       notifier = { enabled = true, timeout = 3000 },
       statuscolumn = { enabled = true },
       -- words = { enabled = true },
-      styles = { notification = {}, zen = { width = 0.85, backdrop = { transparent = true, blend = 10 } } },
+      styles = { notification = {}, zen = { width = 0.85, backdrop = { transparent = false, blend = 99 } } },
       explorer = { minimal = true, enabled = true, replace_netrw = true, layout = { position = "right" } },
       zen = { enabled = true, toggles = { dim = false } },
       picker = {
@@ -226,8 +226,8 @@ return {
       { "<leader>gF", function() Snacks.picker.git_log_file() end,         desc = "Current File History", },
       { "<leader>gf", function() Snacks.lazygit.log_file() end,            desc = "Lazygit File History", },
       { "<leader>gl", function() Snacks.lazygit.log() end,                 desc = "Lazygit Log (cwd)", },
-      { "<c-/>",      function() Snacks.terminal() end,                    desc = "Terminal",             mode = { "t", "n" }, },
-      { "<c-_>",      function() Snacks.terminal() end,                    desc = "Terminal", },
+      { "<C-t>",      function() Snacks.terminal() end,                    desc = "Terminal",             mode = { "t", "n" }, },
+      { "<leader>T",  function() Snacks.terminal() end,                    desc = "Terminal", },
       { "]]",         function() Snacks.words.jump(vim.v.count1) end,      desc = "Next Reference",       mode = { "n", "t" }, },
       { "[[",         function() Snacks.words.jump(-vim.v.count1) end,     desc = "Prev Reference",       mode = { "n", "t" }, },
 

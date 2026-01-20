@@ -123,7 +123,7 @@ return {
                     end
                   end
 
-                  local icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                  local icon = require("lspkind").symbol_map[ctx.kind] or ""
                   return icon .. ctx.icon_gap
                 end,
 
