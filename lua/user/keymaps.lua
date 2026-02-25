@@ -32,9 +32,11 @@ end
 -- Better window navigation and resizing
 local window_nav_keys = {
   ["<C-h>"] = "<C-w>h",
+  ["<D-h>"] = "<C-w>h",
+  ["<C-l>"] = "<C-w>l",
+  ["<D-l>"] = "<C-w>l",
   -- ["<C-j>"] = "<C-w>j",
   -- ["<C-k>"] = "<C-w>k",
-  ["<C-l>"] = "<C-w>l",
   ["<C-j>"] = "<cmd> resize -2<CR>",
   ["<C-k>"] = "<cmd> resize +2<CR>",
   ["<S-h>"] = "<cmd> vertical resize -2<CR>",

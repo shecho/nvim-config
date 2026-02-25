@@ -49,6 +49,7 @@ return {
               return cmp.select_next()
             end
           end,
+          -- "show_and_insert_or_accept_single",
           -- "show_and_insert",
           -- "snippet_forward",
           -- "select_next",
@@ -66,7 +67,7 @@ return {
         ["<C-j>"] = { "accept" },
         ["<C-CR>"] = { "accept", "fallback" },
         -- ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback_to_mappings", "fallback" },
-        ["<CR>"] = { "select_and_accept", "accept", "select_accept_and_enter", "accept_and_enter", "fallback" },
+        ["<CR>"] = { "select_and_accept", "accept", "accept_and_enter", "select_accept_and_enter", "fallback" },
       },
       cmdline = {
         enabled = true,
@@ -80,7 +81,6 @@ return {
               if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then
                 return cmp.accept()
               end
-
               if not cmp.is_menu_visible() then
                 return cmp.accept_and_enter()
               end
@@ -92,8 +92,8 @@ return {
           },
           ["<Up>"] = { "select_prev", "fallback" },
           ["<Down>"] = { "select_next", "fallback" },
-          ["<C-j>"] = { "accept" },
           ["<D-j>"] = { "accept_and_enter", "accept", "fallback" },
+          ["<C-j>"] = { "accept" },
           ["<CR>"] = { "select_accept_and_enter", "select_and_accept", "fallback", "fallback_to_mappings" },
         },
         completion = { ghost_text = { enabled = true }, menu = { auto_show = true } },
