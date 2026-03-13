@@ -6,16 +6,15 @@ return {
     {
       "gp",
       "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-      noremap = true, -- Do not allow remapping
-      desc = "goto preview definition", -- Description for the keybinding
+      noremap = true,
+      desc = "goto preview definition",
     },
     {
-      "q",
+      "gP",
       "<cmd>lua require('goto-preview').close_all_win()<CR>",
       noremap = true,
       desc = "close all preview windows",
     },
   },
-  -- opts = {},
-  config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+  config = true,
 }

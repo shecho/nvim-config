@@ -1,7 +1,8 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = { "BufReadPre" },
+    -- event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre",  },
     opts = function()
       local conform = require("conform")
       vim.keymap.set({ "n", "v" }, "<leader>lf", function()
@@ -26,7 +27,7 @@ return {
           json = { "prettier", "prettierd", stop_after_first = true },
           yaml = { "prettier", "prettierd", stop_after_first = true },
           markdown = { "prettier", "prettierd", stop_after_first = true },
-          graphql = { "prettier", "prettierd", stop_after_first = true },
+                graphql = { "prettier", "prettierd", stop_after_first = true },
           liquid = { "prettier", "prettierd", stop_after_first = true },
           lua = { "stylua" },
           python = { "isort", "black" },

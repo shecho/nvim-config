@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.pairs",
-    -- version = "*", -- (recommended) only required with prebuilt binaries
+    version = "*", -- required for prebuilt binaries via blink.download
 
     -- download prebuilt binaries from github releases
     dependencies = "saghen/blink.download",

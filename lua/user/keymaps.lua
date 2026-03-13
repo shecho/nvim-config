@@ -5,8 +5,6 @@ local keymap = vim.keymap.set
 
 -- Remap space as leader key
 keymap("n", "<Space>", "", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 
 keymap("n", "<C-i>", "<C-i>", opts)
 
@@ -55,7 +53,7 @@ end
 -- Better movement on the code
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
-keymap("n", "Y", 'y$ "', opts)
+keymap("n", "Y", "y$", opts)
 keymap("n", "J", "mzJ`z", opts)
 keymap("c", "Q", "q", opt_nw)
 

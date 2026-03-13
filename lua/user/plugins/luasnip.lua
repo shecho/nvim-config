@@ -13,8 +13,7 @@ return {
   },
   build = "make install_jsregexp",
 
-  -- stylua: ignor  -- { "<tab>", function() require("luasnip").jump(1) end, mode = "s", },
-  -- },
+  -- stylua: ignore
   config = function()
     local luasnip = require("luasnip")
     luasnip.config.set_config({

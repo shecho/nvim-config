@@ -1,10 +1,12 @@
 return {
   "shortcuts/no-neck-pain.nvim",
-  lazy = false,
   version = "*",
+  cmd = { "NoNeckPain" },
+  keys = {
+    { "<leader>aN", "<cmd>NoNeckPain<cr>", desc = "Toggle NoNeckPain" },
+  },
   config = function()
     require("no-neck-pain").setup({
-      version = "*",
       width = 190,
     })
   end,

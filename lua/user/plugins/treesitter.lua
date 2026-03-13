@@ -24,7 +24,7 @@ return {
       treesitter.setup({
         modules = {},
         TSConfig = nil,
-        sync_install = true,
+        sync_install = false,
         highlight = { enable = true },
         -- autotag = { enable = true, enable_rename = true, enable_close = true, enable_close_on_slash = true },
         ignore_install = { "php", "phpdoc", "sql", "erlang" },

@@ -6,7 +6,7 @@ return {
     ---@type snacks.Config
     opts = {
       scratch = { enabled = true, autosave = true, persist = true },
-      image = { enabled = true },
+      image = { enabled = vim.fn.has("mac") == 1 }, -- image rendering only on macOS (kitty/wezterm)
       input = { enabled = true },
       scope = { enabled = true },
       bigfile = { enabled = true, size = 1.5 * 1024 * 1024 },

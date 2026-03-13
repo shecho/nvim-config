@@ -1,8 +1,5 @@
 if vim.loader then
   vim.loader.enable()
-  vim.schedule(function()
-    vim.notify("nvim is enabled")
-  end)
 end
 
 require("user.options")
@@ -10,17 +7,16 @@ require("user.core")
 require("user.keymaps")
 require("user.lazy")
 
-vim.cmd([[
-  colorscheme onedark
-  let g:VM_theme = 'purplegray'
-]])
+-- Colorscheme (set after plugins load)
+vim.cmd.colorscheme("onedark")
+-- VM theme
+vim.g.VM_theme = "purplegray"
 
+-- Window/popup transparency blend
 vim.o.winblend = 5
-vim.cmd([[ set rtp+=/opt/homebrew/opt/fzf ]])
 
--- TODO nvim lint
+vim.o.pumblend = 5
 
---   highlight Normal guibg=none
---   highlight NonText guibg=none
---   highlight Normal ctermbg=none
---   highlight NonText ctermbg=none
+-- Optional: Uncomment to enable transparent background
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NonText", { bg = "none" })

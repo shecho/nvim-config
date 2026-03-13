@@ -5,10 +5,6 @@ return {
     "echasnovski/mini.icons",
   },
   event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 200
-  end,
   opts = {
     preset = "helix",
     plugins = { spelling = true },
@@ -29,8 +25,6 @@ return {
       { "<leader>s", group = "Search" },
       { "<leader>S", group = "Session", icon = { icon = " ", color = "purple" } },
       { "<leader>x", group = "Trouble" },
-      { "<leader>g", group = "Git" },
-      { "<leader>l", group = "Lsp" },
       { "<leader>r", group = "Rename" },
       { "<leader>U", group = "Notify/Toggles" },
     })

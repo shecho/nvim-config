@@ -1,13 +1,13 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    cmd = { "Gitsigns" },
     -- event = { "BufReadPre", "BufNewFile" },
+    cmd = { "Gitsigns" },
     config = true,
   },
   {
     "tpope/vim-fugitive",
-    event = { "BufReadPre", "BufNewFile" },
+    cmd = { "Git", "G", "Gvdiffsplit", "Gdiffsplit", "Gread", "Gwrite" },
     config = function() end,
     keys = {
       { "<leader>ga", "<cmd>Git add .<cr>", nowait = true, desc = "Add" },

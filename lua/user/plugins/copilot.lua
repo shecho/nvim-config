@@ -42,7 +42,7 @@ return {
     {
       "CopilotC-Nvim/CopilotChat.nvim",
       branch = "main",
-      comd = "CopilotChat",
+      cmd = "CopilotChat",
       dependencies = {
         { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
       },
@@ -56,7 +56,7 @@ return {
           -- answer_header = "󱗞 ",
           question_header = "  " .. user .. " ",
           answer_header = "  Copilot ",
-          debug = true, -- Enable debugging
+          debug = false,
           -- See Configuration section for rest
           window = {
             width = 0.4,

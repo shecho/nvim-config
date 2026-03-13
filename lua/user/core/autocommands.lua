@@ -66,7 +66,7 @@ f.autocmd("FileType", {
 })
 
 f.autocmd({ "BufEnter" }, {
-  pattern = { "" },
+  pattern = { "*" },
   callback = function()
     local get_project_dir = function()
       local cwd = vim.fn.getcwd()

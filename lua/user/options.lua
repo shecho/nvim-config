@@ -1,14 +1,14 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 local opt = vim.opt
 
-opt.autochdir = true -- Change working directory to the file's directory
 opt.numberwidth = 4
 opt.incsearch = true
 opt.hlsearch = true
 opt.swapfile = false
-opt.ttyfast = true
-opt.lazyredraw = true
+-- opt.ttyfast = true
+-- opt.lazyredraw = true
 opt.backup = false
 opt.background = "dark"
 opt.autoindent = true
@@ -49,14 +49,14 @@ opt.splitright = true -- Put new windows right of current
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = 200
-opt.undofile = false
+opt.undofile = true  -- Save undo history
 opt.undolevels = 10000
-opt.updatetime = 20 -- Save swap file and trigger CursorHold
+opt.updatetime = 250 -- Balanced: fast enough for CursorHold, not hammering LSP
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 opt.mousemoveevent = true
-vim.o.mousemoveevent = true
+
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])

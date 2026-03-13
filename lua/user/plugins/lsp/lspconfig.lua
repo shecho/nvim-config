@@ -65,12 +65,13 @@ local function setup_lsp_keymaps(bufnr)
   keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 end
 
+----- "󰠠 "
 ---@return vim.diagnostic.Opts
 local function setup_diagnostics()
   local signs = {
     Error = "  ",
     Warn = "  ",
-    Hint = "  ", -- "󰠠 "
+    Hint = "  ",
     Info = "  ",
   }
 
@@ -111,6 +112,9 @@ end
 ---@param capabilities table
 ---@return table<string, table>
 local function get_server_configs(capabilities)
+  -- Shared flags to debounce LSP text change processing (important on Windows)
+  local debounce_flags = { debounce_text_changes = 100 }
+
   return {
     emmet_ls = {
       capabilities = capabilities,
@@ -122,18 +126,43 @@ local function get_server_configs(capabilities)
     },
     lua_ls = {
       capabilities = capabilities,
+      flags = debounce_flags,
+      settings = {
+        Lua = {
+          workspace = {
+            checkThirdParty = false, -- prevents slow "apply settings?" prompts
+            maxPreload = 1000,
+            preloadFileSize = 500,
+          },
+          telemetry = { enable = false },
+        },
+      },
     },
     ts_ls = {
       capabilities = capabilities,
+      flags = debounce_flags,
       filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
+      -- Only start when a tsconfig/jsconfig exists (avoids spawning on stray .ts files)
+      -- root_dir = require("lspconfig.util").root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
+      -- single_file_support = false,
+      -- init_options = {
+      --   preferences = {
+      --     -- includeCompletionsWithSnippetText = true,
+      --     includeCompletionsForImportStatements = true,
+      --   },
+      -- },
     },
     eslint = {
       capabilities = capabilities,
+      flags = debounce_flags,
       filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
-    },
-    eslind_server = {
-      capabilities = capabilities,
-      filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
+      -- Run eslint fix on save instead of formatting
+      -- on_attach = function(_, bufnr)
+      --   vim.api.nvim_create_autocmd("BufWritePre", {
+      --     buffer = bufnr,
+      --     command = "EslintFixAll",
+      --   })
+      -- end,
     },
   }
 end
