@@ -49,12 +49,20 @@ return {
       --     size = 0.3, -- 30% of the window
       --   },
       -- },
+      lsp_definitions = {
+        win = {
+          type = "split", -- split window
+          relative = "win", -- relative to current window
+          position = "right", -- right side
+          size = 0.30, -- 30% of the window
+        },
+      },
       lsp_references = {
         win = {
           type = "split", -- split window
           relative = "win", -- relative to current window
           position = "right", -- right side
-          size = 0.32, -- 30% of the window
+          size = 0.35, -- 30% of the window
         },
       },
       diagnostics = {
@@ -69,13 +77,13 @@ return {
     },
   },
   keys = {
-    { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics(Trouble)" },
-    { "<leader><space>", "<cmd>Trouble diagnostics toggle win.position=right<cr>", desc = "Diagnostics(Trouble)" },
-    { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics(Trouble)" },
-    { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols(Trouble)" },
-    { "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Defi/Refe/...(Trouble)" },
-    { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List(Trouble)" },
-    { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List(Trouble)" },
+    { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics" },
+    { "<leader><space>", "<cmd>Trouble diagnostics toggle win.position=right<cr>", desc = "Diagnostics" },
+    { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+    { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
+    { "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Lists" },
+    { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+    { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List" },
     {
       "[q",
       function()
@@ -92,9 +100,9 @@ return {
     },
     {
       "]q",
-      function(self)
+      function()
         if require("trouble").is_open() then
-          require("trouble").next(self, { skip_groups = true, jump = true })
+          require("trouble").next({ skip_groups = true, jump = true })
         else
           local ok, err = pcall(vim.cmd.cnext)
           if not ok then

@@ -10,10 +10,10 @@ return {
     cmd = { "Git", "G", "Gvdiffsplit", "Gdiffsplit", "Gread", "Gwrite" },
     config = function() end,
     keys = {
-      { "<leader>ga", "<cmd>Git add .<cr>", nowait = true, desc = "Add" },
-      { "<leader>gc", "<cmd>Git commit<cr>", nowait = true, desc = "Commit" },
-      { "<leader>gD", "<cmd>Git diff<cr>", nowait = true, desc = "Diff" },
-      { "<leader>gg", "<cmd>Gvdiffsplit<cr>", nowait = true, desc = "Diff split" },
+      { "<leader>ga", "<cmd>Git add .<cr>", nowait = true, desc = "Git Add" },
+      { "<leader>gc", "<cmd>Git commit<cr>", nowait = true, desc = "Git Commit" },
+      { "<leader>gD", "<cmd>Git diff<cr>", nowait = true, desc = "Git Diff" },
+      { "<leader>gg", "<cmd>Gvdiffsplit<cr>", nowait = true, desc = "Git Diff Split" },
       -- { "<leader>gd", "<cmd>Gdiffsplit<cr>", nowait = true, desc = "Diff split" },
       { "<leader>gp", "<cmd>Git push<cr>", nowait = true, desc = "Push" },
       { "<leader>gP", "<cmd>Git pull<cr>", nowait = true, desc = "Pull" },
@@ -25,7 +25,7 @@ return {
     cmd = { "GV" },
     keys = {
       { "<leader>gH", "<cmd>GV<cr>", nowait = true, desc = "Git History" },
-      { "<leader>gh", "<cmd>GV!<cr>", nowait = true, desc = "Buffer commits" },
+      { "<leader>gh", "<cmd>GV!<cr>", nowait = true, desc = "Buffer Commits" },
     },
     config = function() end,
   },

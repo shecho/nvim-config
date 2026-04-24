@@ -4,7 +4,11 @@ return {
   lazy = true,
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
+    local harpoon = require("harpoon")
     local keymap = vim.keymap
+
+    harpoon.setup({})
+
     keymap.set("n", "<leader>nq", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", { desc = "File 1" })
     keymap.set("n", "<leader>nw", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", { desc = "File 2" })
     keymap.set("n", "<leader>ne", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", { desc = "File 3" })

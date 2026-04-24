@@ -14,7 +14,6 @@ vim.g.VM_theme = "purplegray"
 
 -- Window/popup transparency blend
 vim.o.winblend = 5
-
 vim.o.pumblend = 5
 
 -- Optional: Uncomment to enable transparent background

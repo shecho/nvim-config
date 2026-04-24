@@ -23,7 +23,8 @@ function M.isempty(s)
 end
 
 function M.get_buf_option(opt)
-  local status_ok, buf_option = pcall(vim.api.nvim_get_option_value, 0, opt)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local status_ok, buf_option = pcall(vim.api.nvim_get_option_value, opt, { buf = bufnr })
   if not status_ok then
     return nil
   else
@@ -51,15 +52,13 @@ function M.saveFile()
     return
   end
 
-  local filename = vim.fn.expand("%:t") -- Get only the filename
-  local success, err = pcall(function()
-    vim.cmd("silent! write") -- Try to save the file without showing the default message
-  end)
+  local filename = vim.fn.expand("%:t")
+  local success, err = pcall(vim.cmd.write)
 
   if success then
-    vim.notify(filename .. " Saved!") -- Show only the custom message if successful
+    vim.notify(filename .. " Saved!")
   else
-    vim.notify("Error: " .. err, vim.log.levels.ERROR) -- Show the error message if it fails
+    vim.notify("Error: " .. err, vim.log.levels.ERROR)
   end
 end
 
@@ -68,7 +67,16 @@ function M.on_attach(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      local client_id = args.data and args.data.client_id
+      if not client_id then
+        return
+      end
+
+      local client = vim.lsp.get_client_by_id(client_id)
+      if not client then
+        return
+      end
+
       on_attach(client, buffer)
     end,
   })

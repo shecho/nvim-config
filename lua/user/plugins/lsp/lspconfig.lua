@@ -6,6 +6,7 @@ local function setup_lsp_keymaps(bufnr)
   -- References
   opts.desc = "Show LSP references"
   keymap("n", "<leader>lr", "<cmd>Trouble lsp_references<CR>", opts)
+  opts.desc = "Show LSP references (picker)"
   keymap("n", "<leader>lS", "<cmd>FzfLua lsp_references<CR>", opts)
   keymap("n", "<leader>LS", "<cmd>FzfLua lsp_references<CR>", opts)
 
@@ -24,12 +25,10 @@ local function setup_lsp_keymaps(bufnr)
   -- Code actions
   opts.desc = "See available code actions"
   keymap({ "n", "v" }, "<leader>lq", vim.lsp.buf.code_action, opts)
-  keymap({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
 
   -- Rename
   opts.desc = "Rename"
   keymap("n", "<leader>le", vim.lsp.buf.rename, opts)
-  keymap("n", "<leader>lR", vim.lsp.buf.rename, opts)
 
   -- Diagnostics
   opts.desc = "Show buffer diagnostics"
@@ -39,7 +38,7 @@ local function setup_lsp_keymaps(bufnr)
   keymap("n", "<leader>ln", function()
     vim.diagnostic.jump({ count = -1, float = true })
   end, opts)
-  keymap("n", "[[", function()
+  keymap("n", "[d", function()
     vim.diagnostic.jump({ count = -1, float = true })
   end, opts)
 
@@ -47,7 +46,7 @@ local function setup_lsp_keymaps(bufnr)
   keymap("n", "<leader>ll", function()
     vim.diagnostic.jump({ count = 1, float = true })
   end, opts)
-  keymap("n", "]]", function()
+  keymap("n", "]d", function()
     vim.diagnostic.jump({ count = 1, float = true })
   end, opts)
 
@@ -59,10 +58,6 @@ local function setup_lsp_keymaps(bufnr)
       close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LSPDetach" },
     })
   end, opts)
-
-  -- Format
-  opts.desc = "Format"
-  keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 end
 
 ----- "󰠠 "

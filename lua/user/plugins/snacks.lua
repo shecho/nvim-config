@@ -146,11 +146,10 @@ return {
       -- Scratch
       { "<leader>.",  function() Snacks.scratch() end,                             desc = "Toggle Scratch Buffer", },
       { "<leader>Sa", function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
-      { "<leader>SA", function() Snacks.scratch.select() end,                      desc = "Select Scratch Buffer", },
       -- buffer
-      { "<leader>d",  function() Snacks.bufdelete() end,                           desc = "Delete buffer", },
-      { "<leader>D",  function() Snacks.bufdelete.delete() end,                    desc = "Delere buffer force", },
-      { "<leader>bb", function() Snacks.bufdelete.other() end,                     desc = "Delete other buffers", },
+      { "<leader>d",  function() Snacks.bufdelete() end,                           desc = "Delete Buffer", },
+      { "<leader>D",  function() Snacks.bufdelete.delete() end,                    desc = "Force Delete Buffer", },
+      { "<leader>bb", function() Snacks.bufdelete.other() end,                     desc = "Delete Other Buffers", },
       { "<leader>bd", function() Snacks.bufdelete() end,                           desc = "Delete Buffer", },
       -- search and explorer
       { "<leader>e",  function() Snacks.explorer() end,                            desc = "File Explorer", },
@@ -164,16 +163,16 @@ return {
       { "<leader>sb", function() Snacks.picker.buffers() end,                      desc = "Buffers", },
       { "<leader>sk", function() Snacks.picker.keymaps() end,                      desc = "Keymaps", },
       { "<leader>sc", function() Snacks.picker.command_history() end,              desc = "Command History" },
-      { "<leader>sC", function() Snacks.picker.commands() end,                     desc = "Command" },
-      { "<leader>sh", function() Snacks.picker.highlights() end,                   desc = "Highlights", },
+      { "<leader>sC", function() Snacks.picker.commands() end,                     desc = "Commands" },
+      { "<leader>sH", function() Snacks.picker.highlights() end,                   desc = "Highlights", },
+      { "<leader>sh", function() Snacks.picker.search_history() end,               desc = "Search History", },
       { "<leader>sj", function() Snacks.picker.jumps() end,                        desc = "Jumps", },
-      { "<leader>sH", function() Snacks.picker.search_history() end,               desc = "Search History", },
       { "<leader>sG", function() Snacks.picker.git_branches() end,                 desc = "Git Branches", },
       { "<leader>sp", function() Snacks.picker.projects() end,                     desc = "Projects", },
       { "<leader>so", function() Snacks.picker.recent() end,                       desc = "Recent",                mode = { "n", "x", "v" }, },
       { "<leader>sm", function() Snacks.picker.marks() end,                        desc = "Marks",                 mode = { "n", "x", "v" }, },
-      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Selection word",        mode = { "n", "x", "v" }, },
-      { "<leader>sg", function() Snacks.picker.grep_buffers() end,                 desc = "Grep on file",          mode = { "n", "x", "v" }, },
+      { "<leader>sw", function() Snacks.picker.grep_word() end,                    desc = "Word Under Cursor",     mode = { "n", "x", "v" }, },
+      { "<leader>sg", function() Snacks.picker.grep_buffers() end,                 desc = "Grep Open Buffers",     mode = { "n", "x", "v" }, },
       { "<leader>sl", function() Snacks.picker.lines() end,                        desc = "Find lines",            mode = { "n", "x", "v" }, },
       { "<leader>SG", function() Snacks.picker.grep() end,                         desc = "Grep",                  mode = { "n", "x", "v" }, },
       {
@@ -199,30 +198,27 @@ return {
       },
       --LSP
       { "gd",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
-      { "gh",         function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
-      { "<leader>LD", function() Snacks.picker.lsp_definitions() end,      desc = "Definition", },
+      { "<leader>LD", function() Snacks.picker.lsp_definitions() end,      desc = "Definitions Picker", },
       { "gD",         function() Snacks.picker.lsp_declarations() end,     desc = "Declaration", },
       { "gr",         function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "References", },
-      { "<leader>ls", function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "Goto Definition", },
-      { "gI",         function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
+      { "<leader>ls", function() Snacks.picker.lsp_references() end,       nowait = true,                 desc = "References Picker", },
       { "gi",         function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
-      { "<leader>lI", function() Snacks.picker.lsp_implementations() end,  desc = "Implementation", },
+      -- { "<leader>lI", function() Snacks.picker.lsp_implementations() end,  desc = "Implementations Picker", },
       { "gy",         function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
-      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definition", },
-      { "<leader>lB", function() Snacks.picker.diagnostics() end,          desc = "Diagnostic", },
-      { "<leader>LB", function() Snacks.picker.diagnostics() end,          desc = "Diagnostic", },
-      { "<leader>lb", function() Snacks.picker.diagnostics_buffer() end,   desc = "Diagnostic Buffer", },
+      { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definitions Picker", },
+      { "<leader>lb", function() Snacks.picker.diagnostics() end,          desc = "Workspace Diagnostics", },
+      { "<leader>lB", function() Snacks.picker.diagnostics_buffer() end,   desc = "Diagnostic Buffer", },
       -- Zen
       { "<leader>z",  function() Snacks.zen() end,                         desc = "Toggle Zen Mode", },
       { "<leader>Z",  function() Snacks.zen.zoom() end,                    desc = "Toggle Zoom", },
       -- News
-      { "<leader>Un", function() Snacks.picker.notifications() end,        desc = "History", },
-      { "<leader>N",  function() Snacks.notifier.show_history() end,       desc = "History", },
+      { "<leader>Un", function() Snacks.picker.notifications() end,        desc = "Notification History", },
+      { "<leader>NN",  function() Snacks.notifier.show_history() end,       desc = "Notification History", },
       { "<leader>cR", function() Snacks.rename.rename_file() end,          desc = "Rename File", },
       -- Git
       { "<leader>gB", function() Snacks.gitbrowse() end,                   desc = "Git Browse",           mode = { "n", "v" }, },
       { "<leader>gb", function() Snacks.git.blame_line() end,              desc = "Git Blame Line", },
-      { "<leader>gd", function() Snacks.picker.git_diff() end,             desc = "Git diff", },
+      { "<leader>gd", function() Snacks.picker.git_diff() end,             desc = "Git Diff", },
       { "<leader>gF", function() Snacks.picker.git_log_file() end,         desc = "Current File History", },
       { "<leader>gf", function() Snacks.lazygit.log_file() end,            desc = "Lazygit File History", },
       { "<leader>gl", function() Snacks.lazygit.log() end,                 desc = "Lazygit Log (cwd)", },
@@ -238,7 +234,7 @@ return {
       -- { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications", },
       -- { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit", },
       {
-        "<leader>NN",
+        "<leader>Na",
         desc = "Neovim News",
         function()
           Snacks.win({
@@ -272,7 +268,6 @@ return {
           -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>Ub")
           Snacks.toggle.inlay_hints():map("<leader>Uh")
           Snacks.toggle.indent():map("<leader>Ug")
-          Snacks.toggle.dim():map("T")
         end,
       })
     end,
