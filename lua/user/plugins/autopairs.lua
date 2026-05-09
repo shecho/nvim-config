@@ -2,10 +2,11 @@ return {
   {
     "saghen/blink.pairs",
     version = "*", -- required for prebuilt binaries via blink.download
+    event = "InsertEnter",
 
     -- download prebuilt binaries from github releases
     dependencies = "saghen/blink.download",
-    build = "cargo build --release",
+    -- Versioned releases use prebuilt binaries; avoid requiring Rust on fresh macOS/WSL installs.
     -- OR build from source with nix
     -- build = "nix build .#build-plugin",
 

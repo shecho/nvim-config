@@ -1,6 +1,6 @@
 return {
   "L3MON4D3/LuaSnip",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "InsertEnter",
   lazy = true,
   version = "v2.*",
   dependencies = {

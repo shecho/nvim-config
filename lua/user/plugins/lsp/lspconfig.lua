@@ -1,7 +1,11 @@
 local keymap = vim.keymap.set
 ---@param bufnr number
 local function setup_lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true, buffer = bufnr }
+  local opts = {
+    noremap = true,
+    silent = true,
+    buffer = bufnr,
+  }
 
   -- References
   opts.desc = "Show LSP references"
@@ -36,18 +40,30 @@ local function setup_lsp_keymaps(bufnr)
 
   opts.desc = "Go to previous diagnostic"
   keymap("n", "<leader>ln", function()
-    vim.diagnostic.jump({ count = -1, float = true })
+    vim.diagnostic.jump({
+      count = -1,
+      float = true,
+    })
   end, opts)
   keymap("n", "[d", function()
-    vim.diagnostic.jump({ count = -1, float = true })
+    vim.diagnostic.jump({
+      count = -1,
+      float = true,
+    })
   end, opts)
 
   opts.desc = "Go to next diagnostic"
   keymap("n", "<leader>ll", function()
-    vim.diagnostic.jump({ count = 1, float = true })
+    vim.diagnostic.jump({
+      count = 1,
+      float = true,
+    })
   end, opts)
   keymap("n", "]d", function()
-    vim.diagnostic.jump({ count = 1, float = true })
+    vim.diagnostic.jump({
+      count = 1,
+      float = true,
+    })
   end, opts)
 
   -- Hover
@@ -55,7 +71,7 @@ local function setup_lsp_keymaps(bufnr)
   keymap("n", "K", vim.lsp.buf.hover, opts)
   keymap("n", "<leader>k", function()
     vim.lsp.buf.hover({
-      close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LSPDetach" },
+      close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LspDetach" },
     })
   end, opts)
 end
@@ -63,52 +79,80 @@ end
 ----- "󰠠 "
 ---@return vim.diagnostic.Opts
 local function setup_diagnostics()
-  local signs = {
-    Error = "  ",
-    Warn = "  ",
-    Hint = "  ",
-    Info = "  ",
-  }
-
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = "", numhl = "" })
-  end
-
   return {
-    virtual_text = true,
-    signs = false,
+    virtual_text = {
+      spacing = 4,
+      source = "if_many",
+      prefix = "●",
+    },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
+        [vim.diagnostic.severity.HINT] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
+      },
+    },
     underline = true,
     update_in_insert = false,
     severity_sort = true,
   }
 end
 
----@param base_capabilities table|nil
 ---@return table
-local function setup_capabilities(base_capabilities)
-  local capabilities = base_capabilities or {
-    textDocument = {
-      foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
+local function setup_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument = capabilities.textDocument or {}
+  capabilities.textDocument.completion = vim.tbl_deep_extend("force", capabilities.textDocument.completion or {}, {
+    completionItem = {
+      commitCharactersSupport = false,
+      deprecatedSupport = true,
+      documentationFormat = { "markdown", "plaintext" },
+      insertReplaceSupport = true,
+      insertTextModeSupport = {
+        valueSet = { 1, 2 },
+      },
+      labelDetailsSupport = true,
+      preselectSupport = false,
+      resolveSupport = {
+        properties = { "documentation", "detail", "additionalTextEdits", "command" },
+      },
+      snippetSupport = true,
+      tagSupport = {
+        valueSet = { 1 },
       },
     },
+    completionList = {
+      itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" },
+    },
+    contextSupport = true,
+    insertTextMode = 1,
+  })
+
+  local overrides = {}
+  overrides.textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = false,
+    },
   }
+  overrides.workspace = vim.tbl_deep_extend("force", overrides.workspace or {}, {
+    fileOperations = {
+      didRename = true,
+      willRename = true,
+    },
+  })
 
-  local ok, blink_cmp = pcall(require, "blink.cmp")
-  if ok then
-    capabilities = blink_cmp.get_lsp_capabilities(capabilities)
-  end
-
-  return capabilities
+  return vim.tbl_deep_extend("force", capabilities, overrides)
 end
 
 ---@param capabilities table
 ---@return table<string, table>
 local function get_server_configs(capabilities)
   -- Shared flags to debounce LSP text change processing (important on Windows)
-  local debounce_flags = { debounce_text_changes = 100 }
+  local debounce_flags = {
+    debounce_text_changes = 100,
+  }
 
   return {
     emmet_ls = {
@@ -129,17 +173,16 @@ local function get_server_configs(capabilities)
             maxPreload = 1000,
             preloadFileSize = 500,
           },
-          telemetry = { enable = false },
+          telemetry = {
+            enable = false,
+          },
         },
       },
     },
     ts_ls = {
       capabilities = capabilities,
       flags = debounce_flags,
-      filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
-      -- Only start when a tsconfig/jsconfig exists (avoids spawning on stray .ts files)
-      -- root_dir = require("lspconfig.util").root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
-      -- single_file_support = false,
+      filetypes = { "typescriptreact", "javascriptreact", "typescript", "javascript" },
       -- init_options = {
       --   preferences = {
       --     -- includeCompletionsWithSnippetText = true,
@@ -150,7 +193,7 @@ local function get_server_configs(capabilities)
     eslint = {
       capabilities = capabilities,
       flags = debounce_flags,
-      filetypes = { "typescriptreact", "javascriptreact", "tsx", "jsx", "typescript", "javascript" },
+      filetypes = { "typescriptreact", "javascriptreact", "typescript", "javascript" },
       -- Run eslint fix on save instead of formatting
       -- on_attach = function(_, bufnr)
       --   vim.api.nvim_create_autocmd("BufWritePre", {
@@ -166,18 +209,27 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "saghen/blink.cmp" },
-    { "mason-org/mason.nvim" },
-    { "mason-org/mason-lspconfig.nvim" },
     {
       "folke/lazydev.nvim",
       ft = "lua",
       opts = {
         library = {
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          { path = "LazyVim", words = { "LazyVim" } },
-          { path = "snacks.nvim", words = { "Snacks" } },
-          { path = "lazy.nvim", words = { "LazyVim" } },
+          {
+            path = "${3rd}/luv/library",
+            words = { "vim%.uv" },
+          },
+          {
+            path = "LazyVim",
+            words = { "LazyVim" },
+          },
+          {
+            path = "snacks.nvim",
+            words = { "Snacks" },
+          },
+          {
+            path = "lazy.nvim",
+            words = { "LazyVim" },
+          },
         },
       },
     },
@@ -189,11 +241,27 @@ return {
     local capabilities = setup_capabilities()
 
     -- Setup LSP attach autocmd
-    local group = vim.api.nvim_create_augroup("UserLspConfig", {})
+    local group = vim.api.nvim_create_augroup("UserLspConfig", {
+      clear = true,
+    })
     vim.api.nvim_create_autocmd("LspAttach", {
       group = group,
       callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
         setup_lsp_keymaps(ev.buf)
+
+        if client and client.supports_method("textDocument/inlayHint") and vim.bo[ev.buf].filetype ~= "vue" then
+          vim.lsp.inlay_hint.enable(true, {
+            bufnr = ev.buf,
+          })
+        end
+
+        -- if client and client.supports_method("textDocument/foldingRange") then
+        --     vim.api.nvim_buf_call(ev.buf, function()
+        --         vim.opt_local.foldmethod = "expr"
+        --         vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
+        --     end)
+        -- end
       end,
     })
 

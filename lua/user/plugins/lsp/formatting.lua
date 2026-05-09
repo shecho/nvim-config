@@ -5,10 +5,11 @@ return {
     event = { "BufReadPre" },
     opts = function()
       local conform = require("conform")
+      local uv = vim.uv or vim.loop
 
       vim.keymap.set({ "n", "v" }, "<leader>lf", function()
         conform.format({
-          lsp_fallback = true,
+          lsp_format = "fallback",
           async = false,
           timeout_ms = 1000,
         })
@@ -17,27 +18,41 @@ return {
       ---@module "conform"
       ---@type conform.setupOpts
       return {
+        default_format_opts = {
+          timeout_ms = 3000,
+          async = false,
+          quiet = false,
+          lsp_format = "fallback",
+        },
         formatters_by_ft = {
-          javascript = { "prettier", "prettierd", stop_after_first = true },
-          typescript = { "prettier", "prettierd", stop_after_first = true },
-          javascriptreact = { "prettier", "prettierd", stop_after_first = true },
-          typescriptreact = { "prettier", "prettierd", stop_after_first = true },
-          svelte = { "prettier", "prettierd", stop_after_first = true },
-          css = { "prettier", "prettierd", stop_after_first = true },
-          html = { "prettier", "prettierd", stop_after_first = true },
-          json = { "prettier", "prettierd", stop_after_first = true },
-          yaml = { "prettier", "prettierd", stop_after_first = true },
-          markdown = { "prettier", "prettierd", stop_after_first = true },
-          graphql = { "prettier", "prettierd", stop_after_first = true },
-          liquid = { "prettier", "prettierd", stop_after_first = true },
+          javascript = { "prettierd", "prettier", stop_after_first = true },
+          typescript = { "prettierd", "prettier", stop_after_first = true },
+          javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+          typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+          svelte = { "prettierd", "prettier", stop_after_first = true },
+          css = { "prettierd", "prettier", stop_after_first = true },
+          html = { "prettierd", "prettier", stop_after_first = true },
+          json = { "prettierd", "prettier", stop_after_first = true },
+          yaml = { "prettierd", "prettier", stop_after_first = true },
+          markdown = { "prettierd", "prettier", stop_after_first = true },
+          graphql = { "prettierd", "prettier", stop_after_first = true },
+          liquid = { "prettierd", "prettier", stop_after_first = true },
           lua = { "stylua" },
           python = { "isort", "black" },
         },
-        format_on_save = {
-          lsp_fallback = true,
-          async = false,
-          timeout_ms = 800,
-        },
+        format_on_save = function(bufnr)
+          local filename = vim.api.nvim_buf_get_name(bufnr)
+          local stat = filename ~= "" and uv.fs_stat(filename) or nil
+          if vim.bo[bufnr].buftype ~= "" or vim.api.nvim_buf_line_count(bufnr) > 5000 or (stat and stat.size > 1.5 * 1024 * 1024) then
+            return
+          end
+
+          return {
+            lsp_format = "fallback",
+            async = false,
+            timeout_ms = 1000,
+          }
+        end,
       }
     end,
   },

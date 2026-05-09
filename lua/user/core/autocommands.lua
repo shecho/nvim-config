@@ -1,4 +1,5 @@
 local f = require("user.core.functions")
+local uv = vim.uv or vim.loop
 -- show cursor line only in active window
 -- f.autocmd({ "InsertLeave", "WinEnter" }, {
 --   callback = function()
@@ -19,6 +20,15 @@ local f = require("user.core.functions")
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
+
+f.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
 
 -- hover on cursor hold
 -- f.autocmd("CursorHold", {
@@ -143,26 +153,49 @@ f.autocmd("TextYankPost", {
 --
 f.autocmd("BufReadPost", {
   group = augroup("restore_cursor_position"),
-  callback = function()
+  callback = function(event)
     local excludes = { "gitcommit", "gitrebase", "help" }
-    if vim.tbl_contains(excludes, vim.bo.ft) then
+    if vim.tbl_contains(excludes, vim.bo[event.buf].ft) or vim.b[event.buf].user_last_loc then
       return
     end
 
+    vim.b[event.buf].user_last_loc = true
+
     -- restore last cursor position
-    local m = vim.api.nvim_buf_get_mark(0, '"')
-    if m[1] > 0 and m[1] <= vim.api.nvim_buf_line_count(0) then
+    local m = vim.api.nvim_buf_get_mark(event.buf, '"')
+    if m[1] > 0 and m[1] <= vim.api.nvim_buf_line_count(event.buf) then
       pcall(vim.api.nvim_win_set_cursor, 0, m)
     end
   end,
 })
 
 f.autocmd({ "BufWritePre" }, {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+:[/][/]") then
+      return
+    end
+
+    local file = uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+f.autocmd({ "BufWritePre" }, {
+  group = augroup("trim_trailing_whitespace"),
   pattern = { "*" },
-  callback = function(_)
-    local save_cursor = vim.fn.getpos(".")
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", save_cursor)
+  callback = function(event)
+    local filename = vim.api.nvim_buf_get_name(event.buf)
+    local stat = filename ~= "" and uv.fs_stat(filename) or nil
+    if vim.bo[event.buf].buftype ~= "" or vim.api.nvim_buf_line_count(event.buf) > 5000 or (stat and stat.size > 1.5 * 1024 * 1024) then
+      return
+    end
+
+    vim.api.nvim_buf_call(event.buf, function()
+      local save_cursor = vim.fn.getpos(".")
+      vim.cmd([[%s/\s\+$//e]])
+      vim.fn.setpos(".", save_cursor)
+    end)
   end,
 })
 

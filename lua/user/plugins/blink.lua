@@ -6,25 +6,10 @@ return {
   },
   {
     "saghen/blink.cmp",
-    dependencies = {
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-          {
-            "rafamadriz/friendly-snippets",
-            version = "v2.*",
-            config = function()
-              require("luasnip.loaders.from_vscode").lazy_load()
-              require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
-            end,
-          },
-        },
-        opts = { history = true, delete_check_events = "TextChanged" },
-      },
-    },
+    dependencies = { "L3MON4D3/LuaSnip" },
     version = "1.*",
-    -- AND/OR build from source, requires nightly: 'https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust'
-    build = "cargo build --release",
+    event = { "InsertEnter", "CmdlineEnter" },
+    -- Versioned releases use prebuilt binaries; avoid requiring Rust on fresh macOS/WSL installs.
     -- build = 'nix run .#build-plugin',
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config

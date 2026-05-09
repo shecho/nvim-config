@@ -1,6 +1,22 @@
 return {
   "yetone/avante.nvim",
-  lazy = false,
+  cmd = {
+    "AvanteAsk",
+    "AvanteBuild",
+    "AvanteChat",
+    "AvanteChatNew",
+    "AvanteClear",
+    "AvanteEdit",
+    "AvanteFocus",
+    "AvanteHistory",
+    "AvanteModels",
+    "AvanteRefresh",
+    "AvanteShowRepoMap",
+    "AvanteStop",
+    "AvanteSwitchProvider",
+    "AvanteSwitchSelectorProvider",
+    "AvanteToggle",
+  },
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   ---@module 'avante'
   ---@type avante.Config

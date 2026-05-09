@@ -1,6 +1,16 @@
 return {
   "nickjvandyke/opencode.nvim",
   version = "*", -- Latest stable release
+  keys = {
+    { "<leader>ca", mode = { "n", "x" }, desc = "Ask opencode…" },
+    { "<leader>cc", mode = { "n", "x" }, desc = "Execute opencode action…" },
+    { "<C-.>", mode = { "n", "t" }, desc = "Toggle opencode" },
+    { "<D-.>", mode = { "n", "t" }, desc = "Toggle opencode" },
+    { "go", mode = { "n", "x" }, desc = "Add range to opencode" },
+    { "goo", desc = "Add line to opencode" },
+    { "<leader>cu", desc = "Scroll opencode up" },
+    { "<leader>cd", desc = "Scroll opencode down" },
+  },
   dependencies = {
     {
       ---@module "snacks" <- Loads `snacks.nvim` types for configuration intellisense

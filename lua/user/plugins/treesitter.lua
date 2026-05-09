@@ -46,7 +46,7 @@ return {
           "dockerfile",
           "gitignore",
         },
-        auto_install = true,
+        auto_install = false,
         playground = { enable = true, disable = {}, updatetime = 25, persist_queries = false },
         autopairs = { enable = true },
         indent = { enable = true, disable = { "python", "css", "rust" } },

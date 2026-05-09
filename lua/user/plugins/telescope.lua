@@ -6,19 +6,15 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    {
-      "ahmedkhalf/project.nvim",
-      event = "VeryLazy",
-      config = function(_, opts)
-        require("project_nvim").setup(opts)
-      end,
-    },
+    -- {
+    --   "ahmedkhalf/project.nvim",
+    --   event = "VeryLazy",
+    --   config = function(_, opts)
+    --     require("project_nvim").setup(opts)
+    --   end,
+    -- },
 
-    { "ThePrimeagen/harpoon", event = "VeryLazy" },
-    -- { "nvim-telescope/telescope-file-browser.nvim" },
-    -- { "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
-    -- { "nvim-telescope/telescope-media-files.nvim" },
-    -- { "danielvolchek/tailiscope.nvim" },
+    -- { "ThePrimeagen/harpoon", event = "VeryLazy" },
   },
   keys = {
     -- {
@@ -42,9 +38,9 @@ return {
     local actions = require("telescope.actions")
     local icons = require("user.icons")
 
-    telescope.load_extension("fzf")
-    telescope.load_extension("projects")
-    telescope.load_extension("harpoon")
+    pcall(telescope.load_extension, "fzf")
+    pcall(telescope.load_extension, "projects")
+    -- telescope.load_extension("harpoon")
     -- telescope.load_extension("egrepify")
     -- telescope.load_extension("ui-select")
     -- telescope.load_extension("file_browser")
