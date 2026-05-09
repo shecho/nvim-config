@@ -5,17 +5,40 @@ return {
   config = function()
     local harpoon = require("harpoon")
     local keymap = vim.keymap
+    local harpoon_root = (vim.uv or vim.loop).cwd() or vim.fn.getcwd()
+
+    local function current_file_item()
+      local path = vim.api.nvim_buf_get_name(0)
+      local pos = vim.api.nvim_win_get_cursor(0)
+
+      return {
+        value = path,
+        context = {
+          row = pos[1],
+          col = pos[2],
+        },
+      }
+    end
 
     harpoon:setup({
       settings = {
         save_on_toggle = true, -- persist list when quick menu closes
         sync_on_ui_close = true,
+        key = function()
+          return harpoon_root
+        end,
+      },
+      default = {
+        get_root_dir = function()
+          return harpoon_root
+        end,
+        create_list_item = function()
+          return current_file_item()
+        end,
       },
     })
 
-    -- Eagerly load the list so harpoon's in-memory state is populated from
-    -- disk immediately. Without this, harpoon:sync() on VimLeavePre iterates
-    -- an empty self.lists and overwrites the saved JSON with nothing.
+    -- Load once so Harpoon keeps the disk state in memory for this session.
     harpoon:list()
 
     -- Add / remove / clear
@@ -41,19 +64,19 @@ return {
     end, { desc = "Go to previous harpoon mark" })
 
     -- Jump to file by letter (muscle memory)
-    keymap.set("n", "<leader>nq", function()
+    keymap.set("n", "<leader>mq", function()
       harpoon:list():select(1)
     end, { desc = "Harpoon file 1" })
-    keymap.set("n", "<leader>nw", function()
+    keymap.set("n", "<leader>mw", function()
       harpoon:list():select(2)
     end, { desc = "Harpoon file 2" })
-    keymap.set("n", "<leader>ne", function()
+    keymap.set("n", "<leader>me", function()
       harpoon:list():select(3)
     end, { desc = "Harpoon file 3" })
-    keymap.set("n", "<leader>nr", function()
+    keymap.set("n", "<leader>mr", function()
       harpoon:list():select(4)
     end, { desc = "Harpoon file 4" })
-    keymap.set("n", "<leader>nt", function()
+    keymap.set("n", "<leader>mt", function()
       harpoon:list():select(5)
     end, { desc = "Harpoon file 5" })
 
@@ -73,14 +96,6 @@ return {
     keymap.set("n", "<leader>n5", function()
       harpoon:list():select(5)
     end, { desc = "Harpoon file 5" })
-
-    -- Persist list on Neovim exit
-    vim.api.nvim_create_autocmd("VimLeavePre", {
-      callback = function()
-        harpoon:sync()
-      end,
-      desc = "Save harpoon list on exit",
-    })
 
     -- Quick menu
     keymap.set("n", "<leader>mm", function()
