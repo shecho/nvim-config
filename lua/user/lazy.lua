@@ -4,8 +4,7 @@ local uv = vim.uv or vim.loop
 for _, plugin in ipairs({
   "2html_plugin",
   "gzip",
-  "matchit",
-  "matchparen",
+  -- "matchparen",
   "netrw",
   "netrwPlugin",
   "tarPlugin",
@@ -48,8 +47,7 @@ require("lazy").setup({
       disabled_plugins = {
         "2html_plugin",
         "gzip",
-        "matchit",
-        "matchparen",
+        -- "matchparen",
         "netrwPlugin",
         "rplugin",
         "shada",
