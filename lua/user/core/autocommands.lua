@@ -1,5 +1,5 @@
 local f = require("user.core.functions")
-local uv = vim.uv or vim.loop
+local uv = vim.uv
 -- show cursor line only in active window
 -- f.autocmd({ "InsertLeave", "WinEnter" }, {
 --   callback = function()

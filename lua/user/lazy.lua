@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local uv = vim.uv or vim.loop
+local uv = vim.uv
 
 for _, plugin in ipairs({
   "2html_plugin",

@@ -5,7 +5,7 @@ return {
     event = { "BufReadPre" },
     opts = function()
       local conform = require("conform")
-      local uv = vim.uv or vim.loop
+      local uv = vim.uv
 
       vim.keymap.set({ "n", "v" }, "<leader>lf", function()
         conform.format({

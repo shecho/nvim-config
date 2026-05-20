@@ -5,7 +5,7 @@ return {
   config = function()
     local harpoon = require("harpoon")
     local keymap = vim.keymap
-    local harpoon_root = (vim.uv or vim.loop).cwd() or vim.fn.getcwd()
+    local harpoon_root = vim.uv.cwd() or vim.fn.getcwd()
 
     local function current_file_item()
       local path = vim.api.nvim_buf_get_name(0)

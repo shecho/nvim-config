@@ -15,14 +15,14 @@ local function executable_any(names)
 end
 
 function M.check()
-  local uv = vim.uv or vim.loop
+  local uv = vim.uv
 
   vim.health.start("user config")
 
-  if vim.fn.has("nvim-0.11") == 1 then
-    vim.health.ok("Neovim 0.11+ APIs are available")
+  if vim.fn.has("nvim-0.12") == 1 then
+    vim.health.ok("Neovim 0.12+ APIs are available")
   else
-    vim.health.error("Neovim 0.11+ is required", "This config uses vim.lsp.config() and vim.lsp.enable().")
+    vim.health.error("Neovim 0.12+ is required", "This config is maintained against Neovim 0.12 APIs.")
   end
 
   if executable("git") then

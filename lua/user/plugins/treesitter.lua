@@ -47,8 +47,6 @@ return {
           "gitignore",
         },
         auto_install = false,
-        playground = { enable = true, disable = {}, updatetime = 25, persist_queries = false },
-        autopairs = { enable = true },
         indent = { enable = true, disable = { "python", "css", "rust" } },
         incremental_selection = {
           enable = true,
