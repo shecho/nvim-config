@@ -28,7 +28,8 @@ return {
         -- },
         matchparen = {
           enabled = true,
-          group = "MatchParen",
+          -- group = "MatchParen",
+          group = "BlinkPairsMatchParen",
         },
       },
       debug = false,
