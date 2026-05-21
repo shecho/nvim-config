@@ -7,9 +7,11 @@ return {
       {
         "windwp/nvim-ts-autotag",
         opts = {
-          enable_close = true, -- Auto close tags
-          enable_rename = true, -- Auto rename pairs of tags
-          enable_close_on_slash = false, -- Auto close on trailing </
+          opts = {
+            enable_close = true, -- Auto close tags
+            enable_rename = true, -- Auto rename pairs of tags
+            enable_close_on_slash = false, -- Auto close on trailing </
+          },
         },
       },
       "axelvc/template-string.nvim",
@@ -17,6 +19,26 @@ return {
       -- "nvim-treesitter/nvim-treesitter-refactor",
     },
     config = function()
+      local function get_first_node(match, capture_id)
+        local nodes = match[capture_id]
+        if not nodes then
+          return nil
+        end
+        return nodes.range and nodes or nodes[1]
+      end
+
+      local function get_parser_from_markdown_info_string(injection_alias)
+        local filetype = vim.filetype.match({ filename = "a." .. injection_alias })
+        local aliases = {
+          ex = "elixir",
+          pl = "perl",
+          sh = "bash",
+          ts = "typescript",
+          uxn = "uxntal",
+        }
+        return filetype or aliases[injection_alias] or injection_alias
+      end
+
       local template_string = require("template-string")
       template_string.setup({
         filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "python" },
@@ -25,6 +47,30 @@ return {
         restore_quotes = { normal = [[']], jsx = [["]] },
       })
       local treesitter = require("nvim-treesitter.configs")
+      local query = require("vim.treesitter.query")
+
+      -- nvim-treesitter has not fully caught up with Neovim 0.12's directive capture shape.
+      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+        local capture_id = pred[2]
+        local node = get_first_node(match, capture_id)
+        if not node then
+          return
+        end
+        local injection_alias = vim.treesitter.get_node_text(node, bufnr):lower()
+        metadata["injection.language"] = get_parser_from_markdown_info_string(injection_alias)
+      end, { force = true })
+
+      query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+        local capture_id = pred[2]
+        local node = get_first_node(match, capture_id)
+        if not node then
+          return
+        end
+        local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[capture_id] }) or ""
+        metadata[capture_id] = metadata[capture_id] or {}
+        metadata[capture_id].text = text:lower()
+      end, { force = true })
+
       treesitter.setup({
         modules = {},
         TSConfig = nil,
