@@ -1,7 +1,22 @@
 return {
   "yetone/avante.nvim",
-  event = "VeryLazy",
-  lazy = false,
+  cmd = {
+    "AvanteAsk",
+    "AvanteBuild",
+    "AvanteChat",
+    "AvanteChatNew",
+    "AvanteClear",
+    "AvanteEdit",
+    "AvanteFocus",
+    "AvanteHistory",
+    "AvanteModels",
+    "AvanteRefresh",
+    "AvanteShowRepoMap",
+    "AvanteStop",
+    "AvanteSwitchProvider",
+    "AvanteSwitchSelectorProvider",
+    "AvanteToggle",
+  },
   version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
   ---@module 'avante'
   ---@type avante.Config
@@ -11,9 +26,10 @@ return {
     provider = "copilot",
     providers = {
       copilot = {
+        -- model = "claude-sonnet-4.5", -- o1-preview | o1-mini | claude-3.5-sonnet
         -- model = "claude-3.7-sonnet", -- o1-preview | o1-mini | claude-3.5-sonnet
-        -- model = "gpt-4.1", -- o1-preview | o1-mini | claude-3.5-sonnet
-        model = "claude-sonnet-4", -- o1-preview | o1-mini | claude-3.5-sonnet
+        -- model = "gpt-4.1",
+        model = "gpt-5-mini",
       },
     },
     -- auto_suggestions_provider = "copilot",
@@ -51,9 +67,9 @@ return {
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
     -- "stevearc/dressing.nvim",
-    -- "MunifTanjim/nui.nvim",
-    -- "nvim-lua/plenary.nvim",
-    -- "echasnovski/mini.pick",
+    "MunifTanjim/nui.nvim",
+    "nvim-lua/plenary.nvim",
+    "echasnovski/mini.pick",
     -- "nvim-telescope/telescope.nvim",
     -- "hrsh7th/nvim-cmp",
     -- "ibhagwan/fzf-lua",

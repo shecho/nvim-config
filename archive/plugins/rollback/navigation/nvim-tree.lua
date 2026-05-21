@@ -3,8 +3,6 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local nvimtree = require("nvim-tree")
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
     vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
     local icons = require("user.icons")
     -- local utils = require("nvim-tree.utils")
@@ -41,8 +39,8 @@ return {
         update_root = true,
       },
       hijack_directories = { enable = true },
-      disable_netrw = true,
-      hijack_netrw = true,
+      disable_netrw = false,
+      hijack_netrw = false,
       open_on_tab = true,
       update_cwd = true,
       -- open_on_setup = false,

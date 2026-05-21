@@ -5,10 +5,6 @@ return {
     "echasnovski/mini.icons",
   },
   event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 200
-  end,
   opts = {
     preset = "helix",
     plugins = { spelling = true },
@@ -17,22 +13,22 @@ return {
     local wk = require("which-key")
     wk.setup(opts)
     wk.add({
-      { "<leader>a", group = "Actions/Avante", icon = { icon = "", color = "yellow" } },
-      { "<leader>b", group = "Buffer" },
-      { "<leader>c", group = "Copilot", icon = { icon = " ", color = "green" } },
-      { "<leader>f", group = "File" },
-      { "<leader>g", group = "Git" },
-      { "<leader>l", group = "Lsp", icon = { icon = "󱖫 ", color = "green" } },
+      { "<leader>a", group = "Window / UI", icon = { icon = " ", color = "yellow" } },
+      { "<leader>b", group = "Buffers", icon = { icon = "󰓩 ", color = "azure" } },
+      { "<leader>c", group = "Code / Assist", icon = { icon = "󰘦 ", color = "green" } },
+      { "<leader>f", group = "Files", icon = { icon = "󰈔 ", color = "blue" } },
+      { "<leader>g", group = "Git", icon = { icon = "󰊢 ", color = "orange" } },
+      { "<leader>l", group = "LSP", icon = { icon = "󱖫 ", color = "green" } },
       { "<leader>n", group = "Harpoon", icon = { icon = " ", color = "azure" } },
-      { "<leader>m", group = "Harpoon Menu", icon = { color = "azure" } },
-      { "<leader>o", group = "Treesitter" },
-      { "<leader>s", group = "Search" },
-      { "<leader>S", group = "Session", icon = { icon = " ", color = "purple" } },
-      { "<leader>x", group = "Trouble" },
-      { "<leader>g", group = "Git" },
-      { "<leader>l", group = "Lsp" },
-      { "<leader>r", group = "Rename" },
-      { "<leader>U", group = "Notify/Toggles" },
+      { "<leader>m", group = "Marks", icon = { icon = "󰃀 ", color = "azure" } },
+      { "<leader>o", group = "Text Objects", icon = { icon = "󰅩 ", color = "blue" } },
+      { "<leader>s", group = "Search", icon = { icon = " ", color = "blue" } },
+      { "<leader>S", group = "Sessions / Scratch", icon = { icon = " ", color = "purple" } },
+      { "<leader>x", group = "Diagnostics / Trouble", icon = { icon = " ", color = "red" } },
+      { "<leader>r", group = "Rename / Refactor", icon = { icon = "󰑕 ", color = "green" } },
+      { "<leader>U", group = "Toggles / Utility", icon = { icon = "󰔡 ", color = "yellow" } },
+      { "<localleader>e", group = "Explorer", icon = { icon = " ", color = "blue" } },
+      { "<localleader>p", group = "Projects", icon = { icon = " ", color = "purple" } },
     })
   end,
   keys = {

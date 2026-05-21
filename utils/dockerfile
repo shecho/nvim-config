@@ -1,0 +1,23 @@
+FROM debian:stable-slim
+
+ # Install Neovim and other development tools
+ RUN apt-get update && \
+     apt-get install -y neovim git curl zsh build-essential && \
+     rm -rf /var/lib/apt/lists/*
+
+ # Set up user and home directory (optional, but good practice)
+ ARG USERNAME=shecho
+ ARG USER_UID=1000
+ ARG USER_GID=1000
+ RUN groupadd --gid $USER_GID $USERNAME && \
+     useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+ # Copy Neovim configuration (dotfiles)
+ COPY --chown=$USERNAME:$USERNAME .config/nvim /home/$USERNAME/.config/nvim
+
+  USER $USERNAME
+ WORKDIR /home/$USERNAME
+
+ # Start Neovim or your preferred shell
+ CMD ["nvim"]

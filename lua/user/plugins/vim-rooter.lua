@@ -1,24 +1,12 @@
 return {
-  -- "notjedi/nvim-rooter.lua",
-  -- config = function()
-  --   require("nvim-rooter").setup({
-  --     rooter_patterns = { ".git", ".hg", ".svn" },
-  --     trigger_patterns = { "*" },
-  --     manual = false,
-  --     -- fallback_to_parent = true,
-  --     -- silent_chdir = 1,
-  --     -- silent_chdir_netrw = 1,
-  --     -- silent_chdir_filetype = 1,
-  --   })
-  -- end,
   "airblade/vim-rooter",
-  -- event = { "BufReadPre", "BufNewFile" },
   event = "VeryLazy",
-
   config = function()
-    vim.cmd([[
-        " let g:rooter_silent_chdir = 1
-        let g:rooter_change_directory_for_non_project_files = 'current'
-    ]])
+    if vim.fn.has("wsl") == 1 then
+      vim.g.rooter_targets = { "!/mnt/*", "/", "*" }
+    end
+
+    vim.g.rooter_change_directory_for_non_project_files = "current"
+    vim.g.rooter_silent_chdir = 1
   end,
 }

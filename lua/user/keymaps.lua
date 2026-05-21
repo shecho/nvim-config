@@ -1,14 +1,11 @@
 -- local M = {}
+local protected = require("user.core.keymaps")
 local opts = { noremap = true, silent = true }
 local opt_nw = { noremap = true, silent = true, nowait = true }
-local keymap = vim.keymap.set
+local keymap = protected.set
 
 -- Remap space as leader key
 keymap("n", "<Space>", "", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
-keymap("n", "<C-i>", "<C-i>", opts)
 
 -- normal_mode = "n",
 -- insert_mode = "i",
@@ -23,31 +20,28 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- keymap("n", "x", '"_x', opts)
 -- Dell markks
 
---disable some mac keymap
-keymap("i", "<D-a>", "<nop>", opt_nw)
-keymap("i", "<D-d>", "<nop>", opt_nw)
-keymap("i", "<D-z>", "<nop>", opt_nw)
-keymap("i", "<D-z>", "<nop>", opt_nw)
-keymap("i", "<D-x>", "<nop>", opt_nw)
-keymap("i", "<D-p>", "<nop>", opt_nw)
-keymap("i", "<D-o>", "<nop>", opt_nw)
-keymap("i", "<D-i>", "<nop>", opt_nw)
-keymap("i", "<D-u>", "<nop>", opt_nw)
-keymap("i", "<D-y>", "<nop>", opt_nw)
-keymap("i", "<D-l>", "<nop>", opt_nw)
-keymap("i", "<D-m>", "<nop>", opt_nw)
-keymap("i", "<D-,>", "<nop>", opt_nw)
-keymap("i", "<D-.>", "<nop>", opt_nw)
+-- Disable macOS-specific shortcuts in insert mode
+local mac_keybinds = { "a", "d", "z", "x", "p", "o", "i", "u", "y", "l", "m", ",", "." }
+for _, key in ipairs(mac_keybinds) do
+  keymap("i", "<D-" .. key .. ">", "<nop>", opt_nw)
+end
 
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opt_nw)
-keymap("n", "<C-j>", "<C-w>j", opt_nw)
-keymap("n", "<C-k>", "<C-w>k", opt_nw)
-keymap("n", "<C-l>", "<C-w>l", opt_nw)
-keymap("n", "<C-j>", "<cmd> resize -2<CR>", opt_nw)
-keymap("n", "<C-k>", "<cmd> resize +2<CR>", opt_nw)
-keymap("n", "<S-h>", "<cmd> vertical resize -2<CR>", opt_nw)
-keymap("n", "<S-l>", "<cmd> vertical resize +2<CR>", opt_nw)
+-- Better window navigation and resizing
+local window_nav_keys = {
+  ["<C-h>"] = "<C-w>h",
+  ["<D-h>"] = "<C-w>h",
+  ["<C-l>"] = "<C-w>l",
+  ["<D-l>"] = "<C-w>l",
+  ["<D-j>"] = "<C-w>j",
+  ["<D-k>"] = "<C-w>k",
+  ["<C-j>"] = "<cmd> resize -2<CR>",
+  ["<C-k>"] = "<cmd> resize +2<CR>",
+  ["<S-h>"] = "<cmd> vertical resize -2<CR>",
+  ["<S-l>"] = "<cmd> vertical resize +2<CR>",
+}
+for key, cmd in pairs(window_nav_keys) do
+  keymap("n", key, cmd, opt_nw)
+end
 
 -- Resize with arrows
 -- keymap("n", "<S-Up>", ":resize -2<CR>", opts)
@@ -58,7 +52,7 @@ keymap("n", "<S-l>", "<cmd> vertical resize +2<CR>", opt_nw)
 -- Better movement on the code
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
-keymap("n", "Y", 'y$ "', opts)
+keymap("n", "Y", "y$", opts)
 keymap("n", "J", "mzJ`z", opts)
 keymap("c", "Q", "q", opt_nw)
 
@@ -88,26 +82,28 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- Node actions to toggle some values
 -- keymap("n", "<C-x>", '<cmd>lua require("ts-node-action").node_action()<cr>', opts)
 
--- Floaterm
-opts.desc = "Floaterm toogle"
--- keymap({ "n", "v" }, "<leader>T", "<cmd>FloatermToggle<cr>", opts)
--- keymap({ "n", "t" }, "<C-t>", "<cmd>FloatermToggle<cr>", opts)
-keymap({ "n", "t" }, "<C-t>", "<cmd>ToggleTerm<cr>", opts)
-keymap({ "n" }, "<leader>T", "<cmd>ToggleTerm<cr>", opts)
+-- Terminal
+opts.desc = "Terminal"
+keymap({ "n", "t" }, "<c-/>", function()
+  Snacks.terminal()
+end, vim.tbl_extend("force", opts, { protected = true, owner = "core.terminal" }))
+keymap("n", "<c-_>", function()
+  Snacks.terminal()
+end, vim.tbl_extend("force", opts, { protected = true, owner = "core.terminal" }))
 
 opts.desc = "Enter cmd mode"
 keymap("n", "<leader>;", ":", opts)
 
 -- remove S as a command
-opts.desc = "Remove 's'"
-keymap({ "n", "v", "x" }, "s", "<Esc>", opts)
-opts.desc = "Remove q"
-keymap({ "n", "v", "x" }, "q", "<Esc>", opts)
+opts.desc = "Escape with s"
+keymap({ "n", "v", "x" }, "s", "<Esc>", vim.tbl_extend("force", opts, { protected = true, owner = "core.escape" }))
+opts.desc = "Escape with q"
+keymap({ "n", "v", "x" }, "q", "<Esc>", vim.tbl_extend("force", opts, { protected = true, owner = "core.escape" }))
 
--- TABS and buffer Naviagation
+-- TABS and buffer navigation
 --
-opts.desc = "Previus buffer"
-keymap("n", "<leader>1", "<c-^>", opt_nw)
+opts.desc = "Alternate Buffer"
+keymap("n", "<leader>1", "<c-^>", vim.tbl_extend("force", opt_nw, { protected = true, owner = "core.alt_buffer" }))
 -- keymap("n", "<TAB>", "<cmd>bnext<cr>", opts)
 -- keymap("n", "<S-TAB>", "<cmd>bprevious<cr>", opts)
 -- opt_nw.desc = "Previous buffer"
@@ -115,29 +111,32 @@ keymap("n", "<leader>1", "<c-^>", opt_nw)
 -- keymap("n", "<leader>bp", ":BufferPrevious<CR>", opts)
 -- keymap("n", "<leader>bq", ":BufferFirst<CR>", opts)
 --
-opts.desc = "Telescope project"
+opt_nw.desc = "Telescope Projects"
+keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", vim.tbl_extend("force", opt_nw, { protected = true, owner = "core.projects" }))
+keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opt_nw)
+opt_nw.desc = "Explorer"
+keymap("n", "<localleader>e", function()
+  Snacks.explorer.reveal()
+end, vim.tbl_extend("force", opt_nw, { protected = true, owner = "core.explorer" }))
 
-keymap("n", "<localleader>p", ":Telescope projects theme=dropdown initial_mode=normal<CR>", opt_nw)
-keymap("n", "<localleader>sp", "<cmd>Telescope projects theme=dropdown initial_mode=normal <cr>", opts)
--- keymap("n", "<leader>bd", ":bdelete<CR>", opts)
 -- keymap("n", "<leader>bB", ":BufferCloseAllButCurrent<CR>", opts)
-
 -- esc
-opt_nw.desc = "Esc"
-keymap("n", "<C-c>", "<Esc>", opt_nw)
 opt_nw.desc = "Clear search"
 keymap("n", "<Esc>", "<cmd>:noh<cr>", opt_nw)
-keymap("n", "<C-c>", '<cmd>::let @/ = ""<cr>', opt_nw)
+
+keymap("n", "<C-c>", function()
+  vim.cmd("normal! <Esc>")
+  vim.cmd('let @/ = ""')
+end, vim.tbl_extend("force", opt_nw, { desc = "Escape and Clear Search", protected = true, owner = "core.escape_clear" }))
 
 -- Map Ctrl+b in insert mode to delete to the end of the word without leaving insert mode
 keymap("i", "<C-b>", "<C-o>de", opt_nw)
 
 -- Map Ctrl+c to escape from other modes
-keymap({ "i", "n", "v" }, "<C-c>", [[<C-\><C-n>]], opt_nw)
 
 -- select_all
 opt_nw.desc = "Select All"
-keymap("n", "<C-a>", "gg<S-v>GY", opt_nw)
+keymap("n", "<C-a>", "gg<S-v>GY", vim.tbl_extend("force", opt_nw, { protected = true, owner = "core.select_all" }))
 keymap("n", "<D-a>", "gg<S-v>GY", opt_nw)
 
 -- Alternate way to save
@@ -162,20 +161,20 @@ opt_nw.desc = "Horizontal Split"
 keymap("n", "<leader>ao", "<cmd>split<cr>", opt_nw)
 opt_nw.desc = "Balance Window"
 keymap("n", "<leader>a=", "<C-W>=", opt_nw)
-opt_nw.desc = "Win up"
+opt_nw.desc = "Window Up"
 keymap("n", "<leader>ak", "<C-W>k", opt_nw)
-opt_nw.desc = "Win left"
+opt_nw.desc = "Window Down"
 keymap("n", "<leader>aj", "<C-W>j", opt_nw)
-opt_nw.desc = "Win right"
+opt_nw.desc = "Window Right"
 keymap("n", "<leader>al", "<C-W>l", opt_nw)
-opt_nw.desc = "Cursorline"
+opt_nw.desc = "Toggle Cursorline"
 keymap("n", "<leader>ac", "<cmd>lua require('user.core.functions').toggle_option('cursorline')<cr>", opt_nw)
 
 -- keymap("n", "K", ":lua require('user.core.functions').show_documentation()<CR>", opts)
 opts.desc = "Smart Quit"
 keymap("n", "Q", ":lua require('user.core.functions').smart_quit()<CR>", opts)
 
-opt_nw.desc = "Delete all marks"
+opt_nw.desc = "Delete Lower Marks"
 keymap("n", "md", function()
   local marks = vim.fn.getmarklist()
   if #marks == 0 then
@@ -186,5 +185,8 @@ keymap("n", "md", function()
   print("All marks deleted")
 end, opt_nw)
 
+opt_nw.desc = "Delete Upper Marks"
 keymap("n", "mD", "<cmd> delmarks A-Z1-9<CR>", opt_nw)
+keymap("n", "MD", "<cmd> delmarks A-Z1-9<CR>", opt_nw)
+opt_nw.desc = ""
 -- return M

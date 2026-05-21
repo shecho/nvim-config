@@ -310,16 +310,16 @@ return {
 
   {
     "folke/tokyonight.nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {},
   },
   -- { "rose-pine/neovim", name = "rose-pine" },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "Mofiqul/dracula.nvim" },
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  { "Mofiqul/dracula.nvim", lazy = true },
   {
     "vague2k/vague.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = true,
     priority = 1000, -- make sure to load this before all the other plugins
     opts = {},
     -- config = function()

@@ -1,21 +1,20 @@
 return {
   "L3MON4D3/LuaSnip",
-  event = { "BufReadPre", "BufNewFile" },
-  --event = "VeryLazy",
+  event = "InsertEnter",
   lazy = true,
   version = "v2.*",
-  -- version = "v2.*",
   dependencies = {
-    "rafamadriz/friendly-snippets",
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-      require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
-    end,
+    {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+      end,
+    },
   },
   build = "make install_jsregexp",
 
-  -- stylua: ignor  -- { "<tab>", function() require("luasnip").jump(1) end, mode = "s", },
-  -- },
+  -- stylua: ignore
   config = function()
     local luasnip = require("luasnip")
     luasnip.config.set_config({
