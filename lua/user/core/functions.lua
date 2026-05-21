@@ -23,7 +23,8 @@ function M.isempty(s)
 end
 
 function M.get_buf_option(opt)
-  local status_ok, buf_option = pcall(vim.api.nvim_get_option_value, 0, opt)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local status_ok, buf_option = pcall(vim.api.nvim_get_option_value, opt, { buf = bufnr })
   if not status_ok then
     return nil
   else
@@ -46,21 +47,18 @@ function M.smart_quit()
 end
 
 function M.saveFile()
-  -- Check if a buffer with a file is open
   if vim.fn.empty(vim.fn.expand("%:t")) == 1 then
     vim.notify("No file to save", vim.log.levels.WARN)
     return
   end
 
-  local filename = vim.fn.expand("%:t") -- Get only the filename
-  local success, err = pcall(function()
-    vim.cmd("silent! write") -- Try to save the file without showing the default message
-  end)
+  local filename = vim.fn.expand("%:t")
+  local success, err = pcall(vim.cmd.write)
 
   if success then
-    vim.notify(filename .. " Saved!") -- Show only the custom message if successful
+    vim.notify(filename .. " Saved!")
   else
-    vim.notify("Error: " .. err, vim.log.levels.ERROR) -- Show the error message if it fails
+    vim.notify("Error: " .. err, vim.log.levels.ERROR)
   end
 end
 
@@ -69,7 +67,16 @@ function M.on_attach(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      local client_id = args.data and args.data.client_id
+      if not client_id then
+        return
+      end
+
+      local client = vim.lsp.get_client_by_id(client_id)
+      if not client then
+        return
+      end
+
       on_attach(client, buffer)
     end,
   })
@@ -85,5 +92,24 @@ end
 -- function M.toggleInlayHints()
 --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
 -- end
+--
+-- Blink/cmp functions
+---@return boolean
+M.has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  if col == 0 then
+    return false
+  end
 
+  local current_line = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+  if not current_line then
+    return false
+  end
+
+  return current_line:sub(col, col):match("%s") == nil
+end
+
+M.feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 return M

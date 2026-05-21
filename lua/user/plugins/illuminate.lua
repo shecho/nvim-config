@@ -4,27 +4,17 @@ return {
   config = function()
     local illuminate = require("illuminate")
     illuminate.configure({
-      -- providers: provider used to get references in the buffer, ordered by priority
       providers = {
         "lsp",
-        "treesitter",
         "regex",
       },
-      delay = 300,
+      delay = 200,
       under_cursor = true,
-      large_file_cutoff = nil,
-      large_file_overrides = nil,
+      large_file_cutoff = 2000,   -- disable in files > 2000 lines
+      large_file_overrides = {
+        providers = { "lsp" },     -- only use LSP in large files, skip regex
+      },
       min_count_to_highlight = 2,
     })
-    vim.cmd([[
-      let g:VM_theme = 'purplegray'
-      hi illuminatedWord gui=bolditalic guifg=#828997
-      hi IlluminatedWordText gui=bolditalic guifg=#828997
-      hi IlluminatedWordRead gui=bolditalic guifg=#828997 guibg=transparent
-      if (has("termguicolors"))
-          set termguicolors
-          " hi LineNr ctermbg=NONE guibg=NONE
-      endif
-    ]])
   end,
 }

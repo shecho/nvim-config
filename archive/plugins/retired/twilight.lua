@@ -2,11 +2,6 @@ return {
   "folke/twilight.nvim",
   keys = {
     {
-      "<leader>T",
-      "<cmd>Twilight<CR>",
-      desc = "Twilight toggle",
-    },
-    {
       "T",
       "<cmd>Twilight<CR>",
       desc = "Twilight toggle",

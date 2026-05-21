@@ -1,6 +1,7 @@
 local f = require("user.core.functions")
+local uv = vim.uv
 -- show cursor line only in active window
--- vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+-- f.autocmd({ "InsertLeave", "WinEnter" }, {
 --   callback = function()
 --     if vim.w.auto_cursorline then
 --       vim.wo.cursorline = true
@@ -19,7 +20,28 @@ local f = require("user.core.functions")
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
-vim.api.nvim_create_autocmd("FileType", {
+
+f.autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- hover on cursor hold
+-- f.autocmd("CursorHold", {
+--   group = augroup("lsp_hover"),
+--   pattern = { "*" }, -- Apply to all file types
+--   callback = function()
+--     if not require("blink-cmp").is_visible() and require("user.core.functions").has_words_before() then
+--       vim.lsp.buf.hover({ focusable = false })
+--     end
+--   end,
+-- })
+
+f.autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
@@ -52,45 +74,9 @@ vim.api.nvim_create_autocmd("FileType", {
     end)
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = {
-    "Jaq",
-    "qf",
-    "help",
-    "man",
-    "lspinfo",
-    "spectre_panel",
-    "lir",
-    "DressingSelect",
-    "tsplayground",
-    "Markdown",
-  },
-  callback = function()
-    vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR>
-      nnoremap <silent> <buffer> <esc> :close<CR>
-      set nobuflisted
-    ]])
-  end,
-})
 
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   pattern = { "" },
---   callback = function()
---     local buf_ft = vim.bo.filetype
---     if buf_ft == "" or buf_ft == nil then
---       vim.cmd([[
---       nnoremap <silent> <buffer> q :close<CR>
---       nnoremap <silent> <buffer> <c-j> j<CR>
---       nnoremap <silent> <buffer> <c-k> k<CR>
---       set nobuflisted
---     ]])
---     end
---   end,
--- })
-
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = { "" },
+f.autocmd({ "BufEnter" }, {
+  pattern = { "*" },
   callback = function()
     local get_project_dir = function()
       local cwd = vim.fn.getcwd()
@@ -103,33 +89,49 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "VimResized" }, {
+-- resize splits
+f.autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+-- f.autocmd({ "VimResized" }, {
 --   callback = function()
 --     vim.cmd("tabdo wincmd =")
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+f.autocmd({ "CmdWinEnter" }, {
   callback = function()
     vim.cmd("quit")
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+-- f.autocmd({ "BufWinEnter" }, {
 --   callback = function()
 --     vim.cmd("set formatoptions-=cro")
 --   end,
 -- })
 
 -- highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+-- f.autocmd("TextYankPost", {
+--   callback = function()
+--     vim.highlight.on_yank()
+--     -- vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+--   end,
+-- })
+
+f.autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
   callback = function()
-    vim.highlight.on_yank()
-    -- vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+    (vim.hl or vim.highlight).on_yank()
   end,
 })
 
--- vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave" }, {
+-- f.autocmd({ "TextChanged", "InsertLeave" }, {
 --   pattern = { "*" },
 --   callback = function()
 --     if vim.bo.ft == "harpoon" then
@@ -140,7 +142,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 --   nested = true,
 -- })
 --
--- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+-- f.autocmd({ "BufWritePost" }, {
 --   pattern = { "*.ts" },
 --   callback = function()
 --     vim.lsp.buf.format({ async = true })
@@ -148,20 +150,117 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- })
 --
 -- remove trailing whitespaces and ^M chars
+--
+f.autocmd("BufReadPost", {
+  group = augroup("restore_cursor_position"),
+  callback = function(event)
+    local excludes = { "gitcommit", "gitrebase", "help" }
+    if vim.tbl_contains(excludes, vim.bo[event.buf].ft) or vim.b[event.buf].user_last_loc then
+      return
+    end
+
+    vim.b[event.buf].user_last_loc = true
+
+    -- restore last cursor position
+    local m = vim.api.nvim_buf_get_mark(event.buf, '"')
+    if m[1] > 0 and m[1] <= vim.api.nvim_buf_line_count(event.buf) then
+      pcall(vim.api.nvim_win_set_cursor, 0, m)
+    end
+  end,
+})
+
 f.autocmd({ "BufWritePre" }, {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+:[/][/]") then
+      return
+    end
+
+    local file = uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+f.autocmd({ "BufWritePre" }, {
+  group = augroup("trim_trailing_whitespace"),
   pattern = { "*" },
-  callback = function(_)
-    local save_cursor = vim.fn.getpos(".")
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", save_cursor)
+  callback = function(event)
+    local filename = vim.api.nvim_buf_get_name(event.buf)
+    local stat = filename ~= "" and uv.fs_stat(filename) or nil
+    if vim.bo[event.buf].buftype ~= "" or vim.api.nvim_buf_line_count(event.buf) > 5000 or (stat and stat.size > 1.5 * 1024 * 1024) then
+      return
+    end
+
+    vim.api.nvim_buf_call(event.buf, function()
+      local save_cursor = vim.fn.getpos(".")
+      vim.cmd([[%s/\s\+$//e]])
+      vim.fn.setpos(".", save_cursor)
+    end)
   end,
 })
 
 -- Fix conceallevel for json files
-vim.api.nvim_create_autocmd({ "FileType" }, {
+f.autocmd({ "FileType" }, {
   group = augroup("json_conceal"),
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0
   end,
 })
+
+-- addance lsp
+-- ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
+-- local progress = vim.defaulttable()
+-- f.autocmd("LspProgress", {
+--   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+--   callback = function(ev)
+--     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+--     local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+--     if not client or type(value) ~= "table" then
+--       return
+--     end
+--     local p = progress[client.id]
+--
+--     for i = 1, #p + 1 do
+--       if i == #p + 1 or p[i].token == ev.data.params.token then
+--         p[i] = {
+--           token = ev.data.params.token,
+--           msg = ("[%3d%%] %s%s"):format(
+--             value.kind == "end" and 100 or value.percentage or 100,
+--             value.title or "",
+--             value.message and (" **%s**"):format(value.message) or ""
+--           ),
+--           done = value.kind == "end",
+--         }
+--         break
+--       end
+--     end
+--
+--     local msg = {} ---@type string[]
+--     progress[client.id] = vim.tbl_filter(function(v)
+--       return table.insert(msg, v.msg) or not v.done
+--     end, p)
+--
+--     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+--     vim.notify(table.concat(msg, "\n"), "info", {
+--       id = "lsp_progress",
+--       title = client.name,
+--       opts = function(notif)
+--         notif.icon = #progress[client.id] == 0 and " "
+--           or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+--       end,
+--     })
+--   end,
+-- })
+--
+-- f.autocmd("User", {
+--   pattern = "BlinkCmpAccept",
+--   callback = function(ev)
+--     local item = ev.data.item
+--     if item.kind == require("blink.cmp.types").CompletionItemKind.Function then
+--       vim.defer_fn(function()
+--         require("blink.cmp").show_signature()
+--       end, 10)
+--     end
+--   end,
+-- })

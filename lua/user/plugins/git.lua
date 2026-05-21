@@ -1,22 +1,20 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    cmd = { "Gitsigns" },
     -- event = { "BufReadPre", "BufNewFile" },
+    cmd = { "Gitsigns" },
     config = true,
   },
   {
     "tpope/vim-fugitive",
-    event = { "BufReadPre", "BufNewFile" },
+    cmd = { "Git", "G", "Gvdiffsplit", "Gdiffsplit", "Gread", "Gwrite" },
     config = function() end,
     keys = {
-      { "<leader>ga", "<cmd>Git add .<cr>", nowait = true, desc = "Add" },
-      { "<leader>gc", "<cmd>Git commit<cr>", nowait = true, desc = "Commit" },
-      { "<leader>gD", "<cmd>Git diff<cr>", nowait = true, desc = "Diff" },
-      { "<leader>gg", "<cmd>Gvdiffsplit<cr>", nowait = true, desc = "Diff split" },
-      { "<leader>gd", "<cmd>Gdiffsplit<cr>", nowait = true, desc = "Diff split" },
-      -- Gdiffsplit
-      -- { "<leader>gd", "<cmd>Git diff<cr>", nowait = true, desc = "Diff" },
+      { "<leader>ga", "<cmd>Git add .<cr>", nowait = true, desc = "Git Add" },
+      { "<leader>gc", "<cmd>Git commit<cr>", nowait = true, desc = "Git Commit" },
+      { "<leader>gD", "<cmd>Git diff<cr>", nowait = true, desc = "Git Diff" },
+      { "<leader>gg", "<cmd>Gvdiffsplit<cr>", nowait = true, desc = "Git Diff Split" },
+      -- { "<leader>gd", "<cmd>Gdiffsplit<cr>", nowait = true, desc = "Diff split" },
       { "<leader>gp", "<cmd>Git push<cr>", nowait = true, desc = "Push" },
       { "<leader>gP", "<cmd>Git pull<cr>", nowait = true, desc = "Pull" },
     },
@@ -27,7 +25,7 @@ return {
     cmd = { "GV" },
     keys = {
       { "<leader>gH", "<cmd>GV<cr>", nowait = true, desc = "Git History" },
-      { "<leader>gh", "<cmd>GV!<cr>", nowait = true, desc = "Buffer commits" },
+      { "<leader>gh", "<cmd>GV!<cr>", nowait = true, desc = "Buffer Commits" },
     },
     config = function() end,
   },
@@ -48,10 +46,7 @@ return {
   -- },
   {
     "mbbill/undotree",
-    keys = {
-      { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "UndotreeToggle", noremap = true, nowait = true, silent = true },
-    },
-    -- event = { "BufReadPre", "BufNewFile" },
+    keys = { { "<leader>UU", "<cmd>UndotreeToggle<cr>", desc = "Undotree Toggle", noremap = true, nowait = true, silent = true } },
     cmd = { "UndotreeToggle" },
     config = function() end,
   },
@@ -73,7 +68,7 @@ return {
     keys = {
       -- Run LazyGit command and set background to transparent
       {
-        "<leader>gl",
+        "<leader>gL",
         "<cmd>LazyGit<cr><cmd>hi LazyGitFloat guibg=NONE guifg=NONE<cr><cmd>setlocal winhl=NormalFloat:LazyGitFloat<cr>",
         desc = "LazyGit",
       },

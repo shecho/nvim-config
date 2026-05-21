@@ -73,7 +73,7 @@ return {
         " call one#highlight('@keyword.repeat', '', '000000', 'italic')
         " call one#highlight('@Parameter', '', '000000', 'bolditalic,')"params abd arguments and variables names
         " call one#highlight('@Parameter.reference', '', '528bff', 'bolditalic,')"params abd arguments and variables names
-        call one#highlight('@method', '526fff', '', 'italic') "  #526fff 
+        call one#highlight('@method', '526fff', '', 'italic') "  #526fff
         call one#highlight('@property', 'e06c75', '', 'italic') " #
         call one#highlight('@type.definition', '', '', 'bolditalic')
         call one#highlight('Asynchronous', '', '', 'italic')

@@ -3,13 +3,9 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local nvimtree = require("nvim-tree")
-    -- recommended settings from nvim-tree documentation
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
-    -- change color for arrows in tree to light blue
     vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
     local icons = require("user.icons")
-    local utils = require("nvim-tree.utils")
+    -- local utils = require("nvim-tree.utils")
     local function my_on_attach(bufnr)
       local api = require("nvim-tree.api")
       local function opts(desc)
@@ -43,8 +39,8 @@ return {
         update_root = true,
       },
       hijack_directories = { enable = true },
-      disable_netrw = true,
-      hijack_netrw = true,
+      disable_netrw = false,
+      hijack_netrw = false,
       open_on_tab = true,
       update_cwd = true,
       -- open_on_setup = false,
@@ -63,7 +59,7 @@ return {
         -- preserve_window_proportions = true,
         width = 40,
         -- height = 30,
-        side = "right",
+        side = "left",
         -- auto_resize = true,
         number = false,
         relativenumber = false,
@@ -104,27 +100,21 @@ return {
               symlink_open = "",
             },
             git = {
-              unstaged = "",
-              staged = "",
-              unmerged = "",
-              renamed = "➜",
-              untracked = "?",
               deleted = "",
               ignored = "◌",
+              renamed = "➜",
+              staged = "",
+              unmerged = "",
+              unstaged = "",
+              untracked = "?",
             },
           },
         },
       },
       actions = { open_file = { window_picker = { enable = false } } },
     })
-    -- set keymaps
     local keymap = vim.keymap
-    keymap.set("n", "<leader>E", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle explorer" }) -- toggle file explorer
-    keymap.set("n", "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle explorer current" })
-    --  {desc = "Toggle file explorer on current file"}) -- toggle file explorer on current file
-    -- keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>",
-    --  {desc = "Collapse file explorer"}) -- collapse file explorer
-    -- keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>",
-    --  {desc = "Refresh file explorer"}) -- refresh file explorer
+    -- keymap.set("n", "<leader>E", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle explorer current" })
+    keymap.set("n", "<localleader>e", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle explorer current" })
   end,
 }

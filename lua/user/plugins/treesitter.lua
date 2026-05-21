@@ -4,41 +4,79 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
-      "windwp/nvim-ts-autotag",
+      {
+        "windwp/nvim-ts-autotag",
+        opts = {
+          opts = {
+            enable_close = true, -- Auto close tags
+            enable_rename = true, -- Auto rename pairs of tags
+            enable_close_on_slash = false, -- Auto close on trailing </
+          },
+        },
+      },
       "axelvc/template-string.nvim",
       "nvim-treesitter/nvim-treesitter-textobjects",
       -- "nvim-treesitter/nvim-treesitter-refactor",
     },
     config = function()
+      local function get_first_node(match, capture_id)
+        local nodes = match[capture_id]
+        if not nodes then
+          return nil
+        end
+        return nodes.range and nodes or nodes[1]
+      end
+
+      local function get_parser_from_markdown_info_string(injection_alias)
+        local filetype = vim.filetype.match({ filename = "a." .. injection_alias })
+        local aliases = {
+          ex = "elixir",
+          pl = "perl",
+          sh = "bash",
+          ts = "typescript",
+          uxn = "uxntal",
+        }
+        return filetype or aliases[injection_alias] or injection_alias
+      end
+
       local template_string = require("template-string")
       template_string.setup({
-        filetypes = {
-          "typescript",
-          "javascript",
-          "typescriptreact",
-          "javascriptreact",
-          "python",
-        }, -- filetypes where the plugin is active
-        jsx_brackets = true, -- must add brackets to jsx attributes
+        filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "python" },
+        jsx_brackets = true,
         remove_template_string = false, -- remove backticks when there are no template string
-        restore_quotes = {
-          -- quotes used when "remove_template_string" option is enabled
-          normal = [[']],
-          jsx = [["]],
-        },
+        restore_quotes = { normal = [[']], jsx = [["]] },
       })
-      -- import nvim-treesitter plugin
       local treesitter = require("nvim-treesitter.configs")
-      -- configure treesitter
-      treesitter.setup({ -- enable syntax highlighting
+      local query = require("vim.treesitter.query")
+
+      -- nvim-treesitter has not fully caught up with Neovim 0.12's directive capture shape.
+      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+        local capture_id = pred[2]
+        local node = get_first_node(match, capture_id)
+        if not node then
+          return
+        end
+        local injection_alias = vim.treesitter.get_node_text(node, bufnr):lower()
+        metadata["injection.language"] = get_parser_from_markdown_info_string(injection_alias)
+      end, { force = true })
+
+      query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+        local capture_id = pred[2]
+        local node = get_first_node(match, capture_id)
+        if not node then
+          return
+        end
+        local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[capture_id] }) or ""
+        metadata[capture_id] = metadata[capture_id] or {}
+        metadata[capture_id].text = text:lower()
+      end, { force = true })
+
+      treesitter.setup({
+        modules = {},
+        TSConfig = nil,
+        sync_install = false,
         highlight = { enable = true },
-        autotag = {
-          enable = true,
-          enable_rename = true,
-          enable_close = true,
-          enable_close_on_slash = true,
-        },
-        -- ensure these language parsers are installed
+        -- autotag = { enable = true, enable_rename = true, enable_close = true, enable_close_on_slash = true },
         ignore_install = { "php", "phpdoc", "sql", "erlang" },
         ensure_installed = {
           "json",
@@ -58,17 +96,7 @@ return {
           "dockerfile",
           "gitignore",
         },
-        -- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
-        -- context_commentstring = { enable = true, enable_autocmd = false },
-        -- auto install above language parsers
-        auto_install = true,
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-          persist_queries = false, -- Whether the query persists across vim sessions
-        },
-        autopairs = { enable = true },
+        auto_install = false,
         indent = { enable = true, disable = { "python", "css", "rust" } },
         incremental_selection = {
           enable = true,
@@ -83,65 +111,36 @@ return {
           select = {
             enable = true,
             lookahead = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["at"] = "@class.outer",
-              ["it"] = "@class.inner",
-              ["ac"] = "@call.outer",
-              ["ic"] = "@call.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-              ["al"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["ai"] = "@conditional.outer",
-              ["ii"] = "@conditional.inner",
-              ["a/"] = "@comment.outer",
-              ["i/"] = "@comment.inner",
-              ["ab"] = "@block.outer",
-              ["ib"] = "@block.inner",
-              ["as"] = "@statement.outer",
-              ["is"] = "@scopename.inner",
-              ["aA"] = "@attribute.outer",
-              ["iA"] = "@attribute.inner",
-              ["aF"] = "@frame.outer",
-              ["iF"] = "@frame.inner",
-            },
+            keymaps = {},
           },
           move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              ["am"] = "@function.outer",
-              ["a]"] = "@class.outer",
+              -- ["am"] = "@function.outer",
             },
             goto_next_end = {
-              ["AM"] = "@function.outer",
-              ["]["] = "@class.outer",
+              -- ["AM"] = "@function.outer",
             },
             goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
+              -- ["[m"] = "@function.outer",
+              -- ["[["] = "@class.outer",
             },
             goto_previous_end = {
               ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
+              -- ["[]"] = "@class.outer",
             },
           },
           swap = {
-            -- swap_next = { ["<leader>."] = "@parameter.inner" },
-            -- swap_previous = { ["<leader>,"] = "@parameter.inner" },
             enable = true,
             swap_next = {
-              ["<leader>on"] = "@parameter.inner", -- swap object under cursor with next
+              ["<leader>on"] = "@parameter.inner",
             },
             swap_previous = {
-              ["<leader>op"] = "@parameter.inner", -- swap object under cursor with previous
+              ["<leader>op"] = "@parameter.inner",
             },
           },
         },
-
         -- refactor = { highlight_current_scope = { enable = false } },
         -- termcolors = {} -- table of colour name strings
       })

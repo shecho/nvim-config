@@ -3,7 +3,6 @@ return {
     "mhinz/vim-startify",
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      -- load the colorscheme here
       vim.cmd([[
 
       let g:startify_custom_header = [
@@ -42,7 +41,7 @@ return {
       let g:startify_enable_special = 0
       ]])
       local keymap = vim.keymap -- for conciseness
-      keymap.set("n", "<leader>sp", "<cmd>Startify<cr>", { desc = "Start screen" })
+      keymap.set("n", "<leader>sP", "<cmd>Startify<cr>", { desc = "Start screen" })
     end,
   },
 }
