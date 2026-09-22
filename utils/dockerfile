@@ -2,7 +2,7 @@ FROM debian:stable-slim
 
  # Install Neovim and other development tools
  RUN apt-get update && \
-     apt-get install -y neovim git curl zsh build-essential && \
+     apt-get install -y neovim git curl zsh build-essential nodejs npm python3 python3-pip ripgrep fd-find && \
      rm -rf /var/lib/apt/lists/*
 
  # Set up user and home directory (optional, but good practice)

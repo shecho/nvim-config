@@ -55,6 +55,35 @@ function M.check()
     vim.health.warn("fzf is missing from PATH", "fzf-lua can use the bundled fzf plugin fallback, but a system fzf is recommended.")
   end
 
+  vim.health.start("runtime dependencies")
+  local has_node, node = executable_any({ "node" })
+  if has_node then
+    vim.health.ok("Node.js is available: " .. node)
+  else
+    vim.health.warn("Node.js is missing", "Copilot and the configured TypeScript, ESLint, Emmet, and Tailwind tools require Node.js.")
+  end
+
+  local has_npm, npm = executable_any({ "npm" })
+  if has_npm then
+    vim.health.ok("npm is available: " .. npm)
+  else
+    vim.health.warn("npm is missing", "Mason installs the configured JavaScript-based LSP servers and formatters through npm.")
+  end
+
+  local has_python, python = executable_any({ "python3", "python" })
+  if has_python then
+    vim.health.ok("Python is available: " .. python)
+  else
+    vim.health.warn("Python is missing", "The configured isort and black formatters require Python.")
+  end
+
+  local has_pip, pip = executable_any({ "pip3", "pip" })
+  if has_pip then
+    vim.health.ok("pip is available: " .. pip)
+  else
+    vim.health.warn("pip is missing", "pip is useful for installing or updating the configured Python formatters.")
+  end
+
   if executable("tree-sitter") then
     vim.health.ok("tree-sitter CLI is available")
   else

@@ -1,11 +1,7 @@
 local keymap = vim.keymap.set
 ---@param bufnr number
 local function setup_lsp_keymaps(bufnr)
-  local opts = {
-    noremap = true,
-    silent = true,
-    buffer = bufnr,
-  }
+  local opts = { noremap = true, silent = true, buffer = bufnr }
 
   -- References
   opts.desc = "Show LSP references"
@@ -40,39 +36,25 @@ local function setup_lsp_keymaps(bufnr)
 
   opts.desc = "Go to previous diagnostic"
   keymap("n", "<leader>ln", function()
-    vim.diagnostic.jump({
-      count = -1,
-      float = true,
-    })
+    vim.diagnostic.jump({ count = -1, float = true })
   end, opts)
   keymap("n", "[d", function()
-    vim.diagnostic.jump({
-      count = -1,
-      float = true,
-    })
+    vim.diagnostic.jump({ count = -1, float = true })
   end, opts)
 
   opts.desc = "Go to next diagnostic"
   keymap("n", "<leader>ll", function()
-    vim.diagnostic.jump({
-      count = 1,
-      float = true,
-    })
+    vim.diagnostic.jump({ count = 1, float = true })
   end, opts)
   keymap("n", "]d", function()
-    vim.diagnostic.jump({
-      count = 1,
-      float = true,
-    })
+    vim.diagnostic.jump({ count = 1, float = true })
   end, opts)
 
   -- Hover
   opts.desc = "Show documentation under cursor"
   keymap("n", "K", vim.lsp.buf.hover, opts)
   keymap("n", "<leader>k", function()
-    vim.lsp.buf.hover({
-      close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LspDetach" },
-    })
+    vim.lsp.buf.hover({ close_events = { "CursorMoved", "BufHidden", "InsertCharPre", "BufLeave", "WinLeave", "LspDetach" } })
   end, opts)
 end
 
@@ -80,11 +62,7 @@ end
 ---@return vim.diagnostic.Opts
 local function setup_diagnostics()
   return {
-    virtual_text = {
-      spacing = 4,
-      source = "if_many",
-      prefix = "●",
-    },
+    virtual_text = { spacing = 4, source = "if_many", prefix = "●" },
     signs = {
       text = {
         [vim.diagnostic.severity.ERROR] = " ",
@@ -102,48 +80,29 @@ end
 ---@return table
 local function setup_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument = capabilities.textDocument or {}
-  capabilities.textDocument.completion = vim.tbl_deep_extend("force", capabilities.textDocument.completion or {}, {
-    completionItem = {
-      commitCharactersSupport = false,
-      deprecatedSupport = true,
-      documentationFormat = { "markdown", "plaintext" },
-      insertReplaceSupport = true,
-      insertTextModeSupport = {
-        valueSet = { 1, 2 },
-      },
-      labelDetailsSupport = true,
-      preselectSupport = false,
-      resolveSupport = {
-        properties = { "documentation", "detail", "additionalTextEdits", "command" },
-      },
-      snippetSupport = true,
-      tagSupport = {
-        valueSet = { 1 },
-      },
-    },
-    completionList = {
-      itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" },
-    },
-    contextSupport = true,
-    insertTextMode = 1,
-  })
-
-  local overrides = {}
-  overrides.textDocument = {
-    foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = false,
-    },
+  local overrides = {
+    textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = false } },
+    workspace = { fileOperations = { didRename = true, willRename = true } },
   }
-  overrides.workspace = vim.tbl_deep_extend("force", overrides.workspace or {}, {
-    fileOperations = {
-      didRename = true,
-      willRename = true,
-    },
-  })
 
-  return vim.tbl_deep_extend("force", capabilities, overrides)
+  -- Keep Blink lazy until LSP capabilities are actually needed, then retain
+  -- the custom capabilities above.
+  local ok, blink = pcall(require, "blink.cmp")
+  if not ok then
+    local lazy_ok, lazy = pcall(require, "lazy")
+    if lazy_ok then
+      pcall(lazy.load, { plugins = { "blink.cmp" } })
+      ok, blink = pcall(require, "blink.cmp")
+    end
+  end
+
+  if ok then
+    capabilities = blink.get_lsp_capabilities(overrides, true)
+  else
+    capabilities = vim.tbl_deep_extend("force", capabilities, overrides)
+  end
+
+  return capabilities
 end
 
 ---@param capabilities table
@@ -173,9 +132,7 @@ local function get_server_configs(capabilities)
             maxPreload = 1000,
             preloadFileSize = 500,
           },
-          telemetry = {
-            enable = false,
-          },
+          telemetry = { enable = false },
         },
       },
     },
@@ -214,22 +171,10 @@ return {
       ft = "lua",
       opts = {
         library = {
-          {
-            path = "${3rd}/luv/library",
-            words = { "vim%.uv" },
-          },
-          {
-            path = "LazyVim",
-            words = { "LazyVim" },
-          },
-          {
-            path = "snacks.nvim",
-            words = { "Snacks" },
-          },
-          {
-            path = "lazy.nvim",
-            words = { "LazyVim" },
-          },
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          { path = "LazyVim", words = { "LazyVim" } },
+          { path = "snacks.nvim", words = { "Snacks" } },
+          { path = "lazy.nvim", words = { "LazyVim" } },
         },
       },
     },
@@ -241,19 +186,15 @@ return {
     local capabilities = setup_capabilities()
 
     -- Setup LSP attach autocmd
-    local group = vim.api.nvim_create_augroup("UserLspConfig", {
-      clear = true,
-    })
+    local group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
     vim.api.nvim_create_autocmd("LspAttach", {
       group = group,
       callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         setup_lsp_keymaps(ev.buf)
 
-        if client and client.supports_method("textDocument/inlayHint") and vim.bo[ev.buf].filetype ~= "vue" then
-          vim.lsp.inlay_hint.enable(true, {
-            bufnr = ev.buf,
-          })
+        if client and client:supports_method("textDocument/inlayHint") and vim.bo[ev.buf].filetype ~= "vue" then
+          vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         end
 
         -- if client and client.supports_method("textDocument/foldingRange") then

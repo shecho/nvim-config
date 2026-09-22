@@ -36,6 +36,14 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      if vim.fn.has("mac") == 0 then
+        opts.suggestion.keymap.accept = "<M-l>"
+        opts.suggestion.keymap.accept_line = "<M-CR>"
+      end
+
+      require("copilot").setup(opts)
+    end,
   },
   -- {
   --

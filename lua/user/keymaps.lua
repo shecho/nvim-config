@@ -130,7 +130,7 @@ keymap("n", "<C-c>", function()
 end, vim.tbl_extend("force", opt_nw, { desc = "Escape and Clear Search", protected = true, owner = "core.escape_clear" }))
 
 -- Map Ctrl+b in insert mode to delete to the end of the word without leaving insert mode
-keymap("i", "<C-b>", "<C-o>de", opt_nw)
+keymap("i", "<C-b>", "<C-o>de", vim.tbl_extend("force", opt_nw, { desc = "Delete to end of word" }))
 
 -- Map Ctrl+c to escape from other modes
 

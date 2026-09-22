@@ -37,7 +37,7 @@ return {
             local menu_visible = cmp.is_menu_visible()
             local snippet_active = cmp.snippet_active()
             local has_words = require("user.core.functions").has_words_before()
-            if not menu_visible and not snippet_active then
+            if not menu_visible and not snippet_active and has_words then
               return cmp.show_and_insert()
             end
             if snippet_active and not menu_visible then
@@ -46,7 +46,10 @@ return {
             if menu_visible and has_words then
               return cmp.select_next()
             end
+
+            return nil
           end,
+          "fallback",
           -- "show_and_insert_or_accept_single",
           -- "show_and_insert",
           -- "snippet_forward",

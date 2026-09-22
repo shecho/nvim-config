@@ -3,12 +3,12 @@ return {
     "DrKJeff16/project.nvim",
     -- name = "project_nvim", -- Keep the name consistent for imports
     event = "VeryLazy",
-    dependencies = {
-      "ibhagwan/fzf-lua",
-    },
+    dependencies = { "ibhagwan/fzf-lua" },
     opts = {
       history = { save_dir = vim.fn.stdpath("data") },
       lsp = { enabled = true },
+      manual_mode = true,
+      enable_autochdir = false,
       patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
       -- show_hidden = false,
     },
@@ -32,19 +32,10 @@ return {
       }))
     end,
     keys = {
-      {
-        "<localleader>fp",
-        "<cmd>ProjectRecents<cr>",
-        desc = "Find Projects",
-      },
-      {
-        "<localleader>fP",
-        "<cmd>ProjectFzf<cr>",
-        desc = "Find Projects fzf",
-      },
+      { "<localleader>fp", "<cmd>ProjectRecents<cr>", desc = "Find Projects" },
+      { "<localleader>fP", "<cmd>ProjectFzf<cr>", desc = "Find Projects fzf" },
     },
-  },
-  -- {
+  }, -- {
   --   "jakobwesthoff/project-fzf.nvim",
   --   dependencies = {
   --     -- "ahmedkhalf/project.nvim", -- Must be configured separately

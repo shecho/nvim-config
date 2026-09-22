@@ -1,7 +1,31 @@
 return {
   {
     "mason-org/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonLog", "MasonUninstall", "MasonUpdate" },
+    cmd = { "Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUpdate" },
+    init = function()
+      vim.api.nvim_create_user_command("MasonInstallAll", function()
+        require("lazy").load({ plugins = { "mason-tool-installer.nvim" } })
+        vim.cmd("MasonToolsInstall")
+      end, { desc = "Install configured Mason packages" })
+    end,
+    opts = {},
+    config = function(_, opts)
+      require("mason").setup(opts)
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    lazy = true,
+    opts = { automatic_enable = false },
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
     opts = {
       ensure_installed = {
         "stylua",
@@ -15,38 +39,15 @@ return {
         "emmet-ls",
         "tailwindcss-language-server",
       },
+      run_on_start = true,
+      start_delay = 3000,
+      debounce_hours = 5,
+      auto_update = false,
     },
-    init = function()
-      vim.api.nvim_create_user_command("MasonInstallAll", function()
-        require("lazy").load({ plugins = { "mason.nvim" } })
-        local registry = require("mason-registry")
-        local opts = require("lazy.core.config").plugins["mason.nvim"].opts or {}
-
-        registry.refresh(function()
-          local missing = {}
-          for _, package in ipairs(opts.ensure_installed or {}) do
-            if registry.has_package(package) and not registry.is_installed(package) then
-              missing[#missing + 1] = package
-            end
-          end
-
-          if #missing == 0 then
-            vim.notify("All configured Mason packages are installed", vim.log.levels.INFO)
-            return
-          end
-
-          vim.cmd("MasonInstall " .. table.concat(missing, " "))
-        end)
-      end, { desc = "Install configured Mason packages" })
-    end,
     config = function(_, opts)
-      require("mason").setup(opts)
+      local installer = require("mason-tool-installer")
+      installer.setup(opts)
+      installer.run_on_start()
     end,
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    dependencies = { "mason-org/mason.nvim" },
-    lazy = true,
-    opts = { automatic_enable = false },
   },
 }
