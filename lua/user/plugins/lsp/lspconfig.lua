@@ -116,11 +116,11 @@ local function get_server_configs(capabilities)
   return {
     emmet_ls = {
       capabilities = capabilities,
-      filetypes = { "html", "typescriptreact", "javascriptreact", "jsx", "tsx", "css", "sass", "scss", "less", "svelte" },
+      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     },
     tailwindcss = {
       capabilities = capabilities,
-      filetypes = { "html", "typescriptreact", "javascriptreact", "jsx", "tsx", "css", "sass", "scss", "less", "svelte" },
+      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     },
     lua_ls = {
       capabilities = capabilities,
